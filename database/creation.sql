@@ -76,5 +76,6 @@ alter table INVITER add foreign key (destinataireInvit) references JOUEUR (pseud
 alter table INVITER add foreign key (idinv) references INVITATION (idinv);
 alter table JOUER add foreign key (pseudo) references JOUEUR (pseudo);
 alter table JOUER add foreign key (adversaire) references JOUEUR (pseudo);
+alter table JOUER add foreign key (idpartie) references PARTIE (idpartie); 
 alter table COMMUNIQUER add foreign key (pseudo) references JOUEUR (pseudo);
 alter table COMMUNIQUER add foreign key (destinataire) references JOUEUR (pseudo);
