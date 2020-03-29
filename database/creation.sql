@@ -21,7 +21,7 @@ create table ETREAMIS (
 create table INVITATION (
     idinv int unique,
     dateinv date,
-    etatinv date,
+    etatinv boolean,
     pseudo varchar(20),
     PRIMARY KEY (idinv)
 );
@@ -79,3 +79,4 @@ alter table JOUER add foreign key (adversaire) references JOUEUR (pseudo);
 alter table JOUER add foreign key (idpartie) references PARTIE (idpartie); 
 alter table COMMUNIQUER add foreign key (pseudo) references JOUEUR (pseudo);
 alter table COMMUNIQUER add foreign key (destinataire) references JOUEUR (pseudo);
+alter table COMMUNIQUER add foreign key (idMessage) references MESSAGE (idmessage);
