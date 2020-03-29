@@ -73,6 +73,7 @@ alter table ETREAMIS add foreign key (pseudo) references JOUEUR (pseudo);
 alter table INVITATION add foreign key (pseudo) references JOUEUR (pseudo);
 alter table INVITER add foreign key (expediteurInvit) references JOUEUR (pseudo);
 alter table INVITER add foreign key (destinataireInvit) references JOUEUR (pseudo);
+alter table INVITER add foreign key (idinv) references INVITATION (idinv);
 alter table JOUER add foreign key (pseudo) references JOUEUR (pseudo);
 alter table JOUER add foreign key (adversaire) references JOUEUR (pseudo);
 alter table COMMUNIQUER add foreign key (pseudo) references JOUEUR (pseudo);
