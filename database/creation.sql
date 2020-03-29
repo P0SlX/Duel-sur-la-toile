@@ -8,7 +8,6 @@ create table JOUEUR (
     avatar varchar(100),
     etat int,
     desactive boolean,
-    ratio float,
     admin boolean,
     PRIMARY KEY (pseudo)
 );

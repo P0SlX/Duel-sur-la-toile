@@ -5,7 +5,6 @@ insert into JOUEUR values (
     "avatrt",
     -1,
     false,
-    0.5,
     false
 );
 
@@ -16,7 +15,6 @@ insert into JOUEUR values (
     "avatrt",
     -1,
     false,
-    0.5,
     false
 );
 
@@ -27,7 +25,6 @@ insert into JOUEUR values (
     "avatrt",
     -1,
     false,
-    3.5,
     false
 );
 
