@@ -28,4 +28,8 @@ public class SceneController {
     public Pane getScene(ViewType type) {
         return views.get(type);
     }
+
+    public HashMap<ViewType, Pane> getViews() {
+        return views;
+    }
 }
