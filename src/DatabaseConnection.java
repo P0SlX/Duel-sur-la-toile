@@ -1,3 +1,4 @@
+import javax.xml.crypto.Data;
 import  java.sql.*;
 import java.util.ArrayList;
 
@@ -26,6 +27,23 @@ public class DatabaseConnection{
             c = null;
         }
     }
+
+    public Connection getConnexion() {
+        return this.c;
+    }
+
+    public int getMaxIDGame() {
+        try {
+            PreparedStatement ps = c.prepareStatement("select idPartie from JOUER order by idPartie DESC");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt("idPartie");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
+    }
+
 
     public int getStatus(Player p) {  // Anciennement isConnected
         int etat = 0;
@@ -88,7 +106,16 @@ public class DatabaseConnection{
     }
 
     public void addNewGame(Player p1, Player p2, Game g) {
-
+        try {
+            PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0)");
+            ps.setInt(1, this.getMaxIDGame() + 1);
+            ps.setString(2, g.getNomJeu());
+            ps.setString(3, "contenuGrille");       // TODO
+            ps.setString(4, p1.getName());
+            ps.executeUpdate();
+        } catch (SQLException exception){
+            exception.printStackTrace();
+        }
     }
 
     public void acceptInvit(Invitation inv) {
