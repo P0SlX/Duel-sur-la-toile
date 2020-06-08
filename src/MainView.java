@@ -33,8 +33,8 @@ public class MainView extends Application {
     public void start(Stage primaryStage) {
 
         try {
-            Pane loginScene = new LoginView(loadRoot("UI/Connexion.fxml"));
-            Pane registerScene = new RegisterView((loadRoot("UI/Inscription.fxml")));
+            Pane loginScene = new Pane(loadRoot("UI/Connexion.fxml"));
+            Pane registerScene = new Pane((loadRoot("UI/Inscription.fxml")));
             this.scene = new Scene(registerScene);
             this.sceneController = new SceneController(scene);
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
