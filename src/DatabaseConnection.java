@@ -60,7 +60,7 @@ public class DatabaseConnection{
     }
 
     public ArrayList<Game> getActivesGames(Player p) {
-        return new ArrayList<Game>();
+        return new ArrayList<>();
     }
 
     public ArrayList<Game> getPlayerHistory(Player p) {

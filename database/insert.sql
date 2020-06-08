@@ -1,8 +1,9 @@
+-- Creation des Joueurs
 insert into JOUEUR values (
     "p0slx",
     "florian.savoure@gmail.com",
     "unMotDePasseSecure",
-    "truc.png",
+    "sah.png",
     0,
     false,
     false
@@ -13,7 +14,7 @@ insert into JOUEUR values (
     "lananas@gmail.com",
     "jaimeLesPommes",
     "ananas.png",
-    1,
+    0,
     false,
     false
 );
@@ -22,15 +23,47 @@ insert into JOUEUR values (
     "Coco",
     "cocolastico@gmail.com",
     "cocopops",
-    "oui.png",
-    2,
+    "mouton.png",
+    0,
     false,
     false
 );
 
+insert into JOUEUR values (
+    "Jordan",
+    "jordan07@gmail.com",
+    "alphawann",
+    "wann.png",
+    0,
+    false,
+    false
+);
+
+insert into JOUEUR values (
+    "Le Chef",
+    "gendarmerie@gmail.com",
+    "jaimelespates",
+    "joker.png",
+    0,
+    false,
+    false
+);
+
+
+-- Creation amis
+insert into ETREAMIS values (
+    "p0slx",
+    "L'ananas"
+);
+
+insert into ETREAMIS values (
+    "p0slx",
+    "Coco"
+);
+
 insert into ETREAMIS values (
     "Coco",
-    "L'ananas"
+    "Le chef"
 );
 
 insert into ETREAMIS values (
@@ -38,6 +71,23 @@ insert into ETREAMIS values (
     "p0slx"
 );
 
+insert into ETREAMIS values (
+    "Le chef",
+    "L'ananas"
+);
+
+insert into ETREAMIS values (
+    "Le chef",
+    "L'ananas"
+);
+
+insert into ETREAMIS values (
+    "L'ananas",
+    "Jordan"
+);
+
+
+-- Creation parties
 insert into PARTIE values (
     420,
     "Puissance 4",
