@@ -8,8 +8,12 @@ public class Message{
     this.date = date;
   }
 
-  public String getContent(){ return this.content; }
+  public String getContent() {
+    return this.content;
+  }
 
-  public String getDate(){ return this.date; }
+  public String getDate() {
+    return this.date;
+  }
 
 }
