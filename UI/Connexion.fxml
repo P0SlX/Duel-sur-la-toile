@@ -74,7 +74,7 @@
             </Button>
             <ImageView fitHeight="67.0" fitWidth="92.0" layoutX="237.0" layoutY="21.0" preserveRatio="true" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="237.0">
                <image>
-                  <Image url="@logo.png" />
+                  <Image url="@assets/logo.png" />
                </image>
             </ImageView>
          </children>
