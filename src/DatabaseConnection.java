@@ -37,6 +37,17 @@ public class DatabaseConnection{
         return etat;
     }
 
+    public void setEtat(Player p, int etat) {
+        try{
+            PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
+            ps.setInt(1, etat);
+            ps.setString(2, p.getName());
+            ps.executeUpdate();
+        } catch (SQLException exception){
+            exception.printStackTrace();
+        }
+    }
+
     public void connectPlayer(Player p) {
 
     }
