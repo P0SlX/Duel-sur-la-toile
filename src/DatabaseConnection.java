@@ -2,6 +2,10 @@ import  java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseConnection{
+    public final int DISCONNECTED = 0;
+    public final int CONNECTED    = 1;
+    public final int AFK          = 2;
+    public final int DND          = 3;
 
     private Connection c;
 
@@ -23,7 +27,7 @@ public class DatabaseConnection{
         }
     }
 
-    public int getEtat(Player p) {  // Anciennement isConnected
+    public int getStatus(Player p) {  // Anciennement isConnected
         int etat = 0;
         try {
             PreparedStatement ps = c.prepareStatement("select etat from JOUEUR where pseudo = ?");
@@ -37,7 +41,14 @@ public class DatabaseConnection{
         return etat;
     }
 
-    public void setEtat(Player p, int etat) {
+
+    /* Remplace connecteJoueur et décoJ
+        DISCONNECTED = 0
+        CONNECTED    = 1
+        AFK          = 2
+        DND          = 3
+    */
+    public void setStatus(Player p, int etat) {
         try{
             PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
             ps.setInt(1, etat);
@@ -46,14 +57,6 @@ public class DatabaseConnection{
         } catch (SQLException exception){
             exception.printStackTrace();
         }
-    }
-
-    public void connectPlayer(Player p) {
-
-    }
-
-    public void disconnectPlayer(Player p) {
-
     }
 
     public ArrayList<Game> getActivesGames(Player p) {
