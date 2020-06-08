@@ -11,8 +11,7 @@ import java.net.URL;
 
 public class MainView extends Application {
 
-    private LoginView loginScene;
-    private RegisterView registerScene;
+    private SceneController sceneController;
     private Scene scene;
 
     private static Pane loadRoot(String fxmlPath) throws FxmlLoadingError {
@@ -32,14 +31,21 @@ public class MainView extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        try {
-            this.loginScene = new LoginView(loadRoot("UI/Connexion.fxml"));
-            this.registerScene = new RegisterView((loadRoot("UI/Inscription.fxml")));
-            this.scene = new Scene(registerScene);
 
-            scene.setOnMouseClicked(keyEvent -> {
-                if(keyEvent.getButton().equals(MouseButton.PRIMARY))
-                    scene.setRoot(loginScene);
+        try {
+            Pane loginScene = new LoginView(loadRoot("UI/Connexion.fxml"));
+            Pane registerScene = new RegisterView((loadRoot("UI/Inscription.fxml")));
+            this.scene = new Scene(registerScene);
+            this.sceneController = new SceneController(scene);
+            sceneController.addScene(SceneController.ViewType.Login, loginScene);
+            sceneController.addScene(SceneController.ViewType.Register, registerScene);
+
+            sceneController.showScene(SceneController.ViewType.Login);
+
+            // Temporary code to test scene switch
+            scene.setOnMousePressed(mouseEvent -> {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY))
+                    sceneController.showScene(SceneController.ViewType.Register);
             });
 
             primaryStage.setScene(scene);
