@@ -62,7 +62,7 @@
                         </Label>
                         <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="15.0" layoutY="28.0" preserveRatio="true" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="23.0">
                            <image>
-                              <Image url="@logo.png" />
+                              <Image url="@assets/logo.png" />
                            </image>
                         </ImageView>
                      </children>

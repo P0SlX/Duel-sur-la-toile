@@ -67,7 +67,7 @@
                         </Label>
                         <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="21.0" layoutY="23.0" preserveRatio="true" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="23.0">
                            <image>
-                              <Image url="@logo.png" />
+                              <Image url="@assets/logo.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -236,38 +236,11 @@
                      <graphic>
                         <ImageView fitHeight="172.0" fitWidth="199.0">
                            <image>
-                              <Image url="@puissance4.png" />
+                              <Image url="@assets/puissance4.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <Label layoutX="59.0" layoutY="211.0" styleClass="label-jeux" text="Goose game" />
-                  <Button layoutX="95.0" layoutY="95.0" minWidth="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" styleClass="transparence">
-                     <graphic>
-                        <ImageView fitHeight="167.0" fitWidth="180.0" preserveRatio="true">
-                           <image>
-                              <Image url="@oie.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-               <children>
-                  <Label layoutX="31.0" layoutY="211.0" styleClass="label-jeux" text="Grand theft auto V" />
-                  <Button layoutX="106.0" layoutY="95.0" minWidth="50.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" styleClass="transparence">
-                     <graphic>
-                        <ImageView fitHeight="167.0" fitWidth="180.0" preserveRatio="true">
-                           <image>
-                              <Image url="@gta.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
                </children>
             </AnchorPane>
          </children>
