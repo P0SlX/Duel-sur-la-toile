@@ -1,4 +1,4 @@
-public class PlayerSatistics {
+public class PlayerStatistics {
 
     private int playedGames;
     private int winnedGames;
@@ -6,7 +6,7 @@ public class PlayerSatistics {
     private int activeGames;
     private int abandonedGames;
 
-    public PlayerSatistics(int playedGames, int winnedGames, double turnPlayedPerGamesAverage, int activeGames, int abandonedGames){
+    public PlayerStatistics(int playedGames, int winnedGames, double turnPlayedPerGamesAverage, int activeGames, int abandonedGames){
         this.playedGames=playedGames;
         this.winnedGames=winnedGames;
         this.turnPlayedPerGamesAverage=turnPlayedPerGamesAverage;
