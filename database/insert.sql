@@ -1,70 +1,90 @@
 insert into JOUEUR values (
-    "iuto",
-    "mail",
-    "mdp",
-    "avatrt",
-    -1,
+    "p0slx",
+    "florian.savoure@gmail.com",
+    "unMotDePasseSecure",
+    "truc.png",
+    0,
     false,
     false
 );
 
 insert into JOUEUR values (
-    "iutc",
-    "mailiutc",
-    "mdp",
-    "avatrt",
-    -1,
+    "L'ananas",
+    "lananas@gmail.com",
+    "jaimeLesPommes",
+    "ananas.png",
+    1,
     false,
     false
 );
 
 insert into JOUEUR values (
-    "Anatole",
-    "mail22",
-    "mdp",
-    "avatrt",
-    -1,
+    "Coco",
+    "cocolastico@gmail.com",
+    "cocopops",
+    "oui.png",
+    2,
     false,
     false
 );
 
 insert into ETREAMIS values (
-    "iuto",
-    "Anatole"
+    "Coco",
+    "L'ananas"
 );
 
 insert into ETREAMIS values (
-    "Anatole",
-    "iuto"
+    "L'ananas",
+    "p0slx"
 );
 
 insert into PARTIE values (
-    541,
+    420,
     "Puissance 4",
-    "dfsdsf",
-    "Anatole",
+    "contenuGrille",
+    "p0slx",
     -1,
-    CURDATE(), CURDATE(),
-    12
+    CURDATE(),
+    CURDATE(),
+    12  -- nb coup jouées
+);
+
+insert into PARTIE values (
+    69,
+    "Puissance 4",
+    "contenuGrille",
+    "Coco",
+    -1,
+    CURDATE(),
+    CURDATE(),
+    12  -- nb coup jouées
 );
 
 insert into JOUER values (
-    "Anatole", "iuto", 541, 16
+    "p0slx",
+    "Coco",
+    420,
+    16
 );
 
 insert into JOUER values (
-    "iuto", "Anatole", 541, 4 
+    "Coco",
+    "L'ananas",
+    69,
+    420
 );
 
 insert into MESSAGE values (
-    12,
+    12, -- idMessage
     CURDATE(),
     "Bonjour",
-    false
+    false -- Lu ?
 );
 
 insert into COMMUNIQUER values (
-    "Anatole", "iuto", 12
+    "Anatole",
+    "iuto",
+     12
 );
 
 insert into PARTIE values (

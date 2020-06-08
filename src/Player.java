@@ -17,22 +17,22 @@ public class Player {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public ArrayList<Byte> getAvatar() {
-        return avatar;
+        return this.avatar;
     }
 
     public boolean isActivated() {
-        return activated;
+        return this.activated;
     }
 
     public ArrayList<Player> getFriends() {
-        return friends;
+        return this.friends;
     }
 }

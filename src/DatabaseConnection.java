@@ -1,7 +1,7 @@
 import  java.sql.*;
 import java.util.ArrayList;
 
-public  class  DatabaseConnection{
+public class DatabaseConnection{
 
     private Connection c;
 
@@ -20,12 +20,21 @@ public  class  DatabaseConnection{
             System.out.println("Echec de connexion à MariaDB");
             System.out.println("Msg:" + ex.getMessage() + ex.getErrorCode());
             c = null;
-            return;
         }
     }
 
-    public boolean isConnected(Player p) {
-        return false;
+    public int getEtat(Player p) {  // Anciennement isConnected
+        int etat = 0;
+        try {
+            PreparedStatement ps = c.prepareStatement("select etat from JOUEUR where pseudo = ?");
+            ps.setString(1, p.getName());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            etat = rs.getInt("etat");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return etat;
     }
 
     public void connectPlayer(Player p) {
