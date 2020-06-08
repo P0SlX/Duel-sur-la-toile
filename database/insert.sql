@@ -46,6 +46,16 @@ insert into JOUEUR values (
     "joker.png",
     0,
     false,
+    true
+);
+
+insert into JOUEUR values (
+    "Lanka",
+    "ghost@gmail.com",
+    "jsuispaslalalalalala",
+    "ghost.png",
+    0,
+    true,
     false
 );
 
@@ -76,10 +86,6 @@ insert into ETREAMIS values (
     "L'ananas"
 );
 
-insert into ETREAMIS values (
-    "Le chef",
-    "L'ananas"
-);
 
 insert into ETREAMIS values (
     "L'ananas",
@@ -93,10 +99,10 @@ insert into PARTIE values (
     "Puissance 4",
     "contenuGrille",
     "p0slx",
-    -1,
+    1,
     CURDATE(),
     CURDATE(),
-    12  -- nb coup jouées
+    24  -- nb coup jouées
 );
 
 insert into PARTIE values (
@@ -104,10 +110,10 @@ insert into PARTIE values (
     "Puissance 4",
     "contenuGrille",
     "Coco",
-    -1,
+    1,
     CURDATE(),
     CURDATE(),
-    12  -- nb coup jouées
+    128  -- nb coup jouées
 );
 
 insert into JOUER values (
@@ -124,6 +130,9 @@ insert into JOUER values (
     420
 );
 
+
+
+-- Creation messages
 insert into MESSAGE values (
     12, -- idMessage
     CURDATE(),
@@ -132,54 +141,8 @@ insert into MESSAGE values (
 );
 
 insert into COMMUNIQUER values (
-    "Anatole",
-    "iuto",
+    "L'ananas",
+    "p0slx",
      12
 );
 
-insert into PARTIE values (
-    542,
-    "Puissance 4",
-    "dfsdsf",
-    "iuto",
-    19,
-    CURDATE(), CURDATE(),
-    12
-);
-
-insert into JOUER values (
-    "iuto",
-    "iutc",
-    542,
-    8
-);
-
-insert into JOUER values (
-    "iutc",
-    "iuto",
-    542,
-    8
-);
-insert into PARTIE values (
-    543,
-    "Puissance 4",
-    "dfsdsf",
-    "iuto",
-    -1,
-    CURDATE(), CURDATE(),
-    12
-);
-
-insert into JOUER values (
-    "iuto",
-    "iutc",
-    543,
-    8
-);
-
-insert into JOUER values (
-    "iutc",
-    "iuto",
-    543,
-    2
-);
