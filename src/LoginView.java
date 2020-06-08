@@ -1,14 +1,10 @@
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
-public class LoginView extends Scene {
+public class LoginView extends Pane {
 
-    private Parent root;
 
-    public LoginView(Parent root) {
+    public LoginView(Pane root) {
         super(root);
-
-        this.root = root;
     }
 
 }
