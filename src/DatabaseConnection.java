@@ -34,7 +34,7 @@ public class DatabaseConnection{
 
     public int getMaxIDGame() {
         try {
-            PreparedStatement ps = c.prepareStatement("select idPartie from JOUER order by idPartie DESC");
+            PreparedStatement ps = c.prepareStatement("select idPartie from PARTIE natural join JOUER order by idPartie DESC;\n");
             ResultSet rs = ps.executeQuery();
             rs.next();
             return rs.getInt("idPartie");
@@ -106,6 +106,7 @@ public class DatabaseConnection{
     }
 
     public void addNewGame(Player p1, Player p2, Game g) {
+        // Ajout dans la table PARTIE
         try {
             PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0)");
             ps.setInt(1, this.getMaxIDGame() + 1);
@@ -115,6 +116,16 @@ public class DatabaseConnection{
             ps.executeUpdate();
         } catch (SQLException exception){
             exception.printStackTrace();
+        }
+        // Ajout dans la table JOUER
+        try {
+            PreparedStatement ps = c.prepareStatement("insert into JOUER values (?,?,?,0)");
+            ps.setString(1, p1.getName());
+            ps.setString(2, p2.getName());
+            ps.setInt(3, this.getMaxIDGame() +1 );
+            ps.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
