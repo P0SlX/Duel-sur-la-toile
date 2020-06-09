@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Admin extends Player {
-    public Admin(String name, String email, ArrayList<Byte> avatar, boolean activated, ArrayList<Player> friends) {
-        super(name, email, avatar, activated, friends);
+    public Admin(String pseudo, String email, String mdp, ArrayList<Byte> avatar, int etat, boolean activated, boolean admin, ArrayList<Player> friends) {
+        super(pseudo, email, mdp, avatar, etat, activated, admin, friends);
     }
 
     public AdminStatistics getAdminStatistics() {

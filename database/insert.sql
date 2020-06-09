@@ -99,10 +99,12 @@ insert into PARTIE values (
     "Puissance 4",
     "contenuGrille",
     "p0slx",
-    1,
+    0,
     CURDATE(),
     CURDATE(),
-    24  -- nb coup jouées
+    7,
+    null,
+    null
 );
 
 insert into PARTIE values (
@@ -113,7 +115,9 @@ insert into PARTIE values (
     1,
     CURDATE(),
     CURDATE(),
-    128  -- nb coup jouées
+    18,
+    "Coco",
+    "L'ananas"
 );
 
 insert into JOUER values (

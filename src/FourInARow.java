@@ -8,6 +8,7 @@ public class FourInARow implements Game{
     private String finishTime;
     private int elementPlaced;
     private int gameID;
+    private int state;
     private String nomJeu;
     private Player winner;
     private Player looser;
@@ -24,6 +25,7 @@ public class FourInARow implements Game{
         this.nomJeu = "Puissance 4";
         this.winner = null;
         this.looser = null;
+        this.state = 0;
     }
 
     @Override

@@ -1,5 +1,3 @@
-import javax.xml.crypto.Data;
-import java.awt.image.AreaAveragingScaleFilter;
 import  java.sql.*;
 import java.util.ArrayList;
 
@@ -7,7 +5,9 @@ public class DatabaseConnection{
 
     private Connection c;
 
-    public DatabaseConnection() {
+    public DatabaseConnection() { }
+
+    public void connexion() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -31,10 +31,10 @@ public class DatabaseConnection{
 
     public int getMaxIDGame() {
         try {
-            PreparedStatement ps = c.prepareStatement("select idPartie from PARTIE natural join JOUER order by idPartie DESC");
+            PreparedStatement ps = c.prepareStatement("select gameID from PARTIE natural join JOUER order by gameID DESC");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt("idPartie");
+                return rs.getInt("gameID");
             } else {
                 return 0;
             }
@@ -48,7 +48,7 @@ public class DatabaseConnection{
         int etat = 0;
         try {
             PreparedStatement ps = c.prepareStatement("select etat from JOUEUR where pseudo = ?");
-            ps.setString(1, p.getName());
+            ps.setString(1, p.getPseudo());
             ResultSet rs = ps.executeQuery();
             rs.next();
             etat = rs.getInt("etat");
@@ -70,7 +70,7 @@ public class DatabaseConnection{
         try{
             PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
             ps.setInt(1, etat);
-            ps.setString(2, p.getName());
+            ps.setString(2, p.getPseudo());
             ps.executeUpdate();
         } catch (SQLException exception){
             exception.printStackTrace();
@@ -78,19 +78,6 @@ public class DatabaseConnection{
     }
 
     public ArrayList<Game> getActivesGames(Player p) {  //TODO
-        ArrayList<Game> res = new ArrayList<>();
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUER where pseudo=? or adversaire=?");
-            ps.setString(1, p.getName());
-            ps.setString(2, p.getName());
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
-
         return new ArrayList<>();
     }
 
@@ -121,11 +108,11 @@ public class DatabaseConnection{
     public void addNewGame(Player p1, Player p2, Game g) {
         // Ajout dans la table PARTIE
         try {
-            PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0)");
+            PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
             ps.setInt(1, this.getMaxIDGame() + 1);
             ps.setString(2, g.getNomJeu());
             ps.setString(3, "contenuGrille");       // TODO
-            ps.setString(4, p1.getName());
+            ps.setString(4, p1.getPseudo());
             ps.executeUpdate();
         } catch (SQLException exception){
             exception.printStackTrace();
@@ -133,9 +120,9 @@ public class DatabaseConnection{
         // Ajout dans la table JOUER
         try {
             PreparedStatement ps = c.prepareStatement("insert into JOUER values (?,?,?,0)");
-            ps.setString(1, p1.getName());
-            ps.setString(2, p2.getName());
-            ps.setInt(3, this.getMaxIDGame() +1 );
+            ps.setString(1, p1.getPseudo());
+            ps.setString(2, p2.getPseudo());
+            ps.setInt(3, this.getMaxIDGame() + 1);
             ps.executeQuery();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -51,23 +51,25 @@ create table MESSAGE (
 );
 
 create table PARTIE (
-    idpartie int unique,
-    typeJeu varchar(20),
-    contenugrillejeu varchar(2048),
-    nomJoueurCourant varchar(30),
-    etatpartie int,
-    datedebut date,
-    datefin date,
-    nbcoupjoue int,
-    PRIMARY KEY (idpartie)
+    gameID int unique,
+    nomJeu varchar(20),
+    plate varchar(2048),
+    currentPlayer varchar(20),
+    state int,
+    startTime date,
+    finishTime date,
+    elementPlaced int,
+    winner varchar(20),
+    looser varchar(20),
+    PRIMARY KEY (gameID)
 );
 
 create table JOUER (
     pseudo varchar(30),
     adversaire varchar(30),
-    idPartie int,
+    gameID int,
     score int,
-    PRIMARY KEY (pseudo, adversaire, idPartie)
+    PRIMARY KEY (pseudo, adversaire, gameID)
 );
 
 create table COMMUNIQUER (
@@ -77,14 +79,14 @@ create table COMMUNIQUER (
 );
 
 alter table ETREAMIS add foreign key (amis) references JOUEUR (pseudo);
-alter table PARTIE add foreign key (nomJoueurCourant) references JOUEUR (pseudo);
+alter table PARTIE add foreign key (currentPlayer) references JOUEUR (pseudo);
 alter table ETREAMIS add foreign key (pseudo) references JOUEUR (pseudo);
 alter table INVITER add foreign key (expediteurInvit) references JOUEUR (pseudo);
 alter table INVITER add foreign key (destinataireInvit) references JOUEUR (pseudo);
 alter table INVITER add foreign key (idinv) references INVITATION (idinv);
 alter table JOUER add foreign key (pseudo) references JOUEUR (pseudo);
 alter table JOUER add foreign key (adversaire) references JOUEUR (pseudo);
-alter table JOUER add foreign key (idpartie) references PARTIE (idpartie); 
+alter table JOUER add foreign key (gameID) references PARTIE (gameID);
 alter table COMMUNIQUER add foreign key (pseudo) references JOUEUR (pseudo);
 alter table COMMUNIQUER add foreign key (destinataire) references JOUEUR (pseudo);
 alter table COMMUNIQUER add foreign key (idMessage) references MESSAGE (idmessage);
