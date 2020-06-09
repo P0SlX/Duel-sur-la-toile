@@ -55,20 +55,19 @@ public class MainView extends Application {
 
             Pane loginScene = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane((loadRootWithController("UI/Inscription.fxml")));
-            //Pane mainMenuScene   = new Pane(loadRoot("UI/Menu_principal.fxml"));
-            //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
-            //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
+            Pane mainMenuScene   = new Pane(loadRoot("UI/Menu_principal.fxml"));
+            Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
+            Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
 
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);
-            //sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
-            //sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
-            //sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
+            sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
+            sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
+            sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
 
-            sceneController.showScene(SceneController.ViewType.Login);
+            sceneController.showScene(SceneController.ViewType.MainMenu);
 
-            scene.setRoot(loginScene);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Duel sur la toile - Login");
             primaryStage.show();

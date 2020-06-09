@@ -231,8 +231,8 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="74.0" layoutY="211.0" styleClass="label-jeux" text="Connect 4" />
-                  <Button layoutX="98.0" layoutY="97.0" minWidth="26.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="26.0" styleClass="transparence">
+                  <Label layoutX="74.0" layoutY="450.0" styleClass="label-jeux" text="Connect 4" />
+                  <Button layoutX="120.0" layoutY="250.0" minWidth="26.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="26.0" styleClass="transparence">
                      <graphic>
                         <ImageView fitHeight="172.0" fitWidth="199.0">
                            <image>
