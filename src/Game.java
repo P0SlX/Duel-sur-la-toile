@@ -5,6 +5,7 @@ public interface Game {
     String getNomJeu();
     int getGameID();
     int getElementPlaced();
+    int getScore();
     long getGameDuration();
     Player[] getPlayers();
     Player getCurrentPlayer();
@@ -21,4 +22,6 @@ public interface Game {
     void setFinishTime(String finishTime);
     void setWinner(Player winner);
     void setLooser(Player looser);
+    void setScore(int score);
+    void setState(int state);
 }
