@@ -1,4 +1,5 @@
 import javax.xml.crypto.Data;
+import java.awt.image.AreaAveragingScaleFilter;
 import  java.sql.*;
 import java.util.ArrayList;
 
@@ -30,10 +31,13 @@ public class DatabaseConnection{
 
     public int getMaxIDGame() {
         try {
-            PreparedStatement ps = c.prepareStatement("select idPartie from PARTIE natural join JOUER order by idPartie DESC;\n");
+            PreparedStatement ps = c.prepareStatement("select idPartie from PARTIE natural join JOUER order by idPartie DESC");
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            return rs.getInt("idPartie");
+            if (rs.next()) {
+                return rs.getInt("idPartie");
+            } else {
+                return 0;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -50,6 +54,7 @@ public class DatabaseConnection{
             etat = rs.getInt("etat");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return -1;
         }
         return etat;
     }
@@ -73,6 +78,19 @@ public class DatabaseConnection{
     }
 
     public ArrayList<Game> getActivesGames(Player p) {  //TODO
+        ArrayList<Game> res = new ArrayList<>();
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from JOUER where pseudo=? or adversaire=?");
+            ps.setString(1, p.getName());
+            ps.setString(2, p.getName());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+
         return new ArrayList<>();
     }
 
