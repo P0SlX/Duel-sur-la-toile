@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Player {
@@ -11,6 +12,7 @@ public class Player {
     private ArrayList<Byte> avatar;
     private boolean activated;
     private ArrayList<Player> friends;
+    private DatabaseConnection DB;
 
     public Player(String name, String email, ArrayList<Byte> avatar, boolean activated, ArrayList<Player> friends) {
         this.name = name;
@@ -21,6 +23,12 @@ public class Player {
     }
 
     public String getName() {
+        try{
+            DB.getConnexion().prepareStatement("select idPartie from PARTIE natural join JOUER order by idPartie DESC");
+            
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return this.name;
     }
 
