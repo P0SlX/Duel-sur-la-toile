@@ -1,5 +1,15 @@
-create database if not exists DUEL_SUR_LA_TOILE;
-USE DUEL_SUR_LA_TOILE;
+-- create database if not exists DUEL_SUR_LA_TOILE;
+-- USE DUEL_SUR_LA_TOILE;
+
+drop table INVITER;
+drop table INVITATION;
+drop table ETREAMIS;
+drop table JOUER;
+drop table COMMUNIQUER;
+drop table MESSAGE;
+drop table PARTIE;
+drop table JOUEUR;
+
 
 create table JOUEUR (
     pseudo varchar(30) unique,
@@ -21,8 +31,7 @@ create table ETREAMIS (
 create table INVITATION (
     idinv int unique,
     dateinv date,
-    etatinv boolean,
-    pseudo varchar(20),
+    etatinv int,
     PRIMARY KEY (idinv)
 );
 
@@ -70,7 +79,6 @@ create table COMMUNIQUER (
 alter table ETREAMIS add foreign key (amis) references JOUEUR (pseudo);
 alter table PARTIE add foreign key (nomJoueurCourant) references JOUEUR (pseudo);
 alter table ETREAMIS add foreign key (pseudo) references JOUEUR (pseudo);
-alter table INVITATION add foreign key (pseudo) references JOUEUR (pseudo);
 alter table INVITER add foreign key (expediteurInvit) references JOUEUR (pseudo);
 alter table INVITER add foreign key (destinataireInvit) references JOUEUR (pseudo);
 alter table INVITER add foreign key (idinv) references INVITATION (idinv);
