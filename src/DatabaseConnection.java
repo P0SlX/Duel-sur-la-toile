@@ -94,7 +94,7 @@ public class DatabaseConnection{
     }
 
     public ArrayList<Game> getGameList() {          // TODO
-        return new ArrayList<Game>();
+        return new ArrayList<>();
     }
 
     public String getFourInRowPlate(Game g) {       //TODO
@@ -129,20 +129,7 @@ public class DatabaseConnection{
         }
     }
 
-
-    // TODO IL FAUDRAIT FACTORISER CES 2 TRUCS EN UNE METHODE
-    public void acceptInvit(Invitation inv) {
-        try {
-            PreparedStatement ps = c.prepareStatement("update INVITATION set etatinv = ? where idinv = ?");
-            ps.setInt(1, inv.getEtatInv());
-            ps.setInt(2, inv.getId());
-            ps.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void declineInvit(Invitation inv) {
+    public void changeStateInv(Invitation inv) {
         try {
             PreparedStatement ps = c.prepareStatement("update INVITATION set etatinv = ? where idinv = ?");
             ps.setInt(1, inv.getEtatInv());

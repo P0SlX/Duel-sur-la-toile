@@ -1,4 +1,8 @@
-public class FourInARow implements Game{
+public class FourInARow implements Game {
+
+    public static final int CANCELED  = -1;
+    public static final int IN_PROGRESS  = 0;
+    public static final int ENDED = 1;
 
     private final Player player1;
     private final Player player2;
@@ -9,6 +13,7 @@ public class FourInARow implements Game{
     private int elementPlaced;
     private int gameID;
     private int state;
+    private int score;
     private String nomJeu;
     private Player winner;
     private Player looser;
@@ -26,6 +31,12 @@ public class FourInARow implements Game{
         this.winner = null;
         this.looser = null;
         this.state = 0;
+        this.score = 0;
+    }
+
+    @Override
+    public int getScore() {
+        return this.score;
     }
 
     @Override
@@ -137,5 +148,12 @@ public class FourInARow implements Game{
     public void setLooser(Player looser) {
         this.looser = looser;
     }
+
+    @Override
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+
 
 }
