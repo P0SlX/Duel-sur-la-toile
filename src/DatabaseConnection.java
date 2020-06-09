@@ -3,10 +3,6 @@ import  java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseConnection{
-    public final int DISCONNECTED = 0;
-    public final int CONNECTED    = 1;
-    public final int AFK          = 2;
-    public final int DND          = 3;
 
     private Connection c;
 
@@ -129,16 +125,26 @@ public class DatabaseConnection{
     }
 
 
-    /*  Etat invitation:
-            - 0: attente de réponse
-            - 1: accepté
-            - 2: refusé
-     */
+    // TODO IL FAUDRAIT FACTORISER CES 2 TRUCS EN UNE METHODE
     public void acceptInvit(Invitation inv) {
-
+        try {
+            PreparedStatement ps = c.prepareStatement("update INVITATION set etatinv = ? where idinv = ?");
+            ps.setInt(1, inv.getEtatInv());
+            ps.setInt(2, inv.getId());
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void declineInvit(Invitation inv) {
-
+        try {
+            PreparedStatement ps = c.prepareStatement("update INVITATION set etatinv = ? where idinv = ?");
+            ps.setInt(1, inv.getEtatInv());
+            ps.setInt(2, inv.getId());
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

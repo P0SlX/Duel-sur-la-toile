@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 
 public class Player {
+    public final int DISCONNECTED = 0;
+    public final int CONNECTED    = 1;
+    public final int AFK          = 2;
+    public final int DND          = 3;
 
     private String name;
     private String email;

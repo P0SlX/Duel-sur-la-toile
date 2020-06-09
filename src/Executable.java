@@ -5,9 +5,9 @@ public class Executable {
         DatabaseConnection c = new DatabaseConnection();
         Player Anatole = new Player("L'ananas", "cocolastico@gmail.com", new ArrayList<Byte>() , true, new ArrayList<Player>());
         Player p0slx = new Player("p0slx", "florian.savoure@gmail.com", new ArrayList<Byte>() , true, new ArrayList<Player>());
-        c.setStatus(Anatole, c.CONNECTED);
+        c.setStatus(Anatole, Anatole.CONNECTED);
         System.out.println(c.getStatus(Anatole));
-        c.setStatus(Anatole, c.DISCONNECTED);
+        c.setStatus(Anatole, Anatole.DISCONNECTED);
         System.out.println(c.getStatus(Anatole));
         Game g1 = new FourInARow("00:00", Anatole, p0slx);
         System.out.println(c.getMaxIDGame());

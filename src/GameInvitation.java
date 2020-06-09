@@ -3,11 +3,19 @@ public class GameInvitation implements Invitation {
     private Player emitter;
     private Player receiver;
     private String emissionDate;
+    private int etatInv;
+    private int id;
 
+    /*  Etat invitation:
+         - -1: refusé
+         - 0: attente de réponse
+         - 1: accepté
+    */
     public GameInvitation(Player emitter, Player receiver, String emissionDate) {
         this.emitter = emitter;
         this.receiver = receiver;
         this.emissionDate = emissionDate;
+        this.etatInv = 0;
     }
 
     @Override
@@ -26,12 +34,22 @@ public class GameInvitation implements Invitation {
     }
 
     @Override
+    public int getEtatInv() {
+        return this.etatInv;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
     public void accept() {
-        // TODO
+        this.etatInv = 1;
     }
 
     @Override
     public void decline() {
-        // TODO
+        this.etatInv = 2;
     }
 }
