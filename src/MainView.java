@@ -1,8 +1,10 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -14,11 +16,26 @@ public class MainView extends Application {
     private SceneController sceneController;
     private Scene scene;
 
-    private static Pane loadRoot(String fxmlPath) throws FxmlLoadingError {
-        URL url = null;
+    private AnchorPane loadLogin(String fxmlPath) throws FxmlLoadingError {
         try {
-            url = new File(fxmlPath).toURI().toURL();
-            return FXMLLoader.load(url);
+            URL url = new File(fxmlPath).toURI().toURL();
+            FXMLLoader loader = new FXMLLoader(url);
+            AnchorPane root = loader.load();
+            LoginController loginController = loader.getController();
+            loginController.setSceneController(this.sceneController);
+
+            return root;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FxmlLoadingError();
+        }
+    }
+
+    private Pane loadRoot(String fxmlPath) throws FxmlLoadingError{
+        try {
+            URL url = new File(fxmlPath).toURI().toURL();
+            FXMLLoader loader = new FXMLLoader(url);
+            return loader.load();
         } catch (Exception e) {
             e.printStackTrace();
             throw new FxmlLoadingError();
@@ -33,29 +50,25 @@ public class MainView extends Application {
     public void start(Stage primaryStage) {
 
         try {
-            Pane loginScene = new Pane(loadRoot("UI/Connexion.fxml"));
-            Pane registerScene   = new Pane((loadRoot("UI/Inscription.fxml")));
-            Pane mainMenuScene   = new Pane(loadRoot("UI/Menu_principal.fxml"));
-            Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
-            Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
-
-            this.scene = new Scene(registerScene);
+            this.scene = new Scene(new Pane());
             this.sceneController = new SceneController(scene);
+
+            Pane loginScene = new Pane(loadLogin("UI/Connexion.fxml"));
+            Pane registerScene   = new Pane((loadRoot("UI/Inscription.fxml")));
+            //Pane mainMenuScene   = new Pane(loadRoot("UI/Menu_principal.fxml"));
+            //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
+            //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
+
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);
-            sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
-            sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
-            sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
+            //sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
+            //sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
+            //sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
 
             sceneController.showScene(SceneController.ViewType.Login);
 
-            // Temporary code to test scene switch
-            scene.setOnMousePressed(mouseEvent -> {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY))
-                    sceneController.showScene(SceneController.ViewType.FourInARowGame);
-            });
-
+            scene.setRoot(loginScene);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Duel sur la toile - Login");
             primaryStage.show();
@@ -63,4 +76,5 @@ public class MainView extends Application {
             e.printStackTrace();
         }
     }
+
 }
