@@ -29,6 +29,23 @@ public class DatabaseConnection{
         return this.c;
     }
 
+    public boolean connectPlayer(String pseudo, String password) {
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=? and mdp=?");
+            ps.setString(1, pseudo);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public int getMaxIDGame() {
         try {
             PreparedStatement ps = c.prepareStatement("select gameID from PARTIE natural join JOUER order by gameID DESC");
