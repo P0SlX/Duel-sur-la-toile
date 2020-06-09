@@ -1,7 +1,4 @@
 public class GameInvitation implements Invitation {
-    public static final int REFUSED  = -1;
-    public static final int PENDING  = 0;
-    public static final int ACCEPTED = 1;
 
     private Player emitter;
     private Player receiver;
