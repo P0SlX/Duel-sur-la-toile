@@ -44,7 +44,6 @@ public class DatabaseConnection{
         return -1;
     }
 
-
     public int getStatus(Player p) {  // Anciennement isConnected
         int etat = 0;
         try {
@@ -77,27 +76,27 @@ public class DatabaseConnection{
         }
     }
 
-    public ArrayList<Game> getActivesGames(Player p) {
+    public ArrayList<Game> getActivesGames(Player p) {  //TODO
         return new ArrayList<>();
     }
 
-    public ArrayList<Game> getPlayerHistory(Player p) {
+    public ArrayList<Game> getPlayerHistory(Player p) { //TODO
         return new ArrayList<Game>();
     }
 
-    public void playForInARowTurn(Player p, int line, int col) {
+    public void playForInARowTurn(Player p, int line, int col) {    //TODO
 
     }
 
-    public ArrayList<Player> getPlayerFriends(Player p) {
+    public ArrayList<Player> getPlayerFriends(Player p) {   //TODO
         return new ArrayList<Player>();
     }
 
-    public ArrayList<Game> getGameList() {
+    public ArrayList<Game> getGameList() {          // TODO
         return new ArrayList<Game>();
     }
 
-    public String getFourInRowPlate(Game g) {
+    public String getFourInRowPlate(Game g) {       //TODO
         return "";
     }
 
@@ -129,6 +128,12 @@ public class DatabaseConnection{
         }
     }
 
+
+    /*  Etat invitation:
+            - 0: attente de réponse
+            - 1: accepté
+            - 2: refusé
+     */
     public void acceptInvit(Invitation inv) {
 
     }

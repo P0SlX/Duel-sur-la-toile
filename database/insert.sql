@@ -146,3 +146,31 @@ insert into COMMUNIQUER values (
      12
 );
 
+
+
+
+-- Creation invitations
+
+insert into INVITATION values (
+    1,
+    CURDATE(),
+    0
+);
+
+insert into INVITATION values (
+    2,
+    CURDATE(),
+    1
+);
+
+insert into INVITER values (
+    "L'ananas",
+    "Coco",
+    1
+);
+
+insert into INVITER values (
+    "p0slx",
+    "Coco",
+    2
+);
