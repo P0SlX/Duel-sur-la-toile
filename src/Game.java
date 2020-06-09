@@ -6,6 +6,7 @@ public interface Game {
     int getGameID();
     int getElementPlaced();
     int getScore();
+    int getState();
     long getGameDuration();
     Player[] getPlayers();
     Player getCurrentPlayer();

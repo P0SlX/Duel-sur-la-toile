@@ -40,6 +40,11 @@ public class FourInARow implements Game {
     }
 
     @Override
+    public int getState() {
+        return this.state;
+    }
+
+    @Override
     public String getStartTime() {
         return this.startTime;
     }
@@ -154,6 +159,10 @@ public class FourInARow implements Game {
         this.score = score;
     }
 
+    @Override
+    public void setState(int state) {
+        this.state = state;
+    }
 
 
 }
