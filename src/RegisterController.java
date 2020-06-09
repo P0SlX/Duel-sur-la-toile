@@ -6,25 +6,25 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController extends Controller implements Initializable {
+public class RegisterController extends Controller implements Initializable {
+
     @FXML
     private AnchorPane root;
 
     @FXML
-    private Button connect;
+    private Button cancel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 
     @FXML
-    private void onSignInAction() {
-        // TODO
+    private void onCancelAction() {
+        sceneController.showScene(SceneController.ViewType.Login);
     }
 
-    @FXML
-    private void onSignUpAction() {
-        sceneController.showScene(SceneController.ViewType.Register);
+    public void setSceneController(SceneController sceneController) {
+        this.sceneController = sceneController;
     }
-
 }
