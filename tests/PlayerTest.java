@@ -105,10 +105,24 @@ class PlayerTest {
 
     @Test
     void isDesactivated() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+        Player p = db.getPlayer("Coco");
+        Player e = db.getPlayer("Lanka");
+        assertFalse( p.isDesactivated());
+        assertTrue(e.isDesactivated());
+
     }
 
     @Test
     void setDectivated() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+        Player p = db.getPlayer("Coco");
+        p.setDectivated(true);
+        assertTrue(p.isDesactivated());
+        p.setDectivated(false);
+
     }
 
     @Test
@@ -116,11 +130,25 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
+        Player e = db.getPlayer("Le Chef");
+        assertFalse(p.isAdmin());
+        assertTrue(e.isAdmin());
 
     }
 
     @Test
     void setAdmin() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+        Player p = db.getPlayer("Coco");
+        Player e = db.getPlayer("Le Chef");
+        p.setAdmin(true);
+        e.setAdmin(false);
+        assertFalse(e.isAdmin());
+        assertTrue(p.isAdmin());
+        e.setAdmin(true);
+        p.setAdmin(false);
+
     }
 
     @Test
