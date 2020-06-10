@@ -67,11 +67,11 @@ public class Player {
         this.etat = etat;
     }
 
-    public boolean isActivated() {
+    public boolean isDesactivated() {
         return this.desactivated;
     }
 
-    public void setActivated(boolean desactivated) {
+    public void setDectivated(boolean desactivated) {
         this.desactivated = desactivated;
     }
 
