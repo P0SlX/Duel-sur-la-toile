@@ -130,6 +130,23 @@ public class DatabaseConnection{
         return null;
     }
 
+    public void createPlayer(Player p) {
+        try {
+            PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
+            ps.setString(1, p.getPseudo());
+            ps.setString(2, p.getEmail());
+            ps.setString(3, p.getMdp());
+            ps.setBytes(4, p.getAvatar());
+            ps.setInt(5, p.getEtat());
+            ps.setBoolean(6, p.isActivated());
+            ps.setBoolean(7, p.isAdmin());
+            ps.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
 
     public ArrayList<Game> getGameList() {          // TODO
         ArrayList<Game> gameList = new ArrayList<>();
