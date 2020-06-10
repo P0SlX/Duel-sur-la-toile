@@ -163,7 +163,7 @@ public class DatabaseConnection {
             PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER;");
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                if (rs.getString("plate").equals("Puissance 4")){
+                if (rs.getString("plate").equals("4 In a Row")){
                     Game g = new FourInARow(this.getPlayer(rs.getString("pseudo")), this.getPlayer(rs.getString("adversaire")));
                 }
                 int gameID = rs.getInt("gameID");
