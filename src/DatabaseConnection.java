@@ -146,9 +146,7 @@ public class DatabaseConnection{
         }
     }
 
-
-
-    public ArrayList<Game> getGameList() {          // TODO
+    public ArrayList<Game> getGameList() {      // TODO
         ArrayList<Game> gameList = new ArrayList<>();
         try {
             PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER;");

@@ -54,7 +54,6 @@ public class FourInARow implements Game {
         return this.finishTime;
     }
 
-    @Override
     public String getPlate() {
         return this.plate;
     }
@@ -69,7 +68,6 @@ public class FourInARow implements Game {
         return this.gameID;
     }
 
-    @Override
     public int getElementPlaced() {
         return this.elementPlaced;
     }
@@ -124,12 +122,10 @@ public class FourInARow implements Game {
         this.gameID = gameID;
     }
 
-    @Override
     public void setElementPlaced(int elementPlaced) {
         this.elementPlaced = elementPlaced;
     }
 
-    @Override
     public void setPlate(String plate) {
         this.plate = plate;
     }

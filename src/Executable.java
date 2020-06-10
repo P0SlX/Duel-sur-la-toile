@@ -1,11 +1,7 @@
-import java.util.ArrayList;
-
 public class Executable {
     public static void main(String[] args) {
         DatabaseConnection c = new DatabaseConnection();
         c.connexion();
-//        Player Anatole = new Player("L'ananas", "cocolastico@gmail.com", "cocopops", new ArrayList<>(), 0, true, false);
-//        Player p0slx = new Player("p0slx", "florian.savoure@gmail.com", "unMotDePasseSecure", new ArrayList<>(), 0, true, false);
 //        c.setStatus(Anatole, Anatole.CONNECTED);
 //        System.out.println(c.getStatus(Anatole));
 //        c.setStatus(Anatole, Anatole.DISCONNECTED);
