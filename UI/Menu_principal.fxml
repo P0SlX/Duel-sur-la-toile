@@ -47,7 +47,7 @@
     </MenuBar>
       <AnchorPane layoutX="1338.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background">
          <children>
-            <VBox prefHeight="807.0">
+            <VBox prefHeight="807.0" fx:id="friendList">
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="272.0">
                      <children>
@@ -57,13 +57,14 @@
                               <Image url="@assets/logo.png" />
                            </image>
                         </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="134.0" layoutY="48.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo" text="Arza"
+                        <Label alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo" text="Unknown"
                            fx:id="pseudo">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="126.0" layoutY="33.0" styleClass="niveau" text="Ratio: 9000">
+                        <Label alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" styleClass="niveau" text="Ratio: "
+                            fx:id="ratio">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -73,94 +74,6 @@
                               <Image url="@assets/logo.png" />
                            </image>
                         </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="92.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" styleClass="bu" text="Invite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="94.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Invite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="88.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Invite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="88.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz4">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Invite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
                      </children>
                   </AnchorPane>
                   <Separator opacity="0.5" prefWidth="272.0" />
