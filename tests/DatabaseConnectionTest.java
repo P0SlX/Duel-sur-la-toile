@@ -98,7 +98,7 @@ class DatabaseConnectionTest {
         Player p = db.getPlayer("Coco");
         p.setPseudo("CocoL'asticot");
         db.updatePlayer(p);
-        assertTrue(p.getPseudo() == "CocoL'asticot");
+        assertSame("CocoL'asticot", p.getPseudo());
         p.setPseudo("Coco");
     }
 

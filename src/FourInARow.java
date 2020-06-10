@@ -1,3 +1,7 @@
+import com.sun.media.jfxmediaimpl.platform.Platform;
+
+import java.sql.Date;
+
 public class FourInARow implements Game {
 
     public static final int CANCELED  = -1;
@@ -18,20 +22,20 @@ public class FourInARow implements Game {
     private Player winner;
     private Player looser;
 
-    public FourInARow(Player player1, Player player2){
+    public FourInARow(Player player1, Player player2, Player currentPlayer, String plate, java.sql.Date startTime, java.sql.Date finishTime, int elementPlaced, int gameID, int state, int score, String nomJeu, Player winner, Player looser) {
         this.player1 = player1;
         this.player2 = player2;
-        this.currentPlayer = player1;
-        this.plate = "";        // TODO
-        this.startTime = null;
-        this.finishTime = null;
-        this.elementPlaced = 0;
-        this.gameID = -1;
-        this.nomJeu = "4 In a Row";
-        this.winner = null;
-        this.looser = null;
-        this.state = 0;
-        this.score = 0;
+        this.currentPlayer = currentPlayer;
+        this.plate = plate;
+        this.startTime = startTime;
+        this.finishTime = finishTime;
+        this.elementPlaced = elementPlaced;
+        this.gameID = gameID;
+        this.state = state;
+        this.score = score;
+        this.nomJeu = nomJeu;
+        this.winner = winner;
+        this.looser = looser;
     }
 
     @Override
