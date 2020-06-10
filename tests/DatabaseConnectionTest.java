@@ -1,11 +1,11 @@
 import org.junit.jupiter.api.Test;
-
 import javax.xml.crypto.Data;
 
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,16 +30,16 @@ class DatabaseConnectionTest {
         db.connexion();
 
         Player p = db.getPlayer("");
-        assertTrue(p == null);
+        assertNull(p);
 
         p = db.getPlayer("Coco");
 
-        assertTrue(p.getPseudo().equals("Coco"));
+        assertEquals(p.getPseudo(), "Coco");
         assertFalse(p.isDesactivated());
         assertFalse(p.isAdmin());
-        assertTrue(p.getEmail().equals("cocolastico@gmail.com"));
-        assertTrue(p.getEtat() == 0);
-        assertTrue(p.getMdp().equals("cocopops"));
+        assertEquals(p.getEmail(), "cocolastico@gmail.com");
+        assertEquals(p.getEtat(), 0);
+        assertEquals(p.getMdp(), "cocopops");
 
     }
 
@@ -49,11 +49,11 @@ class DatabaseConnectionTest {
         db.connexion();
 
         Player p = db.getPlayer("Coco");
-        assertTrue(p != null);
+        assertNotNull(p);
 
-        assertTrue(db.getStatus(p) == 0); // Disconnected
+        assertEquals(db.getStatus(p), 0); // Disconnected
         db.setStatus(p, 1);
-        assertTrue(db.getStatus(p) == 1);
+        assertEquals(db.getStatus(p), 1);
 
         db.setStatus(p, 0);
     }
@@ -64,13 +64,38 @@ class DatabaseConnectionTest {
         db.connexion();
 
         Player p = db.getPlayer("Coco");
-        assertTrue(p != null);
+        assertNotNull(p);
 
-        assertTrue(db.getStatus(p) == 0);
+        assertEquals(db.getStatus(p), 0);
         db.setStatus(p, 1);
-        assertTrue(db.getStatus(p) == 1);
+        assertEquals(db.getStatus(p), 1);
         db.setStatus(p, 0);
-        assertTrue(db.getStatus(p) == 0);
+        assertEquals(db.getStatus(p), 0);
+    }
+
+    @Test
+    void getFriends() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p = db.getPlayer("p0slx");
+        assertNotNull(p.getFriends());
+    }
+
+    @Test
+    void getPlayerMessage() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player ananas = db.getPlayer("L'ananas");
+        Player posix  = db.getPlayer("p0slx");
+        Player chef  = db.getPlayer("Le chef");
+
+        ArrayList<Message> messages = db.getPlayerMessage(ananas, posix);
+        assertEquals(messages.size(), 2);
+
+        messages = db.getPlayerMessage(ananas, chef);
+        assertEquals(messages.size(), 1);
     }
 
 

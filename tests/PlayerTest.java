@@ -9,9 +9,9 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        assertTrue(p != null);
+        assertNotNull(p);
         assertEquals(p.getPseudo(),"Coco");
-        assertFalse(p.getPseudo().equals("b"));
+        assertNotEquals(p.getPseudo(), "b");
     }
 
     @Test
@@ -21,7 +21,7 @@ class PlayerTest {
         Player p = db.getPlayer("Coco");
         p.setPseudo("salut");
         assertEquals(p.getPseudo(), "salut");
-        assertFalse(p.getPseudo().equals("d"));
+        assertNotEquals(p.getPseudo(), "d");
         p.setPseudo("Coco");
     }
 
@@ -30,9 +30,9 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        assertTrue(p != null);
+        assertNotNull(p);
         assertEquals(p.getEmail(),"cocolastico@gmail.com");
-        assertFalse(p.getPseudo().equals("b"));
+        assertNotEquals(p.getPseudo(), "b");
     }
 
     @Test
@@ -42,7 +42,7 @@ class PlayerTest {
         Player p = db.getPlayer("Coco");
         p.setEmail("salut@gmail.com");
         assertEquals(p.getEmail(), "salut@gmail.com");
-        assertFalse(p.getEmail().equals("dd"));
+        assertNotEquals(p.getEmail(), "dd");
         p.setPseudo("cocolastico@gmail.com");
     }
 
@@ -51,9 +51,9 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        assertTrue(p != null);
+        assertNotNull(p);
         assertEquals(p.getMdp(),"cocopops");
-        assertFalse(p.getPseudo().equals("zz"));
+        assertNotEquals(p.getPseudo(), "zz");
     }
 
     @Test
@@ -63,7 +63,7 @@ class PlayerTest {
         Player p = db.getPlayer("Coco");
         p.setMdp("mmddpp");
         assertEquals(p.getMdp(), "mmddpp");
-        assertFalse(p.getMdp().equals("azertyuiop"));
+        assertNotEquals(p.getMdp(), "azertyuiop");
         p.setPseudo("cocopops");
     }
 
@@ -86,9 +86,9 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        assertTrue(p != null);
+        assertNotNull(p);
         assertEquals(p.getEtat(),0);
-        assertFalse(p.getEtat() == 33);
+        assertNotEquals(p.getEtat(), 33);
 
     }
 
@@ -99,16 +99,30 @@ class PlayerTest {
         Player p = db.getPlayer("Coco");
         p.setEtat(1);
         assertEquals(p.getEtat(), 1);
-        assertFalse(p.getEtat() == 2);
+        assertNotEquals(p.getEtat(), 2);
         p.setEtat(0);
     }
 
     @Test
     void isDesactivated() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+        Player p = db.getPlayer("Coco");
+        Player e = db.getPlayer("Lanka");
+        assertFalse( p.isDesactivated());
+        assertTrue(e.isDesactivated());
+
     }
 
     @Test
     void setDectivated() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+        Player p = db.getPlayer("Coco");
+        p.setDectivated(true);
+        assertTrue(p.isDesactivated());
+        p.setDectivated(false);
+
     }
 
     @Test
@@ -116,11 +130,25 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
+        Player e = db.getPlayer("Le Chef");
+        assertFalse(p.isAdmin());
+        assertTrue(e.isAdmin());
 
     }
 
     @Test
     void setAdmin() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+        Player p = db.getPlayer("Coco");
+        Player e = db.getPlayer("Le Chef");
+        p.setAdmin(true);
+        e.setAdmin(false);
+        assertFalse(e.isAdmin());
+        assertTrue(p.isAdmin());
+        e.setAdmin(true);
+        p.setAdmin(false);
+
     }
 
     @Test

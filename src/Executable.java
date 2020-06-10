@@ -17,7 +17,10 @@ public class Executable {
         //c.createPlayer(p);
         Player coco = c.getPlayer("Coco");
         Player p0slx = c.getPlayer("p0slx");
-        c.createInv(coco, p0slx);
+        System.out.println(p0slx.getFriends());
+        //c.createInv(coco, p0slx);
+        //coco.setAdmin(true);
+        //c.updatePlayer(coco);
 
     }
 }

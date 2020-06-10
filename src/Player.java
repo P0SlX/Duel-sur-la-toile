@@ -24,7 +24,7 @@ public class Player {
         this.etat = etat;
         this.desactivated = desactivated;
         this.admin = admin;
-        this.friends = new ArrayList<>();
+        this.friends = null;
     }
 
     public String getPseudo() {

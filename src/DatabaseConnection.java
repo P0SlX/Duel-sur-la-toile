@@ -101,6 +101,32 @@ public class DatabaseConnection {
     }
 
 
+    public ArrayList<Player> getFriends(Player p) {
+        try {
+            ArrayList<Player> friendList = new ArrayList<>();
+            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?);");
+            ps.setString(1, p.getPseudo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Player pq = new Player(
+                        rs.getString("pseudo"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        rs.getBytes("avatar"),
+                        rs.getInt("etat"),
+                        rs.getBoolean("desactive"),
+                        rs.getBoolean("admin")
+                        );
+                friendList.add(pq);
+            }
+            return friendList;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+
     /********** PLAYER **********/
     public Player getPlayer(String pseudo) {
         try {
@@ -117,6 +143,7 @@ public class DatabaseConnection {
                         rs.getBoolean("desactive"),
                         rs.getBoolean("admin")
                         );
+                p.setFriends(this.getFriends(p));
                 return p;
             }
         } catch (SQLException throwables) {
@@ -192,8 +219,33 @@ public class DatabaseConnection {
         return "";
     }
 
-    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) { // TODO
-        return new ArrayList<Message>();
+    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
+        ArrayList<Message> messageArrayList = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = c.prepareStatement(
+                    "select contenumessage, datemessage " +
+                            "from MESSAGE natural join COMMUNIQUER " +
+                            "where pseudo=? and destinataire=?" +
+                            "order by datemessage"
+            );
+
+            ps.setString(1, sender.getPseudo());
+            ps.setString(2, receiver.getPseudo());
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while(resultSet.next()) {
+                messageArrayList.add(
+                        new Message(resultSet.getString("contenumessage"),
+                                resultSet.getDate("datemessage").toString())
+                );
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return messageArrayList;
     }
 
     public void addNewGame(Player p1, Player p2, Game g) {
@@ -215,6 +267,8 @@ public class DatabaseConnection {
         }
     }
 
+
+    /********** INVITATIONS **********/
     public int getMaxIdInv() {
         try {
             PreparedStatement ps = c.prepareStatement("select idinv from INVITATION natural join INVITER order by idinv DESC");
