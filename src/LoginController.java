@@ -21,6 +21,8 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private TextField password;
 
+    private MainMenuController mainMenuController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -31,7 +33,10 @@ public class LoginController extends Controller implements Initializable {
         String password = this.password.getText();
 
         if(databaseConnection.connectPlayer(pseudo, password)) {
+            Player p = databaseConnection.getPlayer(pseudo);
+            databaseConnection.setStatus(p, 1);
             sceneController.showScene(SceneController.ViewType.MainMenu);
+            this.mainMenuController.initMainControllerWithPlayer(p); // Init main menu view
 
             // If the player log out later, it is preferable to not show password again
             this.password.setText("");
@@ -49,4 +54,9 @@ public class LoginController extends Controller implements Initializable {
         sceneController.showScene(SceneController.ViewType.Register);
     }
 
+    public void setMainMenuController(MainMenuController mainMenuController) {
+        this.mainMenuController = mainMenuController;
+
+        if(mainMenuController == null) throw new IllegalStateException();
+    }
 }

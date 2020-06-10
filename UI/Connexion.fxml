@@ -74,7 +74,7 @@
             <Button layoutX="149.0" layoutY="344.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #EEE; -fx-border-color: #EEE; -fx-text-fill: #505050; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Sign up" textFill="#515151"
                 onAction="#onSignUpAction">
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="HAND"/>
                </cursor>
             </Button>
             <ImageView fitHeight="67.0" fitWidth="92.0" layoutX="237.0" layoutY="21.0" preserveRatio="true" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="237.0">
