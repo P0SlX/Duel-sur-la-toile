@@ -55,12 +55,11 @@ public class MainView extends Application {
             this.sceneController = new SceneController(scene);
             this.databaseConnection.connexion();
 
-            Pane loginScene = new Pane(loadRootWithController("UI/Connexion.fxml"));
+            Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane((loadRootWithController("UI/Inscription.fxml")));
-            Pane mainMenuScene   = new Pane(loadRoot("UI/Menu_principal.fxml"));
+            Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
             //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
             //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
-
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);
@@ -70,9 +69,8 @@ public class MainView extends Application {
 
             sceneController.showScene(SceneController.ViewType.Login);
 
-            scene.setRoot(loginScene);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Duel sur la toile - Login");
+            primaryStage.setTitle("Duel sur la toile");
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
