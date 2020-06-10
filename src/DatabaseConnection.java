@@ -1,7 +1,7 @@
 import  java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseConnection{
+public class DatabaseConnection {
 
     private Connection c;
 

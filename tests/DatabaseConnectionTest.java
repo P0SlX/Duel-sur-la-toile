@@ -15,4 +15,24 @@ class DatabaseConnectionTest {
 
         assertFalse(db.connectPlayer("", ""));
     }
+
+    @Test
+    void getPlayer() {
+
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p = db.getPlayer("");
+        assertTrue(p == null);
+
+        p = db.getPlayer("Coco");
+
+        assertTrue(p.getPseudo().equals("Coco"));
+        assertFalse(p.isDesactivated());
+        assertFalse(p.isAdmin());
+        assertTrue(p.getEmail().equals("cocolastico@gmail.com"));
+        assertTrue(p.getEtat() == 0);
+        assertTrue(p.getMdp().equals("cocopops"));
+
+    }
 }
