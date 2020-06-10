@@ -96,10 +96,10 @@ class DatabaseConnectionTest {
         db.connexion();
 
         Player p = db.getPlayer("Coco");
-        p.setPseudo("CocoL'asticot");
+        p.setMdp("cocopops");
         db.updatePlayer(p);
-        assertSame("CocoL'asticot", p.getPseudo());
-        p.setPseudo("Coco");
+        assertSame("cocopops", p.getMdp());
+        p.setMdp("cocopops");
     }
 
 

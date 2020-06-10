@@ -183,29 +183,30 @@ public class DatabaseConnection {
 
     public void updatePlayer(Player p) {
         try {
-            PreparedStatement ps = c.prepareStatement("update JOUEUR set pseudo=?, email=?, mdp=?, " +
-                                                    "avatar=?, etat=?, desactive=?, admin=?");
-            completeStatement(p, ps);
+            PreparedStatement ps = c.prepareStatement("update JOUEUR set mdp=?, avatar=?, etat=?, desactive=?, admin=? where pseudo=?");
+            ps.setString(1, p.getMdp());
+            ps.setBytes(2, p.getAvatar());
+            ps.setInt(3, p.getEtat());
+            ps.setBoolean(4, p.isDesactivated());
+            ps.setBoolean(5, p.isAdmin());
+            ps.setString(6, p.getPseudo());
             ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    private void completeStatement(Player p, PreparedStatement ps) throws SQLException {
-        ps.setString(1, p.getPseudo());
-        ps.setString(2, p.getEmail());
-        ps.setString(3, p.getMdp());
-        ps.setBytes(4, p.getAvatar());
-        ps.setInt(5, p.getEtat());
-        ps.setBoolean(6, p.isDesactivated());
-        ps.setBoolean(7, p.isAdmin());
-    }
 
     public void createPlayer(Player p) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
-            completeStatement(p, ps);
+            ps.setString(1, p.getPseudo());
+            ps.setString(2, p.getEmail());
+            ps.setString(3, p.getMdp());
+            ps.setBytes(4, p.getAvatar());
+            ps.setInt(5, p.getEtat());
+            ps.setBoolean(6, p.isDesactivated());
+            ps.setBoolean(7, p.isAdmin());
             ps.executeQuery();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
