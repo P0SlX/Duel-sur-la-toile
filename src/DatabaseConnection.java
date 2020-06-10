@@ -86,7 +86,35 @@ public class DatabaseConnection {
     }
 
     public ArrayList<Game> getActivesGames(Player p) {
-       return null;
+        ArrayList<Game> listActiveGames = new ArrayList<>();
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where pseudo=? or adversaire=? and state=0");
+            ps.setString(1, p.getPseudo());
+            ps.setString(2, p.getPseudo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Game g = new FourInARow(
+                        this.getPlayer(rs.getString("pseudo")),
+                        this.getPlayer(rs.getString("adversaire")),
+                        this.getPlayer(rs.getString("currentPlayer")),
+                        rs.getString("plate"),
+                        rs.getDate("startTime"),
+                        rs.getDate("finishTime"),
+                        rs.getInt("elementPlaced"),
+                        rs.getInt("gameID"),
+                        rs.getInt("state"),
+                        rs.getInt("score"),
+                        rs.getString("nomJeu"),
+                        this.getPlayer(rs.getString("winner")),
+                        this.getPlayer(rs.getString("looser"))
+                );
+                listActiveGames.add(g);
+            }
+            return listActiveGames;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     public ArrayList<Game> getPlayerHistory(Player p) { //TODO
@@ -193,7 +221,8 @@ public class DatabaseConnection {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 if (rs.getString("nomJeu").equals("Puissance 4")){
-                    Game g = new FourInARow(this.getPlayer(rs.getString("pseudo")),
+                    Game g = new FourInARow(
+                            this.getPlayer(rs.getString("pseudo")),
                             this.getPlayer(rs.getString("adversaire")),
                             this.getPlayer(rs.getString("currentPlayer")),
                             rs.getString("plate"),

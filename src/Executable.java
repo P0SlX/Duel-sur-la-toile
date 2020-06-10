@@ -21,6 +21,8 @@ public class Executable {
         Player p0slx = c.getPlayer("p0slx");
         System.out.println("game list  " + c.getGameList());
         ArrayList<Game> gameList = c.getGameList();
+        System.out.println("getActiveGames  " + c.getActivesGames(p0slx));
+
         //System.out.println(p0slx.getFriends());
         //c.createInv(coco, p0slx);
         //coco.setAdmin(true);
