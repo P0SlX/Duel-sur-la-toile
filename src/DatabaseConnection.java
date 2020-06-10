@@ -1,7 +1,7 @@
 import  java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseConnection{
+public class DatabaseConnection {
 
     private Connection c;
 
@@ -138,7 +138,7 @@ public class DatabaseConnection{
             ps.setString(3, p.getMdp());
             ps.setBytes(4, p.getAvatar());
             ps.setInt(5, p.getEtat());
-            ps.setBoolean(6, p.isActivated());
+            ps.setBoolean(6, p.isDesactivated());
             ps.setBoolean(7, p.isAdmin());
             ps.executeQuery();
         } catch (SQLException throwables) {
