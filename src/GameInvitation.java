@@ -6,11 +6,6 @@ public class GameInvitation implements Invitation {
     private int etatInv;
     private int id;
 
-    /*  Etat invitation:
-         - -1: refusé
-         - 0: attente de réponse
-         - 1: accepté
-    */
     public GameInvitation(Player emitter, Player receiver, String emissionDate) {
         this.emitter = emitter;
         this.receiver = receiver;

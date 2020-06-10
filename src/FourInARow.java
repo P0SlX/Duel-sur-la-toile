@@ -1,22 +1,47 @@
-public class FourInARow implements Game{
+public class FourInARow implements Game {
 
+    public static final int CANCELED  = -1;
+    public static final int IN_PROGRESS  = 0;
+    public static final int ENDED = 1;
+
+    private final Player player1;
+    private final Player player2;
+    private Player currentPlayer;
     private String plate;
     private String startTime;
+    private String finishTime;
     private int elementPlaced;
     private int gameID;
-    private Player currentPlayer;
-    private Player player1;
-    private Player player2;
+    private int state;
+    private int score;
     private String nomJeu;
+    private Player winner;
+    private Player looser;
 
-    public FourInARow(String startTime, Player player1, Player player2){
-        this.startTime = startTime;
+    public FourInARow(Player player1, Player player2){
         this.player1 = player1;
         this.player2 = player2;
-        this.plate = "";
+        this.currentPlayer = player1;
+        this.plate = "";        // TODO
+        this.startTime = "";
+        this.finishTime = "";
         this.elementPlaced = 0;
-        this.currentPlayer = null; //TODO
+        this.gameID = -1;
         this.nomJeu = "Puissance 4";
+        this.winner = null;
+        this.looser = null;
+        this.state = 0;
+        this.score = 0;
+    }
+
+    @Override
+    public int getScore() {
+        return this.score;
+    }
+
+    @Override
+    public int getState() {
+        return this.state;
     }
 
     @Override
@@ -25,23 +50,33 @@ public class FourInARow implements Game{
     }
 
     @Override
-    public int getGameID() {
-        return this.gameID;
-    }
-
-    @Override
-    public long getGameDuration() {
-        return 0;
-    }
-
-    @Override
     public String getFinishTime() {
-        return null;
+        return this.finishTime;
+    }
+
+    @Override
+    public String getPlate() {
+        return this.plate;
     }
 
     @Override
     public String getNomJeu() {
         return this.nomJeu;
+    }
+
+    @Override
+    public int getGameID() {
+        return this.gameID;
+    }
+
+    @Override
+    public int getElementPlaced() {
+        return this.elementPlaced;
+    }
+
+    @Override
+    public long getGameDuration() {
+        return 0;                           // TODO
     }
 
     @Override
@@ -56,6 +91,78 @@ public class FourInARow implements Game{
 
     @Override
     public Player getWinner() {
-        return null;
+        return this.winner;
     }
+
+    @Override
+    public Player getLooser() {
+        return this.looser;
+    }
+
+    @Override
+    public Player getPlayer1() {
+        return this.player1;
+    }
+
+    @Override
+    public Player getPlayer2() {
+        return this.player2;
+    }
+
+    @Override
+    public void setNomJeu(String nomJeu) {
+        this.nomJeu = nomJeu;
+    }
+
+    @Override
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    @Override
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
+    @Override
+    public void setElementPlaced(int elementPlaced) {
+        this.elementPlaced = elementPlaced;
+    }
+
+    @Override
+    public void setPlate(String plate) {
+        this.plate = plate;
+    }
+
+    @Override
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    @Override
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
+    }
+
+    @Override
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
+
+    @Override
+    public void setLooser(Player looser) {
+        this.looser = looser;
+    }
+
+    @Override
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Override
+    public void setState(int state) {
+        this.state = state;
+    }
+
+
 }
