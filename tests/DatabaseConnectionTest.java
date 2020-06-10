@@ -1,5 +1,12 @@
 import org.junit.jupiter.api.Test;
 
+import javax.xml.crypto.Data;
+
+import java.sql.*;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.Executor;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseConnectionTest {
@@ -64,5 +71,31 @@ class DatabaseConnectionTest {
         assertTrue(db.getStatus(p) == 1);
         db.setStatus(p, 0);
         assertTrue(db.getStatus(p) == 0);
+    }
+
+
+    @Test
+    void updatePlayer() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p = db.getPlayer("Coco");
+        p.setPseudo("CocoL'asticot");
+        db.updatePlayer(p);
+        assertTrue(p.getPseudo() == "CocoL'asticot");
+        p.setPseudo("Coco");
+    }
+
+
+    @Test
+    void getMaxIdInv() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p = db.getPlayer("Coco");
+        Player p2 = db.getPlayer("L'ananas");
+        db.createInv(p, p2);
+        assertTrue(db.getMaxIDGame() > 3);
+
     }
 }
