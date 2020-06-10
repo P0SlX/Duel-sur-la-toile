@@ -20,20 +20,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="MainMenuController">
 <children>
     <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="1600.0" stylesheets="@test.css">
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
-            <MenuItem mnemonicParsing="false" text="Se deconnecter" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+            <MenuItem mnemonicParsing="false" text="Log out" fx:id="disconnect" onAction="#onDisconnectAction"/>
+                  <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Player">
           <items>
             <MenuItem mnemonicParsing="false" text="Profil" />
-                  <MenuItem mnemonicParsing="false" text="Historique" />
+                  <MenuItem mnemonicParsing="false" text="History" />
           </items>
         </Menu>
       </menus>
