@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,6 +10,9 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     private MenuItem disconnect;
+
+    @FXML
+    private Label pseudo;
 
     private Player loggedPlayer;
 
@@ -30,7 +34,7 @@ public class MainMenuController extends Controller implements Initializable {
     public void initMainControllerWithPlayer(Player player) {
         this.loggedPlayer = player;
 
-        // TODO: Modify all components according to the player
+        this.pseudo.setText(player.getPseudo());
     }
 
 }
