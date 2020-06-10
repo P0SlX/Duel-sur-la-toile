@@ -31,6 +31,8 @@ public class LoginController extends Controller implements Initializable {
         String password = this.password.getText();
 
         if(databaseConnection.connectPlayer(pseudo, password)) {
+            Player p = databaseConnection.getPlayer(pseudo);
+            databaseConnection.setStatus(p, 1);
             sceneController.showScene(SceneController.ViewType.MainMenu);
 
             // If the player log out later, it is preferable to not show password again
