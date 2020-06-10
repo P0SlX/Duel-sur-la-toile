@@ -35,4 +35,34 @@ class DatabaseConnectionTest {
         assertTrue(p.getMdp().equals("cocopops"));
 
     }
+
+    @Test
+    void getStatus() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p = db.getPlayer("Coco");
+        assertTrue(p != null);
+
+        assertTrue(db.getStatus(p) == 0); // Disconnected
+        db.setStatus(p, 1);
+        assertTrue(db.getStatus(p) == 1);
+
+        db.setStatus(p, 0);
+    }
+
+    @Test
+    void setStatus() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p = db.getPlayer("Coco");
+        assertTrue(p != null);
+
+        assertTrue(db.getStatus(p) == 0);
+        db.setStatus(p, 1);
+        assertTrue(db.getStatus(p) == 1);
+        db.setStatus(p, 0);
+        assertTrue(db.getStatus(p) == 0);
+    }
 }
