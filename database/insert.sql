@@ -151,6 +151,42 @@ insert into COMMUNIQUER values (
 );
 
 
+insert into MESSAGE values (
+    13, -- idMessage
+    CURDATE(),
+    "t la ?",
+    false -- Lu ?
+);
+
+insert into COMMUNIQUER values (
+    "L'ananas",
+    "p0slx",
+     13
+);
+insert into MESSAGE values (
+    14, -- idMessage
+    CURDATE(),
+    "Bon anniversaire !!!!!!!",
+    false -- Lu ?
+);
+
+insert into COMMUNIQUER values (
+    "L'ananas",
+    "Le chef",
+     14
+);
+insert into MESSAGE values (
+    15, -- idMessage
+    CURDATE(),
+    "Bonjour",
+    false -- Lu ?
+);
+
+insert into COMMUNIQUER values (
+    "Jordan",
+    "p0slx",
+     15
+);
 
 
 -- Creation invitations

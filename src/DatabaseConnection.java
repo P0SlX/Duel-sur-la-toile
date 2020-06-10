@@ -190,7 +190,7 @@ public class DatabaseConnection {
             PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER;");
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                if (rs.getString("plate").equals("Puissance 4")){
+                if (rs.getString("plate").equals("4 In a Row")){
                     Game g = new FourInARow(this.getPlayer(rs.getString("pseudo")), this.getPlayer(rs.getString("adversaire")));
                 }
                 int gameID = rs.getInt("gameID");
@@ -219,8 +219,33 @@ public class DatabaseConnection {
         return "";
     }
 
-    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) { // TODO
-        return new ArrayList<Message>();
+    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
+        ArrayList<Message> messageArrayList = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = c.prepareStatement(
+                    "select contenumessage, datemessage " +
+                            "from MESSAGE natural join COMMUNIQUER " +
+                            "where pseudo=? and destinataire=?" +
+                            "order by datemessage"
+            );
+
+            ps.setString(1, sender.getPseudo());
+            ps.setString(2, receiver.getPseudo());
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while(resultSet.next()) {
+                messageArrayList.add(
+                        new Message(resultSet.getString("contenumessage"),
+                                resultSet.getDate("datemessage").toString())
+                );
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return messageArrayList;
     }
 
     public void addNewGame(Player p1, Player p2, Game g) {

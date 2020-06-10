@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseConnectionTest {
@@ -73,5 +75,21 @@ class DatabaseConnectionTest {
 
         Player p = db.getPlayer("p0slx");
         assertNotNull(p.getFriends());
+    }
+
+    @Test
+    void getPlayerMessage() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player ananas = db.getPlayer("L'ananas");
+        Player posix  = db.getPlayer("p0slx");
+        Player chef  = db.getPlayer("Le chef");
+
+        ArrayList<Message> messages = db.getPlayerMessage(ananas, posix);
+        assertTrue(messages.size() == 2);
+
+        messages = db.getPlayerMessage(ananas, chef);
+        assertTrue(messages.size() == 1);
     }
 }

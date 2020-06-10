@@ -27,7 +27,7 @@ public class FourInARow implements Game {
         this.finishTime = null;
         this.elementPlaced = 0;
         this.gameID = -1;
-        this.nomJeu = "Puissance 4";
+        this.nomJeu = "4 In a Row";
         this.winner = null;
         this.looser = null;
         this.state = 0;
