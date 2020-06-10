@@ -18,8 +18,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     public void onDisconnectAction() {
-        // TODO: Set player status as disconnected
-
+        databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
         sceneController.showScene(SceneController.ViewType.Login);
     }
 
