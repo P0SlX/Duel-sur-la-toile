@@ -153,7 +153,11 @@ class PlayerTest {
 
     @Test
     void getFriends() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
 
+        Player p = db.getPlayer("p0slx");
+        assertNotNull(p.getFriends());
     }
 
     @Test
