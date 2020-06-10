@@ -8,8 +8,8 @@ public interface Game {
     long getGameDuration();
     Player[] getPlayers();
     Player getCurrentPlayer();
-    Player getWinner();
     Player getLooser();
+    Player getWinner();
     Player getPlayer1();
     Player getPlayer2();
     void setNomJeu(String nomJeu);
@@ -17,8 +17,8 @@ public interface Game {
     void setGameID(int gameID);
     void setStartTime(java.sql.Date startTime);
     void setFinishTime(java.sql.Date finishTime);
-    void setWinner(Player winner);
     void setLooser(Player looser);
+    void setWinner(Player winner);
     void setScore(int score);
     void setState(int state);
 }

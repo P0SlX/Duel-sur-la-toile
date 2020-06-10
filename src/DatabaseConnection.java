@@ -1,3 +1,4 @@
+import javax.print.DocFlavor;
 import  java.sql.*;
 import java.util.ArrayList;
 
@@ -84,8 +85,8 @@ public class DatabaseConnection {
         }
     }
 
-    public ArrayList<Game> getActivesGames(Player p) {  //TODO
-        return new ArrayList<>();
+    public ArrayList<Game> getActivesGames(Player p) {
+       return null;
     }
 
     public ArrayList<Game> getPlayerHistory(Player p) { //TODO
@@ -98,6 +99,32 @@ public class DatabaseConnection {
 
     public ArrayList<Player> getPlayerFriends(Player p) {   //TODO
         return new ArrayList<Player>();
+    }
+
+
+    public ArrayList<Player> getFriends(Player p) {
+        try {
+            ArrayList<Player> friendList = new ArrayList<>();
+            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?);");
+            ps.setString(1, p.getPseudo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Player pq = new Player(
+                        rs.getString("pseudo"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        rs.getBytes("avatar"),
+                        rs.getInt("etat"),
+                        rs.getBoolean("desactive"),
+                        rs.getBoolean("admin")
+                        );
+                friendList.add(pq);
+            }
+            return friendList;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -117,6 +144,7 @@ public class DatabaseConnection {
                         rs.getBoolean("desactive"),
                         rs.getBoolean("admin")
                         );
+                p.setFriends(this.getFriends(p));
                 return p;
             }
         } catch (SQLException throwables) {
@@ -127,7 +155,8 @@ public class DatabaseConnection {
 
     public void updatePlayer(Player p) {
         try {
-            PreparedStatement ps = c.prepareStatement("update JOUEUR set pseudo=?, email=?, mdp=?, avatar=?, etat=?, desactive=?, admin=?");
+            PreparedStatement ps = c.prepareStatement("update JOUEUR set pseudo=?, email=?, mdp=?, " +
+                                                    "avatar=?, etat=?, desactive=?, admin=?");
             completeStatement(p, ps);
             ps.executeUpdate();
         } catch (SQLException throwables) {
@@ -157,43 +186,68 @@ public class DatabaseConnection {
 
 
 
-    public ArrayList<Game> getGameList() {      // TODO
+    public ArrayList<Game> getGameList() {
         ArrayList<Game> gameList = new ArrayList<>();
         try {
-            PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER;");
+            PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER");
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                if (rs.getString("plate").equals("Puissance 4")){
-                    Game g = new FourInARow(this.getPlayer(rs.getString("pseudo")), this.getPlayer(rs.getString("adversaire")));
+                if (rs.getString("nomJeu").equals("Puissance 4")){
+                    Game g = new FourInARow(this.getPlayer(rs.getString("pseudo")),
+                            this.getPlayer(rs.getString("adversaire")),
+                            this.getPlayer(rs.getString("currentPlayer")),
+                            rs.getString("plate"),
+                            rs.getDate("startTime"),
+                            rs.getDate("finishTime"),
+                            rs.getInt("elementPlaced"),
+                            rs.getInt("gameID"),
+                            rs.getInt("state"),
+                            rs.getInt("score"),
+                            rs.getString("nomJeu"),
+                            this.getPlayer(rs.getString("winner")),
+                            this.getPlayer(rs.getString("looser"))
+                            );
+                    gameList.add(g);
                 }
-                int gameID = rs.getInt("gameID");
-                String nomJeu = rs.getString("nomJeu");
-                String plate = rs.getString("plate");
-                String currentPlayer = rs.getString("currentPlayer");
-                int state = rs.getInt("state");
-                java.sql.Date startTime = rs.getDate("startTime");
-                java.sql.Date finishTime = rs.getDate("finishTime");
-                int elementPlaced = rs.getInt("elementPlaced");
-                String winner = rs.getString("winner");
-                String looser = rs.getString("looser");
-                String pseudo = rs.getString("pseudo");
-                String adversaire = rs.getString("adversaire");
-                int score = rs.getInt("score");
-
             }
-
+            return gameList;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return new ArrayList<>();
+        return null;
     }
 
     public String getFourInRowPlate(Game g) {       //TODO
         return "";
     }
 
-    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) { // TODO
-        return new ArrayList<Message>();
+    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
+        ArrayList<Message> messageArrayList = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = c.prepareStatement(
+                    "select contenumessage, datemessage " +
+                            "from MESSAGE natural join COMMUNIQUER " +
+                            "where pseudo=? and destinataire=?" +
+                            "order by datemessage"
+            );
+
+            ps.setString(1, sender.getPseudo());
+            ps.setString(2, receiver.getPseudo());
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while(resultSet.next()) {
+                messageArrayList.add(
+                        new Message(resultSet.getString("contenumessage"),
+                                resultSet.getDate("datemessage").toString())
+                );
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return messageArrayList;
     }
 
     public void addNewGame(Player p1, Player p2, Game g) {
@@ -215,6 +269,8 @@ public class DatabaseConnection {
         }
     }
 
+
+    /********** INVITATIONS **********/
     public int getMaxIdInv() {
         try {
             PreparedStatement ps = c.prepareStatement("select idinv from INVITATION natural join INVITER order by idinv DESC");
