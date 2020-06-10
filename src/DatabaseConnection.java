@@ -73,13 +73,6 @@ public class DatabaseConnection {
         return etat;
     }
 
-
-    /* Remplace connecteJoueur et décoJ
-        DISCONNECTED = 0
-        CONNECTED    = 1
-        AFK          = 2
-        DND          = 3
-    */
     public void setStatus(Player p, int etat) {
         try{
             PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
@@ -160,8 +153,6 @@ public class DatabaseConnection {
         }
     }
 
-
-
     public ArrayList<Game> getGameList() {      // TODO
         ArrayList<Game> gameList = new ArrayList<>();
         try {
@@ -198,7 +189,7 @@ public class DatabaseConnection {
         return "";
     }
 
-    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
+    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) { // TODO
         return new ArrayList<Message>();
     }
 
@@ -211,16 +202,11 @@ public class DatabaseConnection {
             ps.setString(3, "contenuGrille");       // TODO
             ps.setString(4, p1.getPseudo());
             ps.executeUpdate();
-        } catch (SQLException exception){
-            exception.printStackTrace();
-        }
-        // Ajout dans la table JOUER
-        try {
-            PreparedStatement ps = c.prepareStatement("insert into JOUER values (?,?,?,0)");
-            ps.setString(1, p1.getPseudo());
-            ps.setString(2, p2.getPseudo());
-            ps.setInt(3, this.getMaxIDGame() + 1);
-            ps.executeQuery();
+            PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
+            ps2.setString(1, p1.getPseudo());
+            ps2.setString(2, p2.getPseudo());
+            ps2.setInt(3, this.getMaxIDGame() + 1);
+            ps2.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
