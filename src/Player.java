@@ -9,22 +9,22 @@ public class Player {
     private String pseudo;
     private String email;
     private String mdp;
-    private ArrayList<Byte> avatar;
+    private byte[] avatar;
     private ArrayList<Player> friends;
     private int etat;
-    private boolean activated;
+    private boolean desactivated;
     private boolean admin;
     private DatabaseConnection DB;
 
-    public Player(String pseudo, String email, String mdp, ArrayList<Byte> avatar, int etat, boolean activated, boolean admin, ArrayList<Player> friends) {
+    public Player(String pseudo, String email, String mdp, byte[] avatar, int etat, boolean desactivated, boolean admin) {
         this.pseudo = pseudo;
         this.email = email;
         this.mdp = mdp;
         this.avatar = avatar;
         this.etat = etat;
-        this.activated = activated;
+        this.desactivated = desactivated;
         this.admin = admin;
-        this.friends = friends;
+        this.friends = new ArrayList<>();
     }
 
     public String getPseudo() {
@@ -51,11 +51,11 @@ public class Player {
         this.mdp = mdp;
     }
 
-    public ArrayList<Byte> getAvatar() {
+    public byte[] getAvatar() {
         return this.avatar;
     }
 
-    public void setAvatar(ArrayList<Byte> avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
@@ -68,11 +68,11 @@ public class Player {
     }
 
     public boolean isActivated() {
-        return this.activated;
+        return this.desactivated;
     }
 
-    public void setActivated(boolean activated) {
-        this.activated = activated;
+    public void setActivated(boolean desactivated) {
+        this.desactivated = desactivated;
     }
 
     public boolean isAdmin() {
@@ -89,5 +89,18 @@ public class Player {
 
     public void setFriends(ArrayList<Player> friends) {
         this.friends = friends;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "pseudo='" + pseudo + '\'' +
+                ", email='" + email + '\'' +
+                ", mdp='" + mdp + '\'' +
+                ", friends=" + friends +
+                ", etat=" + etat +
+                ", desactivated=" + desactivated +
+                ", admin=" + admin +
+                '}';
     }
 }

@@ -34,15 +34,12 @@ public class DatabaseConnection{
             PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=? and mdp=?");
             ps.setString(1, pseudo);
             ps.setString(2, password);
-
             ResultSet rs = ps.executeQuery();
-
             if(rs.next())
                 return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
@@ -110,7 +107,59 @@ public class DatabaseConnection{
         return new ArrayList<Player>();
     }
 
+    public Player getPlayer(String pseudo) {
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=?");
+            ps.setString(1, pseudo);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Player p = new Player(
+                        rs.getString("pseudo"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        rs.getBytes("avatar"),
+                        rs.getInt("etat"),
+                        rs.getBoolean("desactive"),
+                        rs.getBoolean("admin")
+                        );
+                return p;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+
     public ArrayList<Game> getGameList() {          // TODO
+        ArrayList<Game> gameList = new ArrayList<>();
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER;");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                if (rs.getString("plate").equals("Puissance 4")){
+                    // Game g = new FourInARow()    // TODO
+                }
+                    /********* EN TRAVAUX !!!!!!!!! *********/
+                int gameID = rs.getInt("gameID");
+                String nomJeu = rs.getString("nomJeu");
+                String plate = rs.getString("plate");
+                String currentPlayer = rs.getString("currentPlayer");
+                int state = rs.getInt("state");
+                java.sql.Date startTime = rs.getDate("startTime");
+                java.sql.Date finishTime = rs.getDate("finishTime");
+                int elementPlaced = rs.getInt("elementPlaced");
+                String winner = rs.getString("winner");
+                String looser = rs.getString("looser");
+                String pseudo = rs.getString("pseudo");
+                String adversaire = rs.getString("adversaire");
+                int score = rs.getInt("score");
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return new ArrayList<>();
     }
 
