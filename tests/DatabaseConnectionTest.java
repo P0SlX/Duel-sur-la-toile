@@ -87,9 +87,9 @@ class DatabaseConnectionTest {
         Player chef  = db.getPlayer("Le chef");
 
         ArrayList<Message> messages = db.getPlayerMessage(ananas, posix);
-        assertTrue(messages.size() == 2);
+        assertEquals(messages.size(), 2);
 
         messages = db.getPlayerMessage(ananas, chef);
-        assertTrue(messages.size() == 1);
+        assertEquals(messages.size(), 1);
     }
 }
