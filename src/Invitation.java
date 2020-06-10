@@ -5,7 +5,7 @@ public interface Invitation {
 
     public Player getSender();
     public Player getReceiver();
-    public String getEmissionDate();
+    public java.sql.Date getEmissionDate();
     public int getEtatInv();
     public int getId();
 

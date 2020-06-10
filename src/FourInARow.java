@@ -8,8 +8,8 @@ public class FourInARow implements Game {
     private final Player player2;
     private Player currentPlayer;
     private String plate;
-    private String startTime;
-    private String finishTime;
+    private java.sql.Date startTime;
+    private java.sql.Date finishTime;
     private int elementPlaced;
     private int gameID;
     private int state;
@@ -23,8 +23,8 @@ public class FourInARow implements Game {
         this.player2 = player2;
         this.currentPlayer = player1;
         this.plate = "";        // TODO
-        this.startTime = "";
-        this.finishTime = "";
+        this.startTime = null;
+        this.finishTime = null;
         this.elementPlaced = 0;
         this.gameID = -1;
         this.nomJeu = "Puissance 4";
@@ -45,12 +45,12 @@ public class FourInARow implements Game {
     }
 
     @Override
-    public String getStartTime() {
+    public java.sql.Date getStartTime() {
         return this.startTime;
     }
 
     @Override
-    public String getFinishTime() {
+    public java.sql.Date getFinishTime() {
         return this.finishTime;
     }
 
@@ -131,12 +131,12 @@ public class FourInARow implements Game {
     }
 
     @Override
-    public void setStartTime(String startTime) {
+    public void setStartTime(java.sql.Date startTime) {
         this.startTime = startTime;
     }
 
     @Override
-    public void setFinishTime(String finishTime) {
+    public void setFinishTime(java.sql.Date finishTime) {
         this.finishTime = finishTime;
     }
 

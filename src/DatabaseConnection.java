@@ -58,7 +58,7 @@ public class DatabaseConnection {
         return -1;
     }
 
-    public int getStatus(Player p) {  // Anciennement isConnected
+    public int getStatus(Player p) {
         int etat = 0;
         try {
             PreparedStatement ps = c.prepareStatement("select etat from JOUEUR where pseudo = ?");
@@ -100,6 +100,8 @@ public class DatabaseConnection {
         return new ArrayList<Player>();
     }
 
+
+    /********** PLAYER **********/
     public Player getPlayer(String pseudo) {
         try {
             PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=?");
@@ -153,6 +155,8 @@ public class DatabaseConnection {
         }
     }
 
+
+
     public ArrayList<Game> getGameList() {      // TODO
         ArrayList<Game> gameList = new ArrayList<>();
         try {
@@ -160,9 +164,8 @@ public class DatabaseConnection {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 if (rs.getString("plate").equals("Puissance 4")){
-                    // Game g = new FourInARow()    // TODO
+                    Game g = new FourInARow(this.getPlayer(rs.getString("pseudo")), this.getPlayer(rs.getString("adversaire")));
                 }
-                    /********* EN TRAVAUX !!!!!!!!! *********/
                 int gameID = rs.getInt("gameID");
                 String nomJeu = rs.getString("nomJeu");
                 String plate = rs.getString("plate");
@@ -206,6 +209,38 @@ public class DatabaseConnection {
             ps2.setString(1, p1.getPseudo());
             ps2.setString(2, p2.getPseudo());
             ps2.setInt(3, this.getMaxIDGame() + 1);
+            ps2.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public int getMaxIdInv() {
+        try {
+            PreparedStatement ps = c.prepareStatement("select idinv from INVITATION natural join INVITER order by idinv DESC");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("idinv");
+            } else {
+                return 0;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
+    }
+
+    public void createInv(Player expediteur, Player destinataire) {
+        try {
+            PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?)");
+            int gameId = this.getMaxIdInv() + 1;
+            ps.setInt(1, gameId);
+            ps.setInt(2, GameInvitation.PENDING);
+            ps.executeUpdate();
+            PreparedStatement ps2 = c.prepareStatement("insert into INVITER values (?, ?, ?)");
+            ps2.setString(1, expediteur.getPseudo());
+            ps2.setString(2, destinataire.getPseudo());
+            ps2.setInt(3, gameId);
             ps2.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

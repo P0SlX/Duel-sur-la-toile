@@ -13,9 +13,11 @@ public class Executable {
 
         System.out.println(c.getPlayer("p0slx"));
         c.getGameList();
-        c.getPlayer("p0slx");
-        Player p = new Player("test", "test@gmail.com", "cocopops", null, 0, false, false);
-        c.createPlayer(p);
+        //Player p = new Player("test", "test@gmail.com", "cocopops", null, 0, false, false);
+        //c.createPlayer(p);
+        Player coco = c.getPlayer("Coco");
+        Player p0slx = c.getPlayer("p0slx");
+        c.createInv(coco, p0slx);
 
     }
 }

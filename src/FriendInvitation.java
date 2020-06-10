@@ -2,11 +2,11 @@ public class FriendInvitation implements Invitation {
 
     private Player emitter;
     private Player receiver;
-    private String emissionDate;
+    private java.sql.Date emissionDate;
     private int etatInv;
     private int id;
 
-    public FriendInvitation(Player emitter, Player receiver, String emissionDate) {
+    public FriendInvitation(Player emitter, Player receiver, java.sql.Date emissionDate) {
         this.emitter = emitter;
         this.receiver = receiver;
         this.emissionDate = emissionDate;
@@ -25,7 +25,7 @@ public class FriendInvitation implements Invitation {
     }
 
     @Override
-    public String getEmissionDate() {
+    public java.sql.Date getEmissionDate() {
         return emissionDate;
     }
 
