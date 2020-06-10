@@ -1,9 +1,6 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -15,6 +12,7 @@ public class MainView extends Application {
 
     private SceneController sceneController;
     private Scene scene;
+    private DatabaseConnection databaseConnection;
 
     private AnchorPane loadRootWithController(String fxmlPath) throws FxmlLoadingError {
         try {
@@ -23,6 +21,7 @@ public class MainView extends Application {
             AnchorPane root = loader.load();
             Controller controller = loader.getController();
             controller.setSceneController(this.sceneController);
+            controller.setDatabaseConnection(databaseConnection);
 
             return root;
         } catch (Exception e) {
@@ -49,20 +48,23 @@ public class MainView extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        this.databaseConnection = new DatabaseConnection();
+
         try {
             this.scene = new Scene(new Pane());
             this.sceneController = new SceneController(scene);
+            this.databaseConnection.connexion();
 
             Pane loginScene = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane((loadRootWithController("UI/Inscription.fxml")));
-            //Pane mainMenuScene   = new Pane(loadRoot("UI/Menu_principal.fxml"));
+            Pane mainMenuScene   = new Pane(loadRoot("UI/Menu_principal.fxml"));
             //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
             //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
 
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);
-            //sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
+            sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
             //sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
             //sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
 
@@ -75,6 +77,7 @@ public class MainView extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }

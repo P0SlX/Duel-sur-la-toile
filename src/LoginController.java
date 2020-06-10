@@ -1,6 +1,8 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
@@ -13,13 +15,30 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private Button connect;
 
+    @FXML
+    private TextField pseudo;
+
+    @FXML
+    private TextField password;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
     @FXML
     private void onSignInAction() {
-        // TODO
+        String pseudo = this.pseudo.getText();
+        String password = this.password.getText();
+
+        if(databaseConnection.connectPlayer(pseudo, password)) {
+            sceneController.showScene(SceneController.ViewType.MainMenu);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login error");
+            alert.setHeaderText("Oops, an error just occurred !");
+            alert.setContentText("Your login or password are not correct.\nPlease try again.");
+            alert.show();
+        }
     }
 
     @FXML

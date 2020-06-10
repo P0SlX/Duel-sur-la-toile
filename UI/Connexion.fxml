@@ -53,12 +53,14 @@
                   <Font size="30.0" />
                </font>
             </Text>
-            <TextField alignment="CENTER" layoutX="167.0" layoutY="170.0" promptText="Pseudo" style="-fx-prompt-text-fill: WHITE;">
+            <TextField alignment="CENTER" layoutX="167.0" layoutY="170.0" promptText="Pseudo" style="-fx-prompt-text-fill: WHITE;"
+                fx:id="pseudo">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <PasswordField alignment="CENTER" layoutX="167.0" layoutY="255.0" promptText="Password">
+            <PasswordField alignment="CENTER" layoutX="167.0" layoutY="255.0" promptText="Password"
+                fx:id="password">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
