@@ -14,6 +14,8 @@ public class MainView extends Application {
     private Scene scene;
     private DatabaseConnection databaseConnection;
 
+    private MainMenuController mainMenuController;
+
     private AnchorPane loadRootWithController(String fxmlPath) throws FxmlLoadingError {
         try {
             URL url = new File(fxmlPath).toURI().toURL();
@@ -22,6 +24,12 @@ public class MainView extends Application {
             Controller controller = loader.getController();
             controller.setSceneController(this.sceneController);
             controller.setDatabaseConnection(databaseConnection);
+
+            if(controller instanceof LoginController) {
+                LoginController loginController = (LoginController)controller;
+                loginController.setMainMenuController(mainMenuController);
+            } else if(controller instanceof MainMenuController)
+                this.mainMenuController = (MainMenuController)controller;
 
             return root;
         } catch (Exception e) {
@@ -55,9 +63,9 @@ public class MainView extends Application {
             this.sceneController = new SceneController(scene);
             this.databaseConnection.connexion();
 
-            Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
-            Pane registerScene   = new Pane((loadRootWithController("UI/Inscription.fxml")));
             Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
+            Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
+            Pane registerScene   = new Pane(loadRootWithController("UI/Inscription.fxml"));
             //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
             //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
 
