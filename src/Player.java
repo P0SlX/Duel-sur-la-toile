@@ -71,7 +71,7 @@ public class Player {
         return this.desactivated;
     }
 
-    public void setDectivated(boolean desactivated) {
+    public void setDesactivated(boolean desactivated) {
         this.desactivated = desactivated;
     }
 
