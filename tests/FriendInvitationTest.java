@@ -42,7 +42,6 @@ class FriendInvitationTest {
         Date d2 = new Date(2021,6,3);
         Player p = db.getPlayer("Coco");
         Player p2 = db.getPlayer("Jordan");
-        Player p3 = db.getPlayer("L'ananas");
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
         assertEquals(f1.getEmissionDate(), d1);
         assertNotEquals(f1.getEmissionDate(), d2);
@@ -56,7 +55,6 @@ class FriendInvitationTest {
         Date d1 = new Date(2020,5,6);
         Player p = db.getPlayer("Coco");
         Player p2 = db.getPlayer("Jordan");
-        Player p3 = db.getPlayer("L'ananas");
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
         assertEquals(f1.getEtatInv(), 0);
         assertNotEquals(f1.getEtatInv(), 5);
@@ -69,7 +67,6 @@ class FriendInvitationTest {
         Date d1 = new Date(2020,5,6);
         Player p = db.getPlayer("Coco");
         Player p2 = db.getPlayer("Jordan");
-        Player p3 = db.getPlayer("L'ananas");
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
         assertEquals(f1.getId(),1);
         assertNotEquals(f1.getId(),45);
@@ -82,7 +79,6 @@ class FriendInvitationTest {
         Date d1 = new Date(2020,5,6);
         Player p = db.getPlayer("Coco");
         Player p2 = db.getPlayer("Jordan");
-        Player p3 = db.getPlayer("L'ananas");
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
         f1.accept();
         assertEquals(f1.getEtatInv(),1);
@@ -96,7 +92,6 @@ class FriendInvitationTest {
         Date d1 = new Date(2020,5,6);
         Player p = db.getPlayer("Coco");
         Player p2 = db.getPlayer("Jordan");
-        Player p3 = db.getPlayer("L'ananas");
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
         f1.decline();
         assertEquals(f1.getEtatInv(),-1);
