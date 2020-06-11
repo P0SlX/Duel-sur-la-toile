@@ -44,7 +44,7 @@ public class LoginController extends Controller implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login error");
             alert.setHeaderText("Oops, an error just occurred !");
-            alert.setContentText("Your login or password are not correct.\nPlease try again.");
+            alert.setContentText("Incorrect username or password.\nPlease try again.");
             alert.show();
         }
     }

@@ -78,7 +78,7 @@ public class FourInARow implements Game {
 
     @Override
     public long getGameDuration() {
-        return finishTime.getTime() - startTime.getTime(); //TODO
+        return finishTime.getTime() - startTime.getTime();
     }
 
     @Override
