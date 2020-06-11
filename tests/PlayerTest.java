@@ -104,7 +104,7 @@ class PlayerTest {
     }
 
     @Test
-    void isDesactivated() {
+    void isDeactivated() {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -115,7 +115,7 @@ class PlayerTest {
     }
 
     @Test
-    void setDectivated() {
+    void setDeactivated() {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
