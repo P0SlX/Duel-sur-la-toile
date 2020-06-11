@@ -80,6 +80,9 @@ public class MainView extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Duel sur la toile");
             primaryStage.show();
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
