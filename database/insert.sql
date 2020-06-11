@@ -40,6 +40,16 @@ insert into JOUEUR values (
 );
 
 insert into JOUEUR values (
+    "admin",
+    "admin@gmail.com",
+    "admin",
+    "admin.png",
+    0,
+    false,
+    True
+);
+
+insert into JOUEUR values (
     "Le Chef",
     "gendarmerie@gmail.com",
     "password",
@@ -90,6 +100,31 @@ insert into ETREAMIS values (
 insert into ETREAMIS values (
     "L'ananas",
     "Jordan"
+);
+
+insert into ETREAMIS values (
+    "admin",
+    "L'ananas"
+);
+
+insert into ETREAMIS values (
+    "admin",
+    "Jordan"
+);
+
+insert into ETREAMIS values (
+    "admin",
+    "Le Chef"
+);
+
+insert into ETREAMIS values (
+    "admin",
+    "p0slx"
+);
+
+insert into ETREAMIS values (
+    "admin",
+    "Coco"
 );
 
 
