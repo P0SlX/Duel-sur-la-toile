@@ -51,6 +51,9 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     private AnchorPane messageZone;
 
+    @FXML
+    private Button fourInARow;
+
     private Player loggedPlayer;
 
     @Override
@@ -61,6 +64,11 @@ public class MainMenuController extends Controller implements Initializable {
     public void onDisconnectAction() {
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
         sceneController.showScene(SceneController.ViewType.Login);
+    }
+
+    @FXML
+    public void onFourInARowAction() {
+        sceneController.showScene(SceneController.ViewType.OngoingGames);
     }
 
     /**
@@ -78,6 +86,10 @@ public class MainMenuController extends Controller implements Initializable {
 
         for(Player p : friends)
             addFriend(p);
+    }
+
+    public Player getLoggedPlayer() {
+        return this.loggedPlayer;
     }
 
     private void addFriend(Player friend) {

@@ -1,10 +1,6 @@
 import org.junit.jupiter.api.Test;
-import javax.xml.crypto.Data;
 
 import java.sql.*;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +31,7 @@ class DatabaseConnectionTest {
         p = db.getPlayer("Coco");
 
         assertEquals(p.getPseudo(), "Coco");
-        assertFalse(p.isDesactivated());
+        assertFalse(p.isDeactivated());
         assertFalse(p.isAdmin());
         assertEquals(p.getEmail(), "cocolastico@gmail.com");
         assertEquals(p.getEtat(), 0);
