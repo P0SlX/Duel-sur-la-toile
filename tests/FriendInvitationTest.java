@@ -86,6 +86,7 @@ class FriendInvitationTest {
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
         f1.accept();
         assertEquals(f1.getEtatInv(),1);
+        assertNotEquals(f1.getEtatInv(),0);
     }
 
     @Test
@@ -99,5 +100,6 @@ class FriendInvitationTest {
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
         f1.decline();
         assertEquals(f1.getEtatInv(),-1);
+        assertNotEquals(f1.getEtatInv(),1);
     }
 }
