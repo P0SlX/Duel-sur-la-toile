@@ -26,7 +26,7 @@ public class Player {
         this.admin = admin;
         this.friends = null;
     }
-
+    
     public String getPseudo() {
         return this.pseudo;
     }
