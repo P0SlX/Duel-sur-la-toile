@@ -127,6 +127,7 @@ public class MainMenuController extends Controller implements Initializable {
     private void loadMessage(Player sender) {
         ArrayList<Message> messages = databaseConnection.getPlayerMessage(this.loggedPlayer, sender);
 
+        messageList.getChildren().clear();
         messageZone.setVisible(true);
         senderPseudo.setText(sender.getPseudo());
 
