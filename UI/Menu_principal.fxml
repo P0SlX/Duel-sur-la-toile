@@ -73,7 +73,7 @@
                   <Image url="@kalouz.png" />
                </image>
             </Avatar>
-            <Label alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" />
+            <Label alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" fx:id="senderPseudo"/>
             <Separator layoutY="63.0" prefHeight="16.0" prefWidth="250.0" styleClass="separator-message" />
             <VBox layoutY="82.0" prefWidth="250.0" fx:id="messageList">
                <children>
