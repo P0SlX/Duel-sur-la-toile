@@ -45,6 +45,12 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     private VBox messageList;
 
+    @FXML
+    private Label senderPseudo;
+
+    @FXML
+    private AnchorPane messageZone;
+
     private Player loggedPlayer;
 
     @Override
@@ -144,6 +150,10 @@ public class MainMenuController extends Controller implements Initializable {
 
     private void loadMessage(Player sender) {
         ArrayList<Message> messages = databaseConnection.getPlayerMessage(this.loggedPlayer, sender);
+
+        messageList.getChildren().clear();
+        messageZone.setVisible(true);
+        senderPseudo.setText(sender.getPseudo());
 
         for(Message m : messages) {
             HBox messageVBox = new HBox();
