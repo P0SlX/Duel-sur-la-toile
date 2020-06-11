@@ -15,7 +15,7 @@ create table JOUEUR (
     pseudo varchar(30) unique,
     email varchar(50) unique,
     mdp varchar(50),
-    avatar longblob,
+    avatar blob(3000000),
     etat int,
     desactive boolean,
     admin boolean,
