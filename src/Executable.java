@@ -18,7 +18,7 @@ public class Executable {
         //c.updatePlayer(coco);
 
 
-        c.createInv(coco, p0slx);
-        c.changeStateInv();
+        //c.createInv(coco, p0slx);
+        //c.changeStateInv();
     }
 }
