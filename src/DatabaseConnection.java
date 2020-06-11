@@ -1,8 +1,5 @@
-import javax.print.DocFlavor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import  java.sql.*;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseConnection {
@@ -102,7 +99,6 @@ public class DatabaseConnection {
     }
 
     public void updatePlayer(Player p) {
-        FileInputStream fis;
         try {
             PreparedStatement ps = c.prepareStatement("update JOUEUR set mdp=?, avatar=?, etat=?, desactive=?, admin=? where pseudo=?");
             ps.setString(1, p.getMdp());
@@ -350,12 +346,13 @@ public class DatabaseConnection {
         return null;
     }
 
-    public void createInv(Player expediteur, Player destinataire) {
+    public void createInv(Player expediteur, Player destinataire, boolean type) {
         try {
-            PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?)");
+            PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?, ?)");
             int gameId = this.getMaxIdInv() + 1;
             ps.setInt(1, gameId);
             ps.setInt(2, GameInvitation.PENDING);
+            ps.setBoolean(3, type);
             ps.executeUpdate();
             PreparedStatement ps2 = c.prepareStatement("insert into INVITER values (?, ?, ?)");
             ps2.setString(1, expediteur.getPseudo());
