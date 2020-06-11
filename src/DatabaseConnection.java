@@ -246,6 +246,25 @@ public class DatabaseConnection {
         return null;
     }
 
+    public void addNewGame(Player p1, Player p2, Game g) {
+        // Ajout dans la table PARTIE
+        try {
+            PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
+            ps.setInt(1, this.getMaxIDGame() + 1);
+            ps.setString(2, g.getNomJeu());
+            ps.setString(3, "contenuGrille");       // TODO
+            ps.setString(4, p1.getPseudo());
+            ps.executeUpdate();
+            PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
+            ps2.setString(1, p1.getPseudo());
+            ps2.setString(2, p2.getPseudo());
+            ps2.setInt(3, this.getMaxIDGame() + 1);
+            ps2.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public String getFourInRowPlate(Game g) {       //TODO
         return "";
     }
@@ -279,24 +298,6 @@ public class DatabaseConnection {
         return messageArrayList;
     }
 
-    public void addNewGame(Player p1, Player p2, Game g) {
-        // Ajout dans la table PARTIE
-        try {
-            PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
-            ps.setInt(1, this.getMaxIDGame() + 1);
-            ps.setString(2, g.getNomJeu());
-            ps.setString(3, "contenuGrille");       // TODO
-            ps.setString(4, p1.getPseudo());
-            ps.executeUpdate();
-            PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
-            ps2.setString(1, p1.getPseudo());
-            ps2.setString(2, p2.getPseudo());
-            ps2.setInt(3, this.getMaxIDGame() + 1);
-            ps2.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 
 
     /********** INVITATIONS **********/
