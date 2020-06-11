@@ -54,6 +54,9 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     private Button fourInARow;
 
+    @FXML
+    private Avatar avatar;
+
     private Player loggedPlayer;
 
     @Override
@@ -82,6 +85,8 @@ public class MainMenuController extends Controller implements Initializable {
 
         this.pseudo.setText(player.getPseudo());
         this.ratio.setText("Ratio : Unknown"); // TODO: When player statistics will be done
+
+        avatar.setImage(player.getPlayerAvatar());
 
         ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
 
@@ -138,13 +143,13 @@ public class MainMenuController extends Controller implements Initializable {
 
         try {
             avatar.setImage(new Image(new FileInputStream("UI/assets/kalouz.png")));
-            Ellipse rond = new Ellipse();
-            rond.setCenterX(200);
-            rond.setRadiusX(30);
-            rond.setRadiusY(30);
-            avatar.setClip(rond);
-            rond.setCenterX(30);
-            rond.setCenterY(30);
+            Ellipse circle = new Ellipse();
+            circle.setCenterX(200);
+            circle.setRadiusX(30);
+            circle.setRadiusY(30);
+            avatar.setClip(circle);
+            circle.setCenterX(30);
+            circle.setCenterY(30);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

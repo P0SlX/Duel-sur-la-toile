@@ -1,3 +1,6 @@
+import javafx.scene.image.Image;
+
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -77,13 +80,16 @@ public class DatabaseConnection {
         try {
             PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=?");
             ps.setString(1, pseudo);
+
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+
+
                 Player p = new Player(
                         rs.getString("pseudo"),
                         rs.getString("email"),
                         rs.getString("mdp"),
-                        rs.getBytes("avatar"),
+                        loadImageFromStream(rs.getBinaryStream("avatar"), pseudo),
                         rs.getInt("etat"),
                         rs.getBoolean("desactive"),
                         rs.getBoolean("admin")
@@ -101,7 +107,7 @@ public class DatabaseConnection {
         try {
             PreparedStatement ps = c.prepareStatement("update JOUEUR set mdp=?, avatar=?, etat=?, desactive=?, admin=? where pseudo=?");
             ps.setString(1, p.getMdp());
-            ps.setBytes(2, p.getAvatar());
+            ps.setBytes(2, null); // TODO: File stream
             ps.setInt(3, p.getEtat());
             ps.setBoolean(4, p.isDeactivated());
             ps.setBoolean(5, p.isAdmin());
@@ -114,16 +120,20 @@ public class DatabaseConnection {
 
     public void createPlayer(Player p) {
         try {
+
+            File playerAvatarFile = new File(p.getAvatar());
+            FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
+
             PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
             ps.setString(1, p.getPseudo());
             ps.setString(2, p.getEmail());
             ps.setString(3, p.getMdp());
-            ps.setBytes(4, p.getAvatar());
+            ps.setBinaryStream(4, fileInputStream, (int)playerAvatarFile.length());
             ps.setInt(5, p.getEtat());
             ps.setBoolean(6, p.isDeactivated());
             ps.setBoolean(7, p.isAdmin());
             ps.executeQuery();
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
     }
@@ -168,7 +178,7 @@ public class DatabaseConnection {
                         rs.getString("pseudo"),
                         rs.getString("email"),
                         rs.getString("mdp"),
-                        rs.getBytes("avatar"),
+                        loadImageFromStream(rs.getBinaryStream("avatar"), p.getPseudo()),
                         rs.getInt("etat"),
                         rs.getBoolean("desactive"),
                         rs.getBoolean("admin")
@@ -374,5 +384,28 @@ public class DatabaseConnection {
 
     }
     /***************************/
+
+    Image loadImageFromStream(InputStream inputStream, String pseudo) {
+        String fileName = String.format("user_%s.png", pseudo);
+        try {
+            File avatar = new File(fileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(avatar);
+
+            byte[] buff = new byte[1024]; // Read 1kio block
+            int fileLength = 0;
+
+            while((fileLength = inputStream.read(buff)) != -1)
+                fileOutputStream.write(buff, 0, fileLength);
+
+            // Flush it to the file
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            return new Image(new FileInputStream("./" + fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
 }

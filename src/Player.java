@@ -1,3 +1,6 @@
+import com.sun.javafx.css.CalculatedValue;
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -9,14 +12,15 @@ public class Player {
     private String pseudo;
     private String email;
     private String mdp;
-    private byte[] avatar;
+    private String avatar;
+    private Image playerAvatar;
     private ArrayList<Player> friends;
     private int etat;
     private boolean desactivated;
     private boolean admin;
     private DatabaseConnection DB;
 
-    public Player(String pseudo, String email, String mdp, byte[] avatar, int etat, boolean desactivated, boolean admin) {
+    public Player(String pseudo, String email, String mdp, String avatar, int etat, boolean desactivated, boolean admin) {
         this.pseudo = pseudo;
         this.email = email;
         this.mdp = mdp;
@@ -25,6 +29,18 @@ public class Player {
         this.desactivated = desactivated;
         this.admin = admin;
         this.friends = null;
+    }
+
+    public Player(String pseudo, String email, String mdp, Image playerAvatar, int etat, boolean desactivated, boolean admin) {
+        this.pseudo = pseudo;
+        this.email = email;
+        this.mdp = mdp;
+        this.avatar = new String();
+        this.etat = etat;
+        this.desactivated = desactivated;
+        this.admin = admin;
+        this.friends = null;
+        this.playerAvatar = playerAvatar;
     }
 
     public String getPseudo() {
@@ -51,11 +67,11 @@ public class Player {
         this.mdp = mdp;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return this.avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -102,5 +118,13 @@ public class Player {
                 ", desactivated=" + desactivated +
                 ", admin=" + admin +
                 '}';
+    }
+
+    public Image getPlayerAvatar() {
+        return playerAvatar;
+    }
+
+    public void setPlayerAvatar(Image playerAvatar) {
+        this.playerAvatar = playerAvatar;
     }
 }
