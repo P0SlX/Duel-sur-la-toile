@@ -196,7 +196,6 @@ public class DatabaseConnection {
         }
     }
 
-
     public void createPlayer(Player p) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
@@ -212,7 +211,7 @@ public class DatabaseConnection {
             throwables.printStackTrace();
         }
     }
-
+    /***************************/
 
 
     public ArrayList<Game> getGameList() {
