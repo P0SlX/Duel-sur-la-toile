@@ -18,6 +18,6 @@ public class Executable {
         //c.updatePlayer(coco);
 
 
-        //c.createInv(coco, p0slx);
+        c.createInv(coco, p0slx,false);
     }
 }

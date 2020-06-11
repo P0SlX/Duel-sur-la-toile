@@ -110,7 +110,6 @@ class DatabaseConnectionTest {
 
         Connection c = db.getConnexion();
 
-        Statement req = c.createStatement();
         String reqS = "select MAX(idinv) from INVITATION";
         PreparedStatement ps =c.prepareStatement(reqS);
         ResultSet rs = ps.executeQuery();
@@ -118,12 +117,23 @@ class DatabaseConnectionTest {
         System.out.println(rs.getString(1));
         System.out.println(db.getMaxIdInv());
         assertEquals(db.getMaxIdInv(), (rs.getInt(1)));
-
     }
 
 
     @Test
-    void changeStateInv() {
+    void createInv() throws SQLException {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
 
+        Player p = db.getPlayer("Coco");
+        Player p2 = db.getPlayer("L'ananas");
+        db.createInv(p,p2, Invitation.INVFRIEND);
+
+        Connection c = db.getConnexion();
+        String reqS = "select * from INVITATION where idinv IN(select MAX(idinv) from INVITATION)";
+        PreparedStatement ps = c.prepareStatement(reqS);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        System.out.println(rs.getString(1));
     }
 }
