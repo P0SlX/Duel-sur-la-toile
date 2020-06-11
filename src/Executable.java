@@ -17,5 +17,8 @@ public class Executable {
         //coco.setAdmin(true);
         //c.updatePlayer(coco);
 
+
+        c.createInv(coco, p0slx);
+        c.changeStateInv();
     }
 }

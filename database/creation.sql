@@ -32,6 +32,9 @@ create table INVITATION (
     idinv int unique,
     dateinv date,
     etatinv int,
+    type boolean,
+    -- False:friend
+    -- True:jeu
     PRIMARY KEY (idinv)
 );
 
