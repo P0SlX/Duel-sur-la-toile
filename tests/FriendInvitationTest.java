@@ -84,7 +84,8 @@ class FriendInvitationTest {
         Player p2 = db.getPlayer("Jordan");
         Player p3 = db.getPlayer("L'ananas");
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
-        //TODO
+        f1.accept();
+        assertEquals(f1.getEtatInv(),1);
     }
 
     @Test
@@ -96,6 +97,7 @@ class FriendInvitationTest {
         Player p2 = db.getPlayer("Jordan");
         Player p3 = db.getPlayer("L'ananas");
         FriendInvitation f1 = new FriendInvitation(p,p2,d1,0,1);
-        //TODO
+        f1.decline();
+        assertEquals(f1.getEtatInv(),-1);
     }
 }
