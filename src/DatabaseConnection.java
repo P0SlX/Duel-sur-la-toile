@@ -1,4 +1,3 @@
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -104,7 +103,7 @@ public class DatabaseConnection {
             ps.setString(1, p.getMdp());
             ps.setBytes(2, p.getAvatar());
             ps.setInt(3, p.getEtat());
-            ps.setBoolean(4, p.isDesactivated());
+            ps.setBoolean(4, p.isDeactivated());
             ps.setBoolean(5, p.isAdmin());
             ps.setString(6, p.getPseudo());
             ps.executeUpdate();
@@ -121,7 +120,7 @@ public class DatabaseConnection {
             ps.setString(3, p.getMdp());
             ps.setBytes(4, p.getAvatar());
             ps.setInt(5, p.getEtat());
-            ps.setBoolean(6, p.isDesactivated());
+            ps.setBoolean(6, p.isDeactivated());
             ps.setBoolean(7, p.isAdmin());
             ps.executeQuery();
         } catch (SQLException throwables) {

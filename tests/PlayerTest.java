@@ -104,24 +104,24 @@ class PlayerTest {
     }
 
     @Test
-    void isDesactivated() {
+    void isDeactivated() {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
         Player e = db.getPlayer("Lanka");
-        assertFalse( p.isDesactivated());
-        assertTrue(e.isDesactivated());
+        assertFalse( p.isDeactivated());
+        assertTrue(e.isDeactivated());
 
     }
 
     @Test
-    void setDectivated() {
+    void setDeactivated() {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        p.setDectivated(true);
-        assertTrue(p.isDesactivated());
-        p.setDectivated(false);
+        p.setDeactivated(true);
+        assertTrue(p.isDeactivated());
+        p.setDeactivated(false);
 
     }
 
@@ -166,5 +166,11 @@ class PlayerTest {
 
     @Test
     void testToString() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+        Player p = db.getPlayer("Coco");
+        res = p.toString();
+
+        assertTrue(res = "Player{pseudo='Coco', email='cocolastico@gmail.com', mdp='cocopops', friends=[Player{pseudo='Le Chef', email='gendarmerie@gmail.com', mdp='password', friends=null, etat=0, desactivated=false, admin=true}], etat=0, desactivated=false, admin=false}")
     }
 }

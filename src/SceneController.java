@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class SceneController {
 
     public enum ViewType {
-        Login, Register, MainMenu, PlayerAccount, FourInARowGame
+        Login, Register, MainMenu, PlayerAccount, FourInARowGame, OngoingGames
     };
 
     private HashMap<ViewType, Pane> views;
