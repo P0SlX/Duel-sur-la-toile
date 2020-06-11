@@ -6,7 +6,7 @@ public class DatabaseConnection {
 
     private Connection c;
 
-    public DatabaseConnection() { }
+    public DatabaseConnection() {}
 
     public void connexion() {
         try {
@@ -30,35 +30,7 @@ public class DatabaseConnection {
         return this.c;
     }
 
-    public boolean connectPlayer(String pseudo, String password) {
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=? and mdp=?");
-            ps.setString(1, pseudo);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next())
-                return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public int getMaxIDGame() {
-        try {
-            PreparedStatement ps = c.prepareStatement("select gameID from PARTIE natural join JOUER order by gameID DESC");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("gameID");
-            } else {
-                return 0;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return -1;
-    }
-
+    /* DEPRECATED */
     public int getStatus(Player p) {
         int etat = 0;
         try {
@@ -74,6 +46,7 @@ public class DatabaseConnection {
         return etat;
     }
 
+    /* DEPRECATED */
     public void setStatus(Player p, int etat) {
         try{
             PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
@@ -85,73 +58,22 @@ public class DatabaseConnection {
         }
     }
 
-    public ArrayList<Game> getActivesGames(Player p) {
-        ArrayList<Game> listActiveGames = new ArrayList<>();
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where pseudo=? or adversaire=? and state=0");
-            ps.setString(1, p.getPseudo());
-            ps.setString(2, p.getPseudo());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Game g = new FourInARow(
-                        this.getPlayer(rs.getString("pseudo")),
-                        this.getPlayer(rs.getString("adversaire")),
-                        this.getPlayer(rs.getString("currentPlayer")),
-                        rs.getString("plate"),
-                        rs.getDate("startTime"),
-                        rs.getDate("finishTime"),
-                        rs.getInt("elementPlaced"),
-                        rs.getInt("gameID"),
-                        rs.getInt("state"),
-                        rs.getInt("score"),
-                        rs.getString("nomJeu"),
-                        this.getPlayer(rs.getString("winner")),
-                        this.getPlayer(rs.getString("looser"))
-                );
-                listActiveGames.add(g);
-            }
-            return listActiveGames;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    public ArrayList<Game> getPlayerHistory(Player p) { //TODO
-        return new ArrayList<Game>();
-    }
-
-    public void playForInARowTurn(Player p, int line, int col) {    //TODO
-
-    }
-
-    public ArrayList<Player> getFriends(Player p) {
-        try {
-            ArrayList<Player> friendList = new ArrayList<>();
-            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?);");
-            ps.setString(1, p.getPseudo());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Player pq = new Player(
-                        rs.getString("pseudo"),
-                        rs.getString("email"),
-                        rs.getString("mdp"),
-                        rs.getBytes("avatar"),
-                        rs.getInt("etat"),
-                        rs.getBoolean("desactive"),
-                        rs.getBoolean("admin")
-                        );
-                friendList.add(pq);
-            }
-            return friendList;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
 
     /********** PLAYER **********/
+    public boolean connectPlayer(String pseudo, String password) {
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=? and mdp=?");
+            ps.setString(1, pseudo);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public Player getPlayer(String pseudo) {
         try {
             PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=?");
@@ -206,9 +128,68 @@ public class DatabaseConnection {
             throwables.printStackTrace();
         }
     }
+
+    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
+        ArrayList<Message> messageArrayList = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = c.prepareStatement(
+                    "select contenumessage, datemessage " +
+                            "from MESSAGE natural join COMMUNIQUER " +
+                            "where pseudo=? and destinataire=?" +
+                            "order by datemessage"
+            );
+
+            ps.setString(1, sender.getPseudo());
+            ps.setString(2, receiver.getPseudo());
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while(resultSet.next()) {
+                messageArrayList.add(
+                        new Message(resultSet.getString("contenumessage"),
+                                resultSet.getDate("datemessage").toString())
+                );
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return messageArrayList;
+    }
+
+    public ArrayList<Player> getFriends(Player p) {
+        try {
+            ArrayList<Player> friendList = new ArrayList<>();
+            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?);");
+            ps.setString(1, p.getPseudo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Player pq = new Player(
+                        rs.getString("pseudo"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        rs.getBytes("avatar"),
+                        rs.getInt("etat"),
+                        rs.getBoolean("desactive"),
+                        rs.getBoolean("admin")
+                );
+                friendList.add(pq);
+            }
+            return friendList;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Game> getPlayerHistory(Player p) {         //TODO
+        return new ArrayList<Game>();
+    }
     /***************************/
 
 
+    /********** GAMES **********/
     public ArrayList<Game> getGameList() {
         ArrayList<Game> gameList = new ArrayList<>();
         try {
@@ -241,6 +222,53 @@ public class DatabaseConnection {
         return null;
     }
 
+    public int getMaxIDGame() {
+        try {
+            PreparedStatement ps = c.prepareStatement("select gameID from PARTIE natural join JOUER order by gameID DESC");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("gameID");
+            } else {
+                return 0;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
+    }
+
+    public ArrayList<Game> getActivesGames(Player p) {
+        ArrayList<Game> listActiveGames = new ArrayList<>();
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where pseudo=? or adversaire=? and state=0");
+            ps.setString(1, p.getPseudo());
+            ps.setString(2, p.getPseudo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Game g = new FourInARow(
+                        this.getPlayer(rs.getString("pseudo")),
+                        this.getPlayer(rs.getString("adversaire")),
+                        this.getPlayer(rs.getString("currentPlayer")),
+                        rs.getString("plate"),
+                        rs.getDate("startTime"),
+                        rs.getDate("finishTime"),
+                        rs.getInt("elementPlaced"),
+                        rs.getInt("gameID"),
+                        rs.getInt("state"),
+                        rs.getInt("score"),
+                        rs.getString("nomJeu"),
+                        this.getPlayer(rs.getString("winner")),
+                        this.getPlayer(rs.getString("looser"))
+                );
+                listActiveGames.add(g);
+            }
+            return listActiveGames;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
     public void addNewGame(Player p1, Player p2, Game g) {
         // Ajout dans la table PARTIE
         try {
@@ -264,34 +292,10 @@ public class DatabaseConnection {
         return "";
     }
 
-    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
-        ArrayList<Message> messageArrayList = new ArrayList<>();
+    public void playForInARowTurn(Player p, int line, int col) {    //TODO
 
-        try {
-            PreparedStatement ps = c.prepareStatement(
-                    "select contenumessage, datemessage " +
-                            "from MESSAGE natural join COMMUNIQUER " +
-                            "where pseudo=? and destinataire=?" +
-                            "order by datemessage"
-            );
-
-            ps.setString(1, sender.getPseudo());
-            ps.setString(2, receiver.getPseudo());
-
-            ResultSet resultSet = ps.executeQuery();
-
-            while(resultSet.next()) {
-                messageArrayList.add(
-                        new Message(resultSet.getString("contenumessage"),
-                                resultSet.getDate("datemessage").toString())
-                );
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return messageArrayList;
     }
+    /***************************/
 
 
 
@@ -370,5 +374,6 @@ public class DatabaseConnection {
         }
 
     }
+    /***************************/
 
 }
