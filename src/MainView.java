@@ -66,12 +66,14 @@ public class MainView extends Application {
             Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
             Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane(loadRootWithController("UI/Inscription.fxml"));
+            Pane ongoingGames    = new Pane(loadRootWithController("UI/Parties.fxml"));
             //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
             //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);
             sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
+            sceneController.addScene(SceneController.ViewType.OngoingGames, ongoingGames);
             //sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
             //sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
 
