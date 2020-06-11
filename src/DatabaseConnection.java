@@ -83,13 +83,13 @@ public class DatabaseConnection {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-
+                InputStream stream = rs.getBinaryStream("avatar");
 
                 Player p = new Player(
                         rs.getString("pseudo"),
                         rs.getString("email"),
                         rs.getString("mdp"),
-                        loadImageFromStream(rs.getBinaryStream("avatar"), pseudo),
+                        loadImageFromStream(stream, pseudo),
                         rs.getInt("etat"),
                         rs.getBoolean("desactive"),
                         rs.getBoolean("admin")
@@ -387,7 +387,10 @@ public class DatabaseConnection {
 
     Image loadImageFromStream(InputStream inputStream, String pseudo) {
         String fileName = String.format("user_%s.png", pseudo);
+
         try {
+            if(inputStream == null) return new Image(new FileInputStream("UI/assets/logo.png"));
+
             File avatar = new File(fileName);
             FileOutputStream fileOutputStream = new FileOutputStream(avatar);
 
