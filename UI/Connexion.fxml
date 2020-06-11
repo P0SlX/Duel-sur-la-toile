@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="LoginController" fx:id="root">
+<AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
 <children>
     <MenuBar maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="1600.0" stylesheets="@test.css">
       <menus>
@@ -53,28 +44,20 @@
                   <Font size="30.0" />
                </font>
             </Text>
-            <TextField alignment="CENTER" layoutX="167.0" layoutY="170.0" promptText="Pseudo" style="-fx-prompt-text-fill: WHITE;"
-                fx:id="pseudo">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <PasswordField alignment="CENTER" layoutX="167.0" layoutY="255.0" promptText="Password"
-                fx:id="password">
+            <TextField alignment="CENTER" layoutX="163.0" layoutY="184.0" prefHeight="32.0" prefWidth="210.0" promptText="pseudo" fx:id="pseudo"/>
+            <PasswordField fx:id="password" alignment="CENTER" layoutX="163.0" layoutY="254.0" promptText="Password">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Button defaultButton="true" layoutX="273.0" layoutY="344.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Sign in"
-                    fx:id="connect" onAction="#onSignInAction">
+            <Button fx:id="connect" defaultButton="true" layoutX="273.0" layoutY="344.0" mnemonicParsing="false" onAction="#onSignInAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Sign in">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="149.0" layoutY="344.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #EEE; -fx-border-color: #EEE; -fx-text-fill: #505050; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Sign up" textFill="#515151"
-                onAction="#onSignUpAction">
+            <Button layoutX="149.0" layoutY="344.0" mnemonicParsing="false" onAction="#onSignUpAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #EEE; -fx-border-color: #EEE; -fx-text-fill: #505050; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Sign up" textFill="#515151">
                <cursor>
-                  <Cursor fx:constant="HAND"/>
+                  <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <ImageView fitHeight="67.0" fitWidth="92.0" layoutX="237.0" layoutY="21.0" preserveRatio="true" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="237.0">
