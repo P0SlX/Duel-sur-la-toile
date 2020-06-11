@@ -1,7 +1,4 @@
 import com.gluonhq.charm.glisten.control.Avatar;
-import javafx.css.CssParser;
-import javafx.css.Rule;
-import javafx.css.Stylesheet;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
