@@ -1,4 +1,8 @@
 public interface Game {
+    public static final int CANCELED  = -1;
+    public static final int IN_PROGRESS  = 0;
+    public static final int ENDED = 1;
+
     java.sql.Date getStartTime();
     java.sql.Date getFinishTime();
     String getNomJeu();

@@ -3,7 +3,7 @@ insert into JOUEUR values (
     "p0slx",
     "florian.savoure@gmail.com",
     "unMotDePasseSecure",
-    null,
+    'img/logo.png',
     0,
     false,
     false

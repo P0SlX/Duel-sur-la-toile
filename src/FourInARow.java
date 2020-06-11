@@ -4,10 +4,6 @@ import java.sql.Date;
 
 public class FourInARow implements Game {
 
-    public static final int CANCELED  = -1;
-    public static final int IN_PROGRESS  = 0;
-    public static final int ENDED = 1;
-
     private final Player player1;
     private final Player player2;
     private Player currentPlayer;
