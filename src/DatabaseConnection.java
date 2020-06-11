@@ -318,10 +318,28 @@ public class DatabaseConnection {
 
     public Invitation getInv(int id) {
         try {
-            PreparedStatement ps = c.prepareStatement("select * from INVITATION where idinv=?");
+            PreparedStatement ps = c.prepareStatement("select * from INVITATION natural join INVITER where idinv=?");
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
 
+            if (rs.next()) {
+                if (rs.getBoolean("type")) { // SI C'EST UN JEU
+                    return new GameInvitation(
+                            this.getPlayer(rs.getString("expediteurInvit")),
+                            this.getPlayer(rs.getString("destinataireInv")),
+                            rs.getDate("dateinv"),
+                            rs.getInt("etatinv"),
+                            rs.getInt("idinv")
+                    );
+                } else {
+                    return new FriendInvitation(
+                            this.getPlayer(rs.getString("expediteurInvit")),
+                            this.getPlayer(rs.getString("destinataireInv")),
+                            rs.getDate("dateinv"),
+                            rs.getInt("etatinv"),
+                            rs.getInt("idinv")
+                    );
+                }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

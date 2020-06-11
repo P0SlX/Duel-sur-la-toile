@@ -6,12 +6,12 @@ public class FriendInvitation implements Invitation {
     private int etatInv;
     private int id;
 
-    public FriendInvitation(Player emitter, Player receiver, java.sql.Date emissionDate) {
+    public FriendInvitation(Player emitter, Player receiver, java.sql.Date emissionDate, int etatInv, int id) {
         this.emitter = emitter;
         this.receiver = receiver;
         this.emissionDate = emissionDate;
-        this.etatInv = 0;
-        this.id = 0;                // TODO setId()
+        this.etatInv = etatInv;
+        this.id = id;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class FriendInvitation implements Invitation {
 
     @Override
     public void accept() {
-        this.etatInv = 1;
+        this.etatInv = ACCEPTED;
     }
 
     @Override
     public void decline() {
-        this.etatInv = -1;
+        this.etatInv = REFUSED;
     }
 }
