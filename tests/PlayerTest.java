@@ -169,8 +169,8 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        res = p.toString();
+        String res = p.toString();
 
-        assertTrue(res = "Player{pseudo='Coco', email='cocolastico@gmail.com', mdp='cocopops', friends=[Player{pseudo='Le Chef', email='gendarmerie@gmail.com', mdp='password', friends=null, etat=0, desactivated=false, admin=true}], etat=0, desactivated=false, admin=false}")
+        assertEquals(res, "Player{pseudo='Coco', email='cocolastico@gmail.com', mdp='cocopops', friends=[Player{pseudo='Le Chef', email='gendarmerie@gmail.com', mdp='password', friends=null, etat=0, desactivated=false, admin=true}], etat=0, desactivated=false, admin=false}");
     }
 }
