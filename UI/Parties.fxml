@@ -16,7 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenuController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OngoingGamesController">
 <children>
     <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="1600.0" stylesheets="@test.css">
       <menus>
@@ -148,7 +149,8 @@
             </VBox>
          </children>
       </HBox>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="50.0" layoutY="65.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="77.0" style="-fx-border-radius: 30px; -fx-background-color: #7091B2;">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="50.0" layoutY="65.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="77.0"
+              style="-fx-border-radius: 30px; -fx-background-color: #7091B2;" fx:id="backHome" onAction="#onBackHomeAction">
          <graphic>
             <ImageView accessibleRole="BUTTON" fitHeight="59.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                <image>

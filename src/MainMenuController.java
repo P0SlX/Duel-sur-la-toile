@@ -88,6 +88,10 @@ public class MainMenuController extends Controller implements Initializable {
             addFriend(p);
     }
 
+    public Player getLoggedPlayer() {
+        return this.loggedPlayer;
+    }
+
     private void addFriend(Player friend) {
         Button invite = new Button("Invite");
         Button message = new Button("Message");

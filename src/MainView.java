@@ -11,8 +11,8 @@ import java.net.URL;
 public class MainView extends Application {
 
     private SceneController sceneController;
-    private Scene scene;
     private DatabaseConnection databaseConnection;
+    private OngoingGamesController ongoingGamesController;
 
     private MainMenuController mainMenuController;
 
@@ -28,8 +28,11 @@ public class MainView extends Application {
             if(controller instanceof LoginController) {
                 LoginController loginController = (LoginController)controller;
                 loginController.setMainMenuController(mainMenuController);
-            } else if(controller instanceof MainMenuController)
+            } else if(controller instanceof MainMenuController) {
                 this.mainMenuController = (MainMenuController)controller;
+                this.ongoingGamesController.setMainMenuController(mainMenuController);
+            } else if(controller instanceof OngoingGamesController)
+                this.ongoingGamesController = (OngoingGamesController)controller;
 
             return root;
         } catch (Exception e) {
@@ -59,14 +62,14 @@ public class MainView extends Application {
         this.databaseConnection = new DatabaseConnection();
 
         try {
-            this.scene = new Scene(new Pane());
+            Scene scene = new Scene(new Pane());
             this.sceneController = new SceneController(scene);
             this.databaseConnection.connexion();
 
+            Pane ongoingGames    = new Pane(loadRootWithController("UI/Parties.fxml"));
             Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
             Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane(loadRootWithController("UI/Inscription.fxml"));
-            Pane ongoingGames    = new Pane(loadRootWithController("UI/Parties.fxml"));
             //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
             //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
 
