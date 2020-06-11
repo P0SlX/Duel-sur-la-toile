@@ -316,6 +316,19 @@ public class DatabaseConnection {
         return -1;
     }
 
+    public Invitation getInv(int id) {
+        try {
+            PreparedStatement ps = c.prepareStatement("select * from INVITATION where idinv=?");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
     public void createInv(Player expediteur, Player destinataire) {
         try {
             PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?)");

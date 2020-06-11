@@ -1,3 +1,5 @@
+import java.sql.Date;
+
 public class GameInvitation implements Invitation {
 
     private Player emitter;
@@ -6,11 +8,12 @@ public class GameInvitation implements Invitation {
     private int etatInv;
     private int id;
 
-    public GameInvitation(Player emitter, Player receiver, java.sql.Date emissionDate) {
+    public GameInvitation(Player emitter, Player receiver, Date emissionDate, int etatInv, int id) {
         this.emitter = emitter;
         this.receiver = receiver;
         this.emissionDate = emissionDate;
-        this.etatInv = 0;
+        this.etatInv = etatInv;
+        this.id = id;
     }
 
     @Override
@@ -40,11 +43,11 @@ public class GameInvitation implements Invitation {
 
     @Override
     public void accept() {
-        this.etatInv = 1;
+        this.etatInv = ACCEPTED;
     }
 
     @Override
     public void decline() {
-        this.etatInv = 2;
+        this.etatInv = REFUSED;
     }
 }
