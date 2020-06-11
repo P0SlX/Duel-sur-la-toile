@@ -148,7 +148,12 @@ public class MainMenuController extends Controller implements Initializable {
             messageContent.setPrefWidth(175.0);
             messageVBox.getChildren().add(messageContent);
 
-            this.messageList.getChildren().add(messageVBox);
+            Separator separator = new Separator();
+            separator.prefHeight(16.0);
+            separator.prefWidth(250.0);
+            separator.setStyle("-fx-opacity: 0.5;");
+
+            this.messageList.getChildren().addAll(separator, messageVBox);
         }
     }
 
