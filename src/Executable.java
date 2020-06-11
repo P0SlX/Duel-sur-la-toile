@@ -6,11 +6,11 @@ public class Executable {
         c.connexion();
         //Player p = new Player("test", "test@gmail.com", "cocopops", null, 0, false, false);
         //c.createPlayer(p);
-        Player coco = c.getPlayer("Coco");
-        Player p0slx = c.getPlayer("p0slx");
-        System.out.println("game list  " + c.getGameList());
-        ArrayList<Game> gameList = c.getGameList();
-        System.out.println("getActiveGames  " + c.getActivesGames(p0slx));
+        //Player coco = c.getPlayer("Coco");
+        //Player p0slx = c.getPlayer("p0slx");
+        //System.out.println("game list  " + c.getGameList());
+        //ArrayList<Game> gameList = c.getGameList();
+        //System.out.println("getActiveGames  " + c.getActivesGames(p0slx));
 
         //System.out.println(p0slx.getFriends());
         //c.createInv(coco, p0slx);
@@ -18,6 +18,12 @@ public class Executable {
         //c.updatePlayer(coco);
 
 
-        c.createInv(coco, p0slx,false);
+        //c.createInv(coco, p0slx,false);
+
+        Player player = new Player("dummy", "dummy@dum", "password", "UI/assets/logo.png",
+                0, false, false);
+
+        c.createPlayer(player);
+
     }
 }

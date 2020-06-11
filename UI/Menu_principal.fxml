@@ -38,7 +38,7 @@
                <children>
                   <AnchorPane prefHeight="96.0" prefWidth="272.0">
                      <children>
-                        <Avatar layoutX="206.0" layoutY="10.0" radius="30.0">
+                        <Avatar layoutX="206.0" layoutY="10.0" radius="30.0" fx:id="avatar">
                            <image>
                               <!-- The default avatar is the logo -->
                               <Image url="@assets/logo.png"/>
