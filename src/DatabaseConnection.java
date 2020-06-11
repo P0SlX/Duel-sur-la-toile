@@ -125,11 +125,6 @@ public class DatabaseConnection {
 
     }
 
-    public ArrayList<Player> getPlayerFriends(Player p) {   //TODO
-        return new ArrayList<Player>();
-    }
-
-
     public ArrayList<Player> getFriends(Player p) {
         try {
             ArrayList<Player> friendList = new ArrayList<>();
