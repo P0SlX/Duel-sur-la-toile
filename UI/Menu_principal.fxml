@@ -41,15 +41,15 @@
                         <Avatar layoutX="206.0" layoutY="10.0" radius="30.0">
                            <image>
                               <!-- The default avatar is the logo -->
-                              <Image url="@assets/logo.png" />
+                              <Image url="@assets/logo.png"/>
                            </image>
                         </Avatar>
-                        <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo" text="Unknown">
+                        <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.rightAnchor="70.0">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" styleClass="niveau" text="Ratio: ">
+                        <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.rightAnchor="70.0">
                            <font>
                               <Font size="16.0" />
                            </font>
