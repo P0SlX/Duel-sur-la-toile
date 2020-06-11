@@ -42,7 +42,7 @@ insert into JOUEUR values (
 insert into JOUEUR values (
     "Le Chef",
     "gendarmerie@gmail.com",
-    "jaimelespates",
+    "password",
     "joker.png",
     0,
     false,
