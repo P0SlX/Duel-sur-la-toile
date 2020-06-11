@@ -15,7 +15,7 @@
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
             <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onDisconnectAction" text="Log out" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Player">
@@ -34,47 +34,44 @@
     </MenuBar>
       <AnchorPane layoutX="1324.0" layoutY="28.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.rightAnchor="0.0">
          <children>
-            <VBox fx:id="friendList" prefHeight="807.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.bottomAnchor="719.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane prefHeight="96.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="10.0" radius="30.0">
-                           <image>
-                              <!-- The default avatar is the logo -->
-                              <Image url="@assets/logo.png"/>
-                           </image>
-                        </Avatar>
-                        <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.rightAnchor="70.0">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.rightAnchor="70.0">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="21.0" layoutY="23.0" preserveRatio="true" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="23.0">
-                           <image>
-                              <Image url="@assets/logo.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
+                  <Avatar layoutX="206.0" layoutY="10.0" radius="30.0">
+                     <image>
+                        <!-- The default avatar is the logo -->
+                        <Image url="@assets/logo.png" />
+                     </image>
+                  </Avatar>
+                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.rightAnchor="70.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.rightAnchor="70.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="21.0" layoutY="23.0" preserveRatio="true" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="23.0">
+                     <image>
+                        <Image url="@assets/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
                </children>
-            </VBox>
+            </AnchorPane>
+            <VBox fx:id="friendList" layoutY="94.0" prefHeight="713.0" prefWidth="272.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" visible="false" fx:id="messageZone">
+      <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" visible="false">
          <children>
             <Avatar layoutX="190.0" layoutY="10.0" radius="25.0">
                <image>
                   <Image url="@kalouz.png" />
                </image>
             </Avatar>
-            <Label alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" fx:id="senderPseudo"/>
-            <VBox layoutY="82.0" prefWidth="250.0" fx:id="messageList">
+            <Label fx:id="senderPseudo" alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" />
+            <VBox fx:id="messageList" layoutY="82.0" prefWidth="250.0">
                <children>
                </children>
             </VBox>
@@ -96,8 +93,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="74.0" layoutY="450.0" styleClass="label-jeux" text="Connect 4" />
-                  <Button layoutX="120.0" layoutY="250.0" minWidth="26.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="26.0" styleClass="transparence"
-                    fx:id="fourInARow" onAction="#onFourInARowAction">
+                  <Button fx:id="fourInARow" layoutX="120.0" layoutY="250.0" minWidth="26.0" mnemonicParsing="false" onAction="#onFourInARowAction" prefHeight="30.0" prefWidth="26.0" styleClass="transparence">
                      <graphic>
                         <ImageView fitHeight="172.0" fitWidth="199.0">
                            <image>

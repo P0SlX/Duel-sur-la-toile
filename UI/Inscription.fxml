@@ -1,46 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-    fx:id="root" fx:controller="RegisterController">
+<AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RegisterController">
 <children>
     <MenuBar maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="1600.0" stylesheets="@test.css">
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
-            <MenuItem mnemonicParsing="false" text="Se connecter" />
-            <MenuItem mnemonicParsing="false" text="Se deconnecter" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+            <MenuItem mnemonicParsing="false" text="Quitter" />
           </items>
         </Menu>
-        <Menu disable="true" mnemonicParsing="false" text="Player">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
+        <Menu disable="true" mnemonicParsing="false" text="Player" />
       </menus>
          <opaqueInsets>
             <Insets />
@@ -48,12 +24,32 @@
     </MenuBar>
       <AnchorPane layoutX="530.0" layoutY="202.0" prefHeight="431.0" prefWidth="541.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 15px;">
          <children>
+            <ImageView fitHeight="67.0" fitWidth="92.0" layoutX="237.0" layoutY="21.0" preserveRatio="true" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="237.0">
+               <image>
+                  <Image url="@assets/logo.png" />
+               </image>
+            </ImageView>
             <Text fill="WHITE" layoutX="99.0" layoutY="126.0" strokeWidth="0.0" text="Inscription" textAlignment="CENTER" wrappingWidth="335.455078125" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
+            <TextField alignment="CENTER" layoutX="161.0" layoutY="147.0" prefHeight="30.0" prefWidth="213.0" promptText="Pseudo" AnchorPane.topAnchor="150.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
+            <TextField alignment="CENTER" layoutX="161.0" layoutY="195.0" prefHeight="30.0" prefWidth="213.0" promptText="Email" AnchorPane.topAnchor="200.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </TextField>
             <PasswordField alignment="CENTER" layoutX="161.0" layoutY="253.0" prefHeight="30.0" prefWidth="213.0" promptText="Password" AnchorPane.topAnchor="250.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+            </PasswordField>
+            <PasswordField alignment="CENTER" layoutX="161.0" layoutY="310.0" prefHeight="30.0" prefWidth="213.0" promptText="Confirm your password" AnchorPane.topAnchor="300.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
@@ -63,32 +59,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="149.0" layoutY="363.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #EEE; -fx-border-color: #EEE; -fx-text-fill: #505050; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Cancel" textFill="#515151"
-                fx:id="cancel" onAction="#onCancelAction">
+            <Button fx:id="cancel" layoutX="149.0" layoutY="363.0" mnemonicParsing="false" onAction="#onCancelAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #EEE; -fx-border-color: #EEE; -fx-text-fill: #505050; -fx-font-size: 16px; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Cancel" textFill="#515151">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="67.0" fitWidth="92.0" layoutX="237.0" layoutY="21.0" preserveRatio="true" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="237.0">
-               <image>
-                  <Image url="@assets/logo.png" />
-               </image>
-            </ImageView>
-            <TextField alignment="CENTER" layoutX="161.0" layoutY="195.0" prefHeight="30.0" prefWidth="213.0" promptText="Email" AnchorPane.topAnchor="200.0">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <PasswordField alignment="CENTER" layoutX="161.0" layoutY="310.0" prefHeight="30.0" prefWidth="213.0" promptText="Confirm your password" AnchorPane.topAnchor="300.0">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </PasswordField>
-            <TextField alignment="CENTER" layoutX="161.0" layoutY="147.0" prefHeight="30.0" prefWidth="213.0" promptText="Pseudo" AnchorPane.topAnchor="150.0">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
          </children>
       </AnchorPane>
 </children>

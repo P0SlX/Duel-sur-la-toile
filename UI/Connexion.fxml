@@ -13,24 +13,10 @@
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
-            <MenuItem mnemonicParsing="false" text="Se connecter" />
-            <MenuItem mnemonicParsing="false" text="Se deconnecter" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+            <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
         <Menu disable="true" mnemonicParsing="false" text="Player">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
         </Menu>
       </menus>
          <opaqueInsets>

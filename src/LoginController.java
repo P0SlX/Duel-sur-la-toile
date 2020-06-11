@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -35,8 +36,8 @@ public class LoginController extends Controller implements Initializable {
         if(databaseConnection.connectPlayer(pseudo, password)) {
             Player p = databaseConnection.getPlayer(pseudo);
             databaseConnection.setStatus(p, 1);
-            sceneController.showScene(SceneController.ViewType.MainMenu);
             this.mainMenuController.initMainControllerWithPlayer(p); // Init main menu view
+            sceneController.showScene(SceneController.ViewType.MainMenu);
 
             // If the player log out later, it is preferable to not show password again
             this.password.setText("");
@@ -52,6 +53,11 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private void onSignUpAction() {
         sceneController.showScene(SceneController.ViewType.Register);
+    }
+
+    @FXML
+    private void onQuitAction() {
+        Platform.exit();
     }
 
     public void setMainMenuController(MainMenuController mainMenuController) {
