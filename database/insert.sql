@@ -3,7 +3,7 @@ insert into JOUEUR values (
     "p0slx",
     "florian.savoure@gmail.com",
     "unMotDePasseSecure",
-    "sah.png",
+    null,
     0,
     false,
     false
@@ -13,7 +13,7 @@ insert into JOUEUR values (
     "L'ananas",
     "lananas@gmail.com",
     "jaimeLesPommes",
-    "ananas.png",
+    null,
     0,
     false,
     false
@@ -23,7 +23,7 @@ insert into JOUEUR values (
     "Coco",
     "cocolastico@gmail.com",
     "cocopops",
-    "mouton.png",
+    null,
     0,
     false,
     false
@@ -33,7 +33,7 @@ insert into JOUEUR values (
     "Jordan",
     "jordan07@gmail.com",
     "alphawann",
-    "wann.png",
+    null,
     0,
     false,
     false
@@ -43,7 +43,7 @@ insert into JOUEUR values (
     "admin",
     "admin@gmail.com",
     "admin",
-    "admin.png",
+    null,
     0,
     false,
     True
@@ -53,7 +53,7 @@ insert into JOUEUR values (
     "Le Chef",
     "gendarmerie@gmail.com",
     "password",
-    "joker.png",
+    null,
     0,
     false,
     true
@@ -63,7 +63,7 @@ insert into JOUEUR values (
     "Lanka",
     "ghost@gmail.com",
     "jsuispaslalalalalala",
-    "ghost.png",
+    null,
     0,
     true,
     false

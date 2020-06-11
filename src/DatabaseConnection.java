@@ -1,4 +1,7 @@
 import javax.print.DocFlavor;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import  java.sql.*;
 import java.util.ArrayList;
 
@@ -99,6 +102,7 @@ public class DatabaseConnection {
     }
 
     public void updatePlayer(Player p) {
+        FileInputStream fis;
         try {
             PreparedStatement ps = c.prepareStatement("update JOUEUR set mdp=?, avatar=?, etat=?, desactive=?, admin=? where pseudo=?");
             ps.setString(1, p.getMdp());
@@ -325,7 +329,7 @@ public class DatabaseConnection {
                 if (rs.getBoolean("type")) { // SI C'EST UN JEU
                     return new GameInvitation(
                             this.getPlayer(rs.getString("expediteurInvit")),
-                            this.getPlayer(rs.getString("destinataireInv")),
+                            this.getPlayer(rs.getString("destinataireInvit")),
                             rs.getDate("dateinv"),
                             rs.getInt("etatinv"),
                             rs.getInt("idinv")
@@ -333,7 +337,7 @@ public class DatabaseConnection {
                 } else {
                     return new FriendInvitation(
                             this.getPlayer(rs.getString("expediteurInvit")),
-                            this.getPlayer(rs.getString("destinataireInv")),
+                            this.getPlayer(rs.getString("destinataireInvit")),
                             rs.getDate("dateinv"),
                             rs.getInt("etatinv"),
                             rs.getInt("idinv")

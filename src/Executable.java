@@ -19,6 +19,5 @@ public class Executable {
 
 
         //c.createInv(coco, p0slx);
-        //c.changeStateInv();
     }
 }
