@@ -194,13 +194,15 @@ insert into COMMUNIQUER values (
 insert into INVITATION values (
     1,
     CURDATE(),
-    0
+    0,
+    False
 );
 
 insert into INVITATION values (
     2,
     CURDATE(),
-    1
+    1,
+    False
 );
 
 insert into INVITER values (

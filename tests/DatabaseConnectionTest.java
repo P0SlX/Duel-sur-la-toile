@@ -104,14 +104,26 @@ class DatabaseConnectionTest {
 
 
     @Test
-    void getMaxIdInv() {
+    void getMaxIdInv() throws SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
-        Player p = db.getPlayer("Coco");
-        Player p2 = db.getPlayer("L'ananas");
-        db.createInv(p, p2);
-        assertTrue(db.getMaxIDGame() > 3);
+        Connection c = db.getConnexion();
+
+        Statement req = c.createStatement();
+        String reqS = "select MAX(idinv) from INVITATION";
+        PreparedStatement ps =c.prepareStatement(reqS);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        System.out.println(rs.getString(1));
+        System.out.println(db.getMaxIdInv());
+        assertEquals(db.getMaxIdInv(), (rs.getInt(1)));
+
+    }
+
+
+    @Test
+    void changeStateInv() {
 
     }
 }

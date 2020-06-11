@@ -66,53 +66,16 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0">
+      <AnchorPane layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" visible="false" fx:id="messageZone">
          <children>
             <Avatar layoutX="190.0" layoutY="10.0" radius="25.0">
                <image>
                   <Image url="@kalouz.png" />
                </image>
             </Avatar>
-            <Label alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" />
-            <Separator layoutY="63.0" prefHeight="16.0" prefWidth="250.0" styleClass="separator-message" />
+            <Label alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" fx:id="senderPseudo"/>
             <VBox layoutY="82.0" prefWidth="250.0" fx:id="messageList">
                <children>
-                  <HBox prefWidth="250.0">
-                     <children>
-                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
-                           <children>
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="Pseudo2" />
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="13:02" />
-                           </children>
-                        </VBox>
-                        <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" styleClass="label-bright" text="This is a useless test message, in fact it is use only to see how the text will wrap " wrapText="true" />
-                     </children>
-                  </HBox>
-                  <Separator prefHeight="16.0" prefWidth="250.0" styleClass="separator-message" />
-                  <HBox prefWidth="250.0">
-                     <children>
-                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
-                           <children>
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="Pseudo1" />
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="13:05" />
-                           </children>
-                        </VBox>
-                        <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" styleClass="label-bright" text="This is a useless test message, in fact it is use only to see how the text will wrap " wrapText="true" />
-                     </children>
-                  </HBox>
-                  <Separator prefHeight="16.0" prefWidth="250.0" styleClass="separator-message" />
-                  <HBox prefWidth="250.0">
-                     <children>
-                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
-                           <children>
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="Pseudo2" />
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="13:10" />
-                           </children>
-                        </VBox>
-                        <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" styleClass="label-bright" text="This is a useless test message, in fact it is use only to see how the text will wrap " wrapText="true" />
-                     </children>
-                  </HBox>
-                  <Separator prefHeight="16.0" prefWidth="250.0" styleClass="separator-message" />
                </children>
             </VBox>
             <TextField floatText="Message" layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0" />
