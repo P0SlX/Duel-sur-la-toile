@@ -109,8 +109,8 @@ class PlayerTest {
         db.connexion();
         Player p = db.getPlayer("Coco");
         Player e = db.getPlayer("Lanka");
-        assertFalse( p.isDesactivated());
-        assertTrue(e.isDesactivated());
+        assertFalse( p.isDeactivated());
+        assertTrue(e.isDeactivated());
 
     }
 
@@ -119,9 +119,9 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        p.setDectivated(true);
-        assertTrue(p.isDesactivated());
-        p.setDectivated(false);
+        p.setDeactivated(true);
+        assertTrue(p.isDeactivated());
+        p.setDeactivated(false);
 
     }
 
