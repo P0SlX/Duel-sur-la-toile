@@ -70,6 +70,7 @@ public class MainMenuController extends Controller implements Initializable {
     public void onDisconnectAction() {
         this.friendList.getChildren().clear();
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
+        messageZone.setVisible(false);
         sceneController.showScene(SceneController.ViewType.Login);
     }
 
@@ -235,6 +236,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     private void onQuitAction() {
+        databaseConnection.setStatus(loggedPlayer, 0);
         Platform.exit();
     }
 }
