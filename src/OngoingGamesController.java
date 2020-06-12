@@ -1,8 +1,10 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -72,6 +74,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             HBox gameContainer = new HBox();
             gameContainer.prefHeight(100.0);
             gameContainer.prefWidth(200.0);
+            gameContainer.setSpacing(50);
 
             String opponentName = p.getPseudo().equals(g.getPlayer1().getPseudo()) ?
                     g.getPlayer2().getPseudo() : g.getPlayer1().getPseudo();
@@ -81,6 +84,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             opponent.prefWidth(223.0);
             opponent.setWrapText(true);
             opponent.setFont(new Font(17));
+            opponent.setTextFill(Color.WHITE);
 
             Label startedOn = new Label("Started on : " + g.getStartTime().toString());
             startedOn.prefHeight(80.0);
@@ -97,21 +101,23 @@ public class OngoingGamesController extends Controller implements Initializable 
                 yourTurn.setTextFill(Color.web("#b8612a"));
             }
 
-            yourTurn.setPrefHeight(79.0);
+            yourTurn.setPrefHeight(20.0);
             yourTurn.setPrefWidth(138.0);
             yourTurn.setFont(new Font(20));
 
             Button play = new Button("Play !");
             play.setDisable(!g.getCurrentPlayer().getPseudo().equals(p.getPseudo()));
             play.setMnemonicParsing(false);
-            play.prefHeight(69.0);
-            play.prefWidth(169.0);
             play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px;");
             play.setTextFill(Color.WHITE);
             play.setFont(new Font(21));
 
+            Separator separator = new Separator();
+            separator.setPadding(new Insets(10, 10, 0, 0));
+
             gameContainer.getChildren().addAll(opponent, startedOn, yourTurn, play);
             this.activeGames.getChildren().add(gameContainer);
+            this.activeGames.getChildren().add(separator);
         }
     }
 }
