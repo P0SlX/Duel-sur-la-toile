@@ -132,4 +132,18 @@ class DatabaseConnectionTest {
         rs.next();
         System.out.println(rs.getString(1));
     }
+
+    @Test
+    void sendMessage() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p1 = db.getPlayer("Coco");
+        Player p2 = db.getPlayer("p0slx");
+
+        assertNotNull(p1);
+        assertNotNull(p2);
+
+        assertTrue(db.sendMessage(p1, p2, "Hello bg !"));
+    }
 }

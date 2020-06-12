@@ -167,6 +167,29 @@ public class DatabaseConnection {
         return messageArrayList;
     }
 
+    public boolean sendMessage(Player sender, Player receiver, String content) {
+        int maxId = getIdMaxMessage() + 1;
+        boolean result = true;
+
+        try {
+            PreparedStatement psMessage =  c.prepareStatement("insert into MESSAGE values(?, CURDATE(), ?, true)");
+            psMessage.setInt(1, maxId);
+            psMessage.setString(2, content);
+            psMessage.execute();
+
+            psMessage = c.prepareStatement("insert into COMMUNIQUER values(?, ?, ?)");
+            psMessage.setString(1, sender.getPseudo());
+            psMessage.setString(2, receiver.getPseudo());
+            psMessage.setInt(3, maxId);
+            psMessage.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            result = false;
+        }
+
+        return result;
+    }
+
     public ArrayList<Player> getFriends(Player p) {
         try {
             ArrayList<Player> friendList = new ArrayList<>();
@@ -385,7 +408,7 @@ public class DatabaseConnection {
     }
     /***************************/
 
-    Image loadImageFromStream(InputStream inputStream, String pseudo) {
+    private Image loadImageFromStream(InputStream inputStream, String pseudo) {
         String fileName = String.format("user_%s.png", pseudo);
 
         try {
@@ -409,6 +432,20 @@ public class DatabaseConnection {
         }
 
         return null;
+    }
+
+    private int getIdMaxMessage() {
+        try {
+            PreparedStatement ps = c.prepareStatement("select max(idMessage) from MESSAGE");
+            ResultSet resultSet = ps.executeQuery();
+            resultSet.next();
+
+            return resultSet.getInt(1);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return -1;
     }
 
 }
