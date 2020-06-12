@@ -16,8 +16,6 @@
             <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
-        <Menu disable="true" mnemonicParsing="false" text="Player">
-        </Menu>
       </menus>
          <opaqueInsets>
             <Insets />
