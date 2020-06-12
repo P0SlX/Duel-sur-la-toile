@@ -135,4 +135,17 @@ class DatabaseConnectionTest {
         assertEquals(db.getInv(db.getMaxIdInv()).getId(), rs.getInt(1));
     }
 
+    @Test
+    void sendMessage() {
+        DatabaseConnection db = new DatabaseConnection();
+        db.connexion();
+
+        Player p1 = db.getPlayer("Coco");
+        Player p2 = db.getPlayer("p0slx");
+
+        assertNotNull(p1);
+        assertNotNull(p2);
+
+        assertTrue(db.sendMessage(p1, p2, "Hello bg !"));
+    }
 }

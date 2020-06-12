@@ -143,21 +143,25 @@ public class DatabaseConnection {
 
         try {
             PreparedStatement ps = c.prepareStatement(
-                    "select contenumessage, datemessage " +
+                    "select contenumessage, datemessage, pseudo, destinataire " +
                             "from MESSAGE natural join COMMUNIQUER " +
-                            "where pseudo=? and destinataire=?" +
+                            "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?)" +
                             "order by datemessage"
             );
 
             ps.setString(1, sender.getPseudo());
             ps.setString(2, receiver.getPseudo());
+            ps.setString(3, receiver.getPseudo());
+            ps.setString(4, sender.getPseudo());
 
             ResultSet resultSet = ps.executeQuery();
 
             while(resultSet.next()) {
                 messageArrayList.add(
                         new Message(resultSet.getString("contenumessage"),
-                                resultSet.getDate("datemessage").toString())
+                                resultSet.getDate("datemessage").toString(),
+                                resultSet.getString("pseudo"),
+                                resultSet.getString("destinataire"))
                 );
             }
         } catch (SQLException throwables) {
@@ -165,6 +169,29 @@ public class DatabaseConnection {
         }
 
         return messageArrayList;
+    }
+
+    public boolean sendMessage(Player sender, Player receiver, String content) {
+        int maxId = getIdMaxMessage() + 1;
+        boolean result = true;
+
+        try {
+            PreparedStatement psMessage =  c.prepareStatement("insert into MESSAGE values(?, CURDATE(), ?, true)");
+            psMessage.setInt(1, maxId);
+            psMessage.setString(2, content);
+            psMessage.execute();
+
+            psMessage = c.prepareStatement("insert into COMMUNIQUER values(?, ?, ?)");
+            psMessage.setString(1, sender.getPseudo());
+            psMessage.setString(2, receiver.getPseudo());
+            psMessage.setInt(3, maxId);
+            psMessage.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            result = false;
+        }
+
+        return result;
     }
 
     public ArrayList<Player> getFriends(Player p) {
@@ -385,7 +412,7 @@ public class DatabaseConnection {
     }
     /***************************/
 
-    Image loadImageFromStream(InputStream inputStream, String pseudo) {
+    private Image loadImageFromStream(InputStream inputStream, String pseudo) {
         String fileName = String.format("user_%s.png", pseudo);
 
         try {
@@ -409,6 +436,20 @@ public class DatabaseConnection {
         }
 
         return null;
+    }
+
+    private int getIdMaxMessage() {
+        try {
+            PreparedStatement ps = c.prepareStatement("select max(idMessage) from MESSAGE");
+            ResultSet resultSet = ps.executeQuery();
+            resultSet.next();
+
+            return resultSet.getInt(1);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return -1;
     }
 
 }
