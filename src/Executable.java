@@ -7,7 +7,9 @@ public class Executable {
         //Player p = new Player("test", "test@gmail.com", "cocopops", null, 0, false, false);
         //c.createPlayer(p);
         //Player coco = c.getPlayer("Coco");
-        //Player p0slx = c.getPlayer("p0slx");
+        Player p0slx = c.getPlayer("p0slx");
+        p0slx.setAvatar("img/arouf_vogue.png");
+        c.updatePlayer(p0slx);
         //System.out.println("game list  " + c.getGameList());
         //ArrayList<Game> gameList = c.getGameList();
         //System.out.println("getActiveGames  " + c.getActivesGames(p0slx));
@@ -20,10 +22,10 @@ public class Executable {
 
         //c.createInv(coco, p0slx,false);
 
-        Player player = new Player("dummy", "dummy@dum", "password", "UI/assets/logo.png",
-                0, false, false);
+        //Player player = new Player("dummy", "dummy@dum", "password", "UI/assets/logo.png",
+                //0, false, false);
 
-        c.createPlayer(player);
+        //c.createPlayer(player);
 
     }
 }

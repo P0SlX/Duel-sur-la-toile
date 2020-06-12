@@ -105,15 +105,18 @@ public class DatabaseConnection {
 
     public void updatePlayer(Player p) {
         try {
+            File playerAvatarFile = new File(p.getAvatar());
+            FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
+
             PreparedStatement ps = c.prepareStatement("update JOUEUR set mdp=?, avatar=?, etat=?, desactive=?, admin=? where pseudo=?");
             ps.setString(1, p.getMdp());
-            ps.setBytes(2, null); // TODO: File stream
+            ps.setBinaryStream(2, fileInputStream, (int)playerAvatarFile.length());
             ps.setInt(3, p.getEtat());
             ps.setBoolean(4, p.isDeactivated());
             ps.setBoolean(5, p.isAdmin());
             ps.setString(6, p.getPseudo());
             ps.executeUpdate();
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
     }

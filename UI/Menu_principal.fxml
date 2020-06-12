@@ -31,23 +31,23 @@
          <children>
             <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Avatar fx:id="avatar" layoutX="206.0" layoutY="10.0" radius="30.0">
+                  <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" layoutX="198.0" layoutY="19.0" AnchorPane.rightAnchor="5.0">
                      <image>
                         <!-- The default avatar is the logo -->
                         <Image url="@assets/logo.png" />
                      </image>
-                  </Avatar>
-                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.rightAnchor="70.0">
+                  </ImageView>
+                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.leftAnchor="70.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.rightAnchor="70.0">
+                  <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.leftAnchor="70.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="21.0" layoutY="23.0" preserveRatio="true" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="23.0">
+                  <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="21.0" layoutY="23.0" preserveRatio="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="23.0">
                      <image>
                         <Image url="@assets/logo.png" />
                      </image>
@@ -55,14 +55,14 @@
                   <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
                </children>
             </AnchorPane>
-            <VBox fx:id="friendList" layoutY="94.0" prefHeight="713.0" prefWidth="272.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0" />
+            <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
             <Avatar layoutX="190.0" layoutY="10.0" radius="25.0">
                <image>
-                  <Image url="@kalouz.png" />
+                  <Image url="@assets/logo.png" />
                </image>
             </Avatar>
             <Label fx:id="senderPseudo" alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" />
@@ -85,12 +85,12 @@
           <RowConstraints maxHeight="250.0" minHeight="250.0" prefHeight="250.0" vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane>
                <children>
-                  <Label layoutX="74.0" layoutY="450.0" styleClass="label-jeux" text="Connect 4" />
-                  <Button fx:id="fourInARow" layoutX="120.0" layoutY="250.0" minWidth="26.0" mnemonicParsing="false" onAction="#onFourInARowAction" prefHeight="30.0" prefWidth="26.0" styleClass="transparence">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="198.0" styleClass="label-jeux" text="4 in a Row" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+                  <Button fx:id="fourInARow" layoutX="56.0" layoutY="14.0" mnemonicParsing="false" onAction="#onFourInARowAction" styleClass="transparence" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <graphic>
-                        <ImageView fitHeight="172.0" fitWidth="199.0">
+                        <ImageView fitHeight="160.0" fitWidth="199.0" preserveRatio="true">
                            <image>
                               <Image url="@assets/puissance4.png" />
                            </image>

@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.text.TextAlignment;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -49,13 +50,14 @@ public class MainMenuController extends Controller implements Initializable {
     private Label senderPseudo;
 
     @FXML
+    private ImageView avatar;
+
+    @FXML
     private AnchorPane messageZone;
 
     @FXML
     private Button fourInARow;
 
-    @FXML
-    private Avatar avatar;
 
     private Player loggedPlayer;
 
@@ -66,6 +68,7 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     public void onDisconnectAction() {
         this.friendList.getChildren().clear();
+        this.messageZone.setVisible(false);
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
         sceneController.showScene(SceneController.ViewType.Login);
     }
@@ -80,13 +83,19 @@ public class MainMenuController extends Controller implements Initializable {
      * This method should be called after an user logged in by the LoginController
      * @param player the player that just logged in
      */
-    public void initMainControllerWithPlayer(Player player) {
+    public void initMainControllerWithPlayer(Player player) throws FileNotFoundException {
         this.loggedPlayer = player;
 
         this.pseudo.setText(player.getPseudo());
-        this.ratio.setText("Ratio : Unknown"); // TODO: When player statistics will be done
+        this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
 
-        avatar.setImage(player.getPlayerAvatar());
+        avatar.setImage(this.loggedPlayer.getPlayerAvatar());
+        Ellipse circle = new Ellipse();
+        circle.setRadiusX(30);
+        circle.setRadiusY(30);
+        avatar.setClip(circle);
+        circle.setCenterX(30);
+        circle.setCenterY(30);
 
         ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
 
@@ -98,38 +107,44 @@ public class MainMenuController extends Controller implements Initializable {
         return this.loggedPlayer;
     }
 
-    private void addFriend(Player friend) {
+    private void addFriend(Player friend) throws FileNotFoundException {
         Button invite = new Button("Invite");
         Button message = new Button("Message");
 
-        ImageView avatar = new ImageView(new Image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png"));
+        ImageView avatar = new ImageView(friend.getPlayerAvatar());
         Label friendPseudo = new Label(friend.getPseudo());
         Label friendRatio = new Label("Ratio : Unknown"); // TODO: When player statictics will be done
 
         // Design properties
+        friendPseudo.setLayoutX(90.0);
+        friendPseudo.setLayoutY(33.0);
+        friendPseudo.setPrefHeight(21.0);
+        friendPseudo.setPrefWidth(110);
         friendPseudo.setAlignment(Pos.CENTER_RIGHT);
-        friendPseudo.setLayoutX(102.0);
-        friendPseudo.setLayoutY(48.0);
-        friendPseudo.prefHeight(21.0);
-        friendPseudo.prefWidth(109.0);
         String PSEUDO = "-fx-font-size: 13pt; -fx-font-family: \"Segoe UI Light\";" +
-                "-fx-text-fill: white;" +
-                "-fx-opacity: 1;";
+                        "-fx-text-fill: white;" +
+                        "-fx-opacity: 1;";
         friendPseudo.setStyle(PSEUDO);
 
         friendRatio.setAlignment(Pos.CENTER_RIGHT);
-        friendRatio.setLayoutX(102.0);
-        friendRatio.setLayoutY(33.0);
+        friendRatio.setLayoutX(90.0);
+        friendRatio.setLayoutY(19.0);
+        friendRatio.setPrefWidth(110);
+        String RATIO =  "-fx-font-size: 9pt;" +
+                        "    -fx-font-family: \"Segoe UI Light\";" +
+                        "    -fx-text-fill: rgb(200, 200, 200);" +
+                        "    -fx-opacity: 1;";
+        friendRatio.setStyle(RATIO);
 
         invite.setLayoutX(10.0);
-        invite.setLayoutY(5.0);
+        invite.setLayoutY(4.0);
         invite.setMnemonicParsing(false);
         invite.setPrefHeight(25.0);
         invite.setPrefWidth(75.0);
         invite.setStyle(BUTTON);
 
         message.setLayoutX(10.0);
-        message.setLayoutY(37.0);
+        message.setLayoutY(38.0);
         message.setMnemonicParsing(false);
         message.setPrefHeight(25.0);
         message.setPrefWidth(75.0);
@@ -141,18 +156,13 @@ public class MainMenuController extends Controller implements Initializable {
         avatar.setFitWidth(60);
         avatar.setSmooth(true);
 
-        try {
-            avatar.setImage(new Image(new FileInputStream("UI/assets/kalouz.png")));
-            Ellipse circle = new Ellipse();
-            circle.setCenterX(200);
-            circle.setRadiusX(30);
-            circle.setRadiusY(30);
-            avatar.setClip(circle);
-            circle.setCenterX(30);
-            circle.setCenterY(30);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Ellipse circle = new Ellipse();
+        circle.setRadiusX(30);
+        circle.setRadiusY(30);
+        avatar.setClip(circle);
+        circle.setCenterX(30);
+        circle.setCenterY(30);
+
 
         message.setOnAction(actionEvent -> loadMessage(friend));
 
@@ -162,6 +172,8 @@ public class MainMenuController extends Controller implements Initializable {
         friendList.getChildren().add(anchorPane);
         Separator separator = new Separator();
         separator.setOpacity(0.5);
+        separator.setLayoutY(400);
+        separator.setPrefHeight(20);
         separator.prefWidth(272.0);
         friendList.getChildren().add(separator);
     }
