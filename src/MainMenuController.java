@@ -62,6 +62,8 @@ public class MainMenuController extends Controller implements Initializable {
 
     private Player loggedPlayer;
 
+    private OngoingGamesController ongoingGamesController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -76,6 +78,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     public void onFourInARowAction() {
+        this.ongoingGamesController.initOnGoingGameView();
         sceneController.showScene(SceneController.ViewType.OngoingGames);
     }
 
@@ -238,6 +241,10 @@ public class MainMenuController extends Controller implements Initializable {
     private void onQuitAction() {
         databaseConnection.setStatus(loggedPlayer, 0);
         Platform.exit();
+    }
+
+    public void setOngoingGamesController(OngoingGamesController ongoingGamesController) {
+        this.ongoingGamesController = ongoingGamesController;
     }
 }
 

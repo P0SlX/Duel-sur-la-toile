@@ -223,7 +223,7 @@ public class DatabaseConnection {
         ArrayList<Game> listGameHistory = new ArrayList<>();
         try {
             PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where pseudo=? or adversaire=? and state=1 or state=-1");
-            fetchGames(p, listGameHistory, ps);
+            fetchGames(p, listGameHistory, ps, GameType.FourInARow);
             return listGameHistory;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -231,33 +231,32 @@ public class DatabaseConnection {
         return null;
     }
 
-    private void fetchGames(Player p, ArrayList<Game> listGameHistory, PreparedStatement ps) throws SQLException {
+    private void fetchGames(Player p, ArrayList<Game> listGameHistory, PreparedStatement ps, GameType type) throws SQLException {
         ps.setString(1, p.getPseudo());
         ps.setString(2, p.getPseudo());
+        ps.setString(3, type.toString());
         ResultSet rs = ps.executeQuery();
-        parcoursFetchGames(listGameHistory, rs);
+        processFetchedGames(listGameHistory, rs);
     }
 
-    private void parcoursFetchGames(ArrayList<Game> listGameHistory, ResultSet rs) throws SQLException {
+    private void processFetchedGames(ArrayList<Game> listGameHistory, ResultSet rs) throws SQLException {
         while (rs.next()) {
-            if (rs.getString("nomJeu").equals("Puissance 4")){
-                Game g = new FourInARow(
-                        this.getPlayer(rs.getString("pseudo")),
-                        this.getPlayer(rs.getString("adversaire")),
-                        this.getPlayer(rs.getString("currentPlayer")),
-                        rs.getString("plate"),
-                        rs.getDate("startTime"),
-                        rs.getDate("finishTime"),
-                        rs.getInt("elementPlaced"),
-                        rs.getInt("gameID"),
-                        rs.getInt("state"),
-                        rs.getInt("score"),
-                        rs.getString("nomJeu"),
-                        this.getPlayer(rs.getString("winner")),
-                        this.getPlayer(rs.getString("looser"))
-                );
+            Game g = new FourInARow(
+                    this.getPlayer(rs.getString("pseudo")),
+                    this.getPlayer(rs.getString("adversaire")),
+                    this.getPlayer(rs.getString("currentPlayer")),
+                    rs.getString("plate"),
+                    rs.getDate("startTime"),
+                    rs.getDate("finishTime"),
+                    rs.getInt("elementPlaced"),
+                    rs.getInt("gameID"),
+                    rs.getInt("state"),
+                    rs.getInt("score"),
+                    rs.getString("nomJeu"),
+                    this.getPlayer(rs.getString("winner")),
+                    this.getPlayer(rs.getString("looser"))
+            );
             listGameHistory.add(g);
-            }
         }
     }
     /***************************/
@@ -269,7 +268,7 @@ public class DatabaseConnection {
         try {
             PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER");
             ResultSet rs = ps.executeQuery();
-            parcoursFetchGames(gameList, rs);
+            processFetchedGames(gameList, rs);
             return gameList;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -292,11 +291,12 @@ public class DatabaseConnection {
         return -1;
     }
 
-    public ArrayList<Game> getActivesGames(Player p) {
+    public ArrayList<Game> getActivesGames(Player p, GameType type) {
         ArrayList<Game> listActiveGames = new ArrayList<>();
         try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where pseudo=? or adversaire=? and state=0");
-            fetchGames(p, listActiveGames, ps);
+            PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE " +
+                    "where (pseudo=? or adversaire=?) and nomJeu=? and state=0");
+            fetchGames(p, listActiveGames, ps, type);
             return listActiveGames;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
