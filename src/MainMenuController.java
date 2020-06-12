@@ -189,7 +189,6 @@ public class MainMenuController extends Controller implements Initializable {
         friendList.getChildren().add(anchorPane);
         Separator separator = new Separator();
         separator.setOpacity(0.5);
-        separator.setLayoutY(400);
         separator.setPrefHeight(20);
         separator.prefWidth(272.0);
         friendList.getChildren().add(separator);
