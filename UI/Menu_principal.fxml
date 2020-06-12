@@ -10,12 +10,12 @@
 
 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenuController">
 <children>
-    <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="1600.0" stylesheets="@test.css">
+    <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
             <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onDisconnectAction" text="Log out" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Player">
@@ -32,11 +32,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
     </MenuBar>
-      <AnchorPane layoutX="1324.0" layoutY="28.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.rightAnchor="0.0">
+      <AnchorPane layoutX="1324.0" layoutY="28.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
-            <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.bottomAnchor="719.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Avatar layoutX="206.0" layoutY="10.0" radius="30.0" fx:id="avatar">
+                  <Avatar fx:id="avatar" layoutX="206.0" layoutY="10.0" radius="30.0">
                      <image>
                         <!-- The default avatar is the logo -->
                         <Image url="@assets/logo.png" />
@@ -63,7 +63,7 @@
             <VBox fx:id="friendList" layoutY="94.0" prefHeight="713.0" prefWidth="272.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" visible="false">
+      <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
             <Avatar layoutX="190.0" layoutY="10.0" radius="25.0">
                <image>
@@ -71,11 +71,11 @@
                </image>
             </Avatar>
             <Label fx:id="senderPseudo" alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" />
-            <VBox fx:id="messageList" layoutY="82.0" prefWidth="250.0">
+            <VBox fx:id="messageList" layoutY="82.0" maxHeight="370.0" prefWidth="250.0">
                <children>
                </children>
             </VBox>
-            <TextField floatText="Message" layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0" />
+            <TextField floatText="Message" layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0" AnchorPane.bottomAnchor="5.0" />
          </children>
       </AnchorPane>
       <GridPane layoutX="500.0" layoutY="181.0" prefHeight="576.0" prefWidth="776.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">

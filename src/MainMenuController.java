@@ -1,4 +1,5 @@
 import com.gluonhq.charm.glisten.control.Avatar;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -11,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 
 import java.io.FileInputStream;
@@ -218,6 +218,11 @@ public class MainMenuController extends Controller implements Initializable {
                 "-fx-text-fill: white;" +
                 "-fx-opacity: 1;";
         label.setStyle(LABEL_BRIGHT);
+    }
+
+    @FXML
+    private void onQuitAction() {
+        Platform.exit();
     }
 }
 
