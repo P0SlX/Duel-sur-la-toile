@@ -63,7 +63,7 @@
             <VBox fx:id="friendList" layoutY="94.0" prefHeight="713.0" prefWidth="272.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="95.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+      <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>
             <Avatar layoutX="190.0" layoutY="10.0" radius="25.0">
                <image>
