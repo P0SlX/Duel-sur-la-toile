@@ -131,5 +131,7 @@ class DatabaseConnectionTest {
         ResultSet rs = ps.executeQuery();
         rs.next();
         System.out.println(rs.getString(1));
+        System.out.println(db.getInv(db.getMaxIdInv()).getId());
     }
+
 }
