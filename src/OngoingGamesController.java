@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -8,10 +9,8 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -42,6 +41,12 @@ public class OngoingGamesController extends Controller implements Initializable 
     private void onDisconnectAction() {
         databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
         sceneController.showScene(SceneController.ViewType.Login);
+    }
+
+    @FXML
+    private void onQuitAction() {
+        databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
+        Platform.exit();
     }
 
     public void setMainMenuController(MainMenuController mainMenuController) {
