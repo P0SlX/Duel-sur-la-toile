@@ -118,6 +118,11 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
+    "Le Chef",
+    "admin"
+);
+
+insert into ETREAMIS values (
     "admin",
     "p0slx"
 );
