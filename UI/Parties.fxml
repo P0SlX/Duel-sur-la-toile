@@ -24,7 +24,7 @@
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
             <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onDisconnectAction" text="Log out" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
+                  <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Player">
@@ -84,7 +84,7 @@
                         <Font size="50.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" fx:id="activeGames">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>

@@ -118,6 +118,11 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
+    "Le Chef",
+    "admin"
+);
+
+insert into ETREAMIS values (
     "admin",
     "p0slx"
 );
@@ -131,7 +136,7 @@ insert into ETREAMIS values (
 -- Creation parties
 insert into PARTIE values (
     420,
-    "Puissance 4",
+    "FourInARow",
     "contenuGrille",
     "p0slx",
     0,
@@ -144,7 +149,7 @@ insert into PARTIE values (
 
 insert into PARTIE values (
     69,
-    "Puissance 4",
+    "FourInARow",
     "contenuGrille",
     "Coco",
     1,

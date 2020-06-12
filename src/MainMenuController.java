@@ -1,14 +1,14 @@
 import com.gluonhq.charm.glisten.control.Avatar;
 import javafx.application.Platform;
+import com.gluonhq.charm.glisten.control.TextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -59,7 +59,12 @@ public class MainMenuController extends Controller implements Initializable {
     private Button fourInARow;
 
 
+    @FXML
+    private TextField textMessage;
+
     private Player loggedPlayer;
+
+    private OngoingGamesController ongoingGamesController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,12 +75,24 @@ public class MainMenuController extends Controller implements Initializable {
         this.friendList.getChildren().clear();
         this.messageZone.setVisible(false);
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
+        messageZone.setVisible(false);
         sceneController.showScene(SceneController.ViewType.Login);
     }
 
     @FXML
     public void onFourInARowAction() {
+        this.ongoingGamesController.initOnGoingGameView();
         sceneController.showScene(SceneController.ViewType.OngoingGames);
+    }
+
+    @FXML
+    public void onTextMessageKeyPressed(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)) {
+            Player receiver = databaseConnection.getPlayer(senderPseudo.getText());
+            databaseConnection.sendMessage(loggedPlayer, receiver, textMessage.getText());
+            loadMessage(receiver);
+            textMessage.setText("");
+        }
     }
 
     /**
@@ -196,7 +213,7 @@ public class MainMenuController extends Controller implements Initializable {
             content.minHeight(Double.NEGATIVE_INFINITY);
             content.minWidth(Double.NEGATIVE_INFINITY);
 
-            Label pseudo = new Label(sender.getPseudo());
+            Label pseudo = new Label(m.getSenderPseudo());
             Label time = new Label(m.getDate());
 
             setMessageLabelStyle(pseudo);
@@ -234,7 +251,12 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     private void onQuitAction() {
+        databaseConnection.setStatus(loggedPlayer, 0);
         Platform.exit();
+    }
+
+    public void setOngoingGamesController(OngoingGamesController ongoingGamesController) {
+        this.ongoingGamesController = ongoingGamesController;
     }
 }
 
