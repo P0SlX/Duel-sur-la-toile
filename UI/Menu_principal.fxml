@@ -75,7 +75,8 @@
                <children>
                </children>
             </VBox>
-            <TextField floatText="Message" layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0" />
+            <TextField floatText="Message" layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0"
+                        fx:id="textMessage" onKeyPressed="#onTextMessageKeyPressed" />
          </children>
       </AnchorPane>
       <GridPane layoutX="500.0" layoutY="181.0" prefHeight="576.0" prefWidth="776.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">

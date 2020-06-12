@@ -143,21 +143,25 @@ public class DatabaseConnection {
 
         try {
             PreparedStatement ps = c.prepareStatement(
-                    "select contenumessage, datemessage " +
+                    "select contenumessage, datemessage, pseudo, destinataire " +
                             "from MESSAGE natural join COMMUNIQUER " +
-                            "where pseudo=? and destinataire=?" +
+                            "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?)" +
                             "order by datemessage"
             );
 
             ps.setString(1, sender.getPseudo());
             ps.setString(2, receiver.getPseudo());
+            ps.setString(3, receiver.getPseudo());
+            ps.setString(4, sender.getPseudo());
 
             ResultSet resultSet = ps.executeQuery();
 
             while(resultSet.next()) {
                 messageArrayList.add(
                         new Message(resultSet.getString("contenumessage"),
-                                resultSet.getDate("datemessage").toString())
+                                resultSet.getDate("datemessage").toString(),
+                                resultSet.getString("pseudo"),
+                                resultSet.getString("destinataire"))
                 );
             }
         } catch (SQLException throwables) {
