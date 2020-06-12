@@ -126,12 +126,13 @@ class DatabaseConnectionTest {
         db.createInv(p,p2, Invitation.INVFRIEND);
 
         Connection c = db.getConnexion();
-        String reqS = "select * from INVITATION where idinv IN(select MAX(idinv) from INVITATION)";
+        String reqS = "select idinv from INVITATION where idinv IN(select MAX(idinv) from INVITATION)";
         PreparedStatement ps = c.prepareStatement(reqS);
         ResultSet rs = ps.executeQuery();
         rs.next();
         System.out.println(rs.getString(1));
         System.out.println(db.getInv(db.getMaxIdInv()).getId());
+        assertEquals(db.getInv(db.getMaxIdInv()).getId(), rs.getInt(1));
     }
 
 }
