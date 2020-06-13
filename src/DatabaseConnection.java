@@ -349,7 +349,7 @@ public class DatabaseConnection {
         return "";
     }
 
-    public void playForInARowTurn(Player p, int line, int col) {    //TODO
+    public void updateFourInARowPlate(FourInARow fourInARow) {    //TODO
 
     }
     /***************************/

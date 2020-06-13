@@ -1,12 +1,16 @@
+import util.Pair;
+
+import java.sql.SQLException;
+
 public class FourInARow implements Game {
 
     private final Player player1;
     private final Player player2;
     private Player currentPlayer;
-    private String plate;
+    private char[][] plate;
     private java.sql.Date startTime;
     private java.sql.Date finishTime;
-    private int elementPlaced;
+    private int elementPlacedCount;
     private int gameID;
     private int state;
     private int score;
@@ -14,22 +18,57 @@ public class FourInARow implements Game {
     private Player winner;
     private Player looser;
 
+    private final Pair<Integer, Integer>[][] DIRECTIONS = new Pair[][]{
+            { new Pair<>(-1, 0), new Pair<>(-2, 0), new Pair<>(1, 0), new Pair<>(2, 0) },
+            { new Pair<>(0, -1), new Pair<>(0, -2), new Pair<>(0, 1), new Pair<>(0, 2) },
+            { new Pair<>(-1, -1), new Pair<>(-2, -2), new Pair<>(1, 1), new Pair<>(2, 2) },
+            { new Pair<>(-1, 1), new Pair<>(-2, 2), new Pair<>(1, -1), new Pair<>(2, -2) }
+    };
+
+    static private DatabaseConnection databaseConnection;
+
+    public static void setDatabaseConnection(DatabaseConnection connection) {
+        FourInARow.databaseConnection = connection;
+    }
+
     public FourInARow(Player player1, Player player2, Player currentPlayer, String plate, java.sql.Date startTime,
                       java.sql.Date finishTime, int elementPlaced, int gameID, int state, int score,
                       String gameName, Player winner, Player looser) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = currentPlayer;
-        this.plate = plate;
+        this.plate = new char[7][7];
         this.startTime = startTime;
         this.finishTime = finishTime;
-        this.elementPlaced = elementPlaced;
+        this.elementPlacedCount = elementPlaced;
         this.gameID = gameID;
         this.state = state;
         this.score = score;
         this.gameName = gameName;
         this.winner = winner;
         this.looser = looser;
+    }
+
+    /**
+     * This constructor is for the test class.
+     * It shouldn't be used in any other ways, all the attributes are initialized to null
+     * @param plate a game plate
+     */
+    public FourInARow(char[][] plate) {
+        this.plate = plate;
+
+        this.player1 = null;
+        this.player2 = null;
+        this.currentPlayer = null;
+        this.startTime = null;
+        this.finishTime = null;
+        this.elementPlacedCount = 0;
+        this.gameID = 0;
+        this.state = 0;
+        this.score = 0;
+        this.gameName = "FourInARow";
+        this.winner = null;
+        this.looser = null;
     }
 
     @Override
@@ -52,7 +91,7 @@ public class FourInARow implements Game {
         return this.finishTime;
     }
 
-    public String getPlate() {
+    public char[][] getPlate() {
         return this.plate;
     }
 
@@ -67,7 +106,7 @@ public class FourInARow implements Game {
     }
 
     public int getElementPlaced() {
-        return this.elementPlaced;
+        return this.elementPlacedCount;
     }
 
     @Override
@@ -120,11 +159,11 @@ public class FourInARow implements Game {
         this.gameID = gameID;
     }
 
-    public void setElementPlaced(int elementPlaced) {
-        this.elementPlaced = elementPlaced;
+    public void setElementPlacedCount(int elementPlaced) {
+        this.elementPlacedCount = elementPlaced;
     }
 
-    public void setPlate(String plate) {
+    public void setPlate(char[][] plate) {
         this.plate = plate;
     }
 
@@ -158,5 +197,71 @@ public class FourInARow implements Game {
         this.state = state;
     }
 
+    public boolean playerPlayTurn(Player p, int x, int y) throws SQLException {
+        if(inPlate(x, y)) {
+            if(player1.equals(p)) {
+                if(plate[x][y] == '*') {
+                    char PLAYER1 = 'R';
+                    plate[x][y] = PLAYER1;
 
+                    if(checkWin()) {
+                        this.winner = player1;
+                        this.looser = player2;
+                    }
+
+                    databaseConnection.updateFourInARowPlate(this);
+                    return true;
+                }
+            } else if(player2.equals(p)) {
+                if(plate[x][y] == '*') {
+                    char PLAYER2 = 'B';
+                    plate[x][y] = PLAYER2;
+
+                    if(checkWin()) {
+                        this.winner = this.player2;
+                        this.looser = this.player1;
+                    }
+
+                    databaseConnection.updateFourInARowPlate(this);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean checkWin() {
+        boolean win = false;
+
+        for(int i = 0; i < 7; i++) {
+            for(int j = 0; j < 7; j++) {
+                if(plate[i][j] != '*')
+                    win = checkPosition(i, j);
+            }
+        }
+
+        return win;
+    }
+
+    private boolean inPlate(int x, int y) {
+        return x >= 0 && x < 7 && y >= 0 && y < 7;
+    }
+
+
+    private boolean checkPosition(int x, int y) {
+        char side = plate[x][y];
+
+        for(var dirs : DIRECTIONS) {
+            for(var pos : dirs) {
+                int line = x + pos.getFirst();
+                int column = y + pos.getSecond();
+
+                if(inPlate(line, column) && plate[line][column] != side)
+                    return false;
+            }
+        }
+
+        return true;
+    }
 }
