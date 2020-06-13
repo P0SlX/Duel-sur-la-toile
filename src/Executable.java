@@ -10,6 +10,8 @@ public class Executable {
         Player p0slx = c.getPlayer("p0slx");
         p0slx.setAvatar("img/arouf_vogue.png");
         c.updatePlayer(p0slx);
+        System.out.println(p0slx.getAvatar());
+        System.out.println(c.getAllPlayers());
         //System.out.println("game list  " + c.getGameList());
         //ArrayList<Game> gameList = c.getGameList();
         //System.out.println("getActiveGames  " + c.getActivesGames(p0slx));

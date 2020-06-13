@@ -76,6 +76,30 @@ public class DatabaseConnection {
         return false;
     }
 
+    public ArrayList<Player> getAllPlayers() {
+        try {
+            ArrayList<Player> listPlayers = new ArrayList<>();
+            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Player pq = new Player(
+                        rs.getString("pseudo"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        loadImageFromStream(rs.getBinaryStream("avatar"), rs.getString("pseudo")),
+                        rs.getInt("etat"),
+                        rs.getBoolean("desactive"),
+                        rs.getBoolean("admin")
+                );
+                listPlayers.add(pq);
+            }
+            return listPlayers;
+        } catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
     public Player getPlayer(String pseudo) {
         try {
             PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=?");
@@ -121,9 +145,7 @@ public class DatabaseConnection {
         }
     }
 
-    public void createPlayer(Player p) {
-        try {
-
+    public void createPlayer(Player p) throws FileNotFoundException, SQLException {
             File playerAvatarFile = new File(p.getAvatar());
             FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
 
@@ -136,9 +158,6 @@ public class DatabaseConnection {
             ps.setBoolean(6, p.isDeactivated());
             ps.setBoolean(7, p.isAdmin());
             ps.executeQuery();
-        } catch (SQLException | FileNotFoundException throwables) {
-            throwables.printStackTrace();
-        }
     }
 
     public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
@@ -200,7 +219,7 @@ public class DatabaseConnection {
     public ArrayList<Player> getFriends(Player p) {
         try {
             ArrayList<Player> friendList = new ArrayList<>();
-            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?);");
+            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?)");
             ps.setString(1, p.getPseudo());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

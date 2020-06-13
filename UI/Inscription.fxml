@@ -34,27 +34,27 @@
                   <Font size="30.0" />
                </font>
             </Text>
-            <TextField alignment="CENTER" layoutX="161.0" layoutY="147.0" prefHeight="30.0" prefWidth="213.0" promptText="Pseudo" AnchorPane.topAnchor="150.0">
+            <TextField fx:id="pseudo" alignment="CENTER" layoutX="161.0" layoutY="147.0" prefHeight="30.0" prefWidth="213.0" promptText="Pseudo" AnchorPane.topAnchor="150.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <TextField alignment="CENTER" layoutX="161.0" layoutY="195.0" prefHeight="30.0" prefWidth="213.0" promptText="Email" AnchorPane.topAnchor="200.0">
+            <TextField fx:id="email" alignment="CENTER" layoutX="161.0" layoutY="195.0" prefHeight="30.0" prefWidth="213.0" promptText="Email" AnchorPane.topAnchor="200.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <PasswordField alignment="CENTER" layoutX="161.0" layoutY="253.0" prefHeight="30.0" prefWidth="213.0" promptText="Password" AnchorPane.topAnchor="250.0">
+            <PasswordField fx:id="password" alignment="CENTER" layoutX="161.0" layoutY="253.0" prefHeight="30.0" prefWidth="213.0" promptText="Password" AnchorPane.topAnchor="250.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <PasswordField alignment="CENTER" layoutX="161.0" layoutY="310.0" prefHeight="30.0" prefWidth="213.0" promptText="Confirm your password" AnchorPane.topAnchor="300.0">
+            <PasswordField fx:id="confirmPassword" alignment="CENTER" layoutX="161.0" layoutY="310.0" prefHeight="30.0" prefWidth="213.0" promptText="Confirm your password" AnchorPane.topAnchor="300.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Button defaultButton="true" layoutX="271.0" layoutY="363.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Sign up">
+            <Button fx:id="signUp" defaultButton="true" layoutX="271.0" layoutY="363.0" mnemonicParsing="false" onAction="#onSignUpAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Sign up">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

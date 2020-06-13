@@ -4,10 +4,10 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public class Player {
-    public final int DISCONNECTED = 0;
-    public final int CONNECTED    = 1;
-    public final int AFK          = 2;
-    public final int DND          = 3;
+    public static final int DISCONNECTED = 0;
+    public static final int CONNECTED    = 1;
+    public static final int AFK          = 2;
+    public static final int DND          = 3;
 
     private String pseudo;
     private String email;
@@ -35,7 +35,7 @@ public class Player {
         this.pseudo = pseudo;
         this.email = email;
         this.mdp = mdp;
-        this.avatar = new String();
+        this.avatar = "";
         this.etat = etat;
         this.desactivated = desactivated;
         this.admin = admin;
