@@ -11,7 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -38,13 +40,13 @@ public class OngoingGamesController extends Controller implements Initializable 
     }
 
     @FXML
-    private void onDisconnectAction() {
+    private void onDisconnectAction() throws SQLException {
         databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
         sceneController.showScene(SceneController.ViewType.Login);
     }
 
     @FXML
-    private void onQuitAction() {
+    private void onQuitAction() throws SQLException {
         databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
         Platform.exit();
     }
@@ -53,7 +55,7 @@ public class OngoingGamesController extends Controller implements Initializable 
         this.mainMenuController = mainMenuController;
     }
 
-    public void initOnGoingGameView() {
+    public void initOnGoingGameView() throws IOException, SQLException {
         Player p = this.mainMenuController.getLoggedPlayer();
 
         this.pseudo.setText(p.getPseudo());

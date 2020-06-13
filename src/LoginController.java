@@ -7,7 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController extends Controller implements Initializable {
@@ -29,7 +31,7 @@ public class LoginController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) { }
 
     @FXML
-    private void onSignInAction() throws FileNotFoundException {
+    private void onSignInAction() throws IOException, SQLException {
         String pseudo = this.pseudo.getText();
         String password = this.password.getText();
 

@@ -1,7 +1,9 @@
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Executable {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SQLException {
         DatabaseConnection c = new DatabaseConnection();
         c.connexion();
         //Player p = new Player("test", "test@gmail.com", "cocopops", null, 0, false, false);
@@ -12,6 +14,9 @@ public class Executable {
         c.updatePlayer(p0slx);
         System.out.println(p0slx.getAvatar());
         System.out.println(c.getAllPlayers());
+        Player p = c.getPlayer("Coco");
+        String res = p.toString();
+        System.out.println(res);
         //System.out.println("game list  " + c.getGameList());
         //ArrayList<Game> gameList = c.getGameList();
         //System.out.println("getActiveGames  " + c.getActivesGames(p0slx));

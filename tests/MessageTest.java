@@ -1,11 +1,14 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MessageTest {
 
     @Test
-    void getContent() {
+    void getContent() throws IOException, SQLException  {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -17,7 +20,7 @@ class MessageTest {
     }
 
     @Test
-    void getDate() {
+    void getDate() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -28,7 +31,7 @@ class MessageTest {
     }
 
     @Test
-    void getSenderPseudo() {
+    void getSenderPseudo() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -40,7 +43,7 @@ class MessageTest {
     }
 
     @Test
-    void setSenderPseudo() {
+    void setSenderPseudo() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -53,7 +56,7 @@ class MessageTest {
     }
 
     @Test
-    void getReceiverPseudo() {
+    void getReceiverPseudo() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -65,7 +68,7 @@ class MessageTest {
     }
 
     @Test
-    void setReceiverPseudo() {
+    void setReceiverPseudo() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");

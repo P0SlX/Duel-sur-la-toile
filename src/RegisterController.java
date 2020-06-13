@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -41,7 +42,7 @@ public class RegisterController extends Controller implements Initializable {
     }
 
     @FXML
-    private void onSignUpAction() {
+    private void onSignUpAction() throws IOException, SQLException {
         if (this.password.getText().equals(this.confirmPassword.getText())) {       // if password matches
 
             if (!this.pseudo.getText().equals("") && !this.email.getText().equals("") &&

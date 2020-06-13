@@ -17,7 +17,9 @@ import javafx.scene.text.TextAlignment;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -71,7 +73,7 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onDisconnectAction() {
+    public void onDisconnectAction() throws SQLException {
         this.friendList.getChildren().clear();
         this.messageZone.setVisible(false);
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
@@ -80,13 +82,13 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onFourInARowAction() {
+    public void onFourInARowAction() throws IOException, SQLException {
         this.ongoingGamesController.initOnGoingGameView();
         sceneController.showScene(SceneController.ViewType.OngoingGames);
     }
 
     @FXML
-    public void onTextMessageKeyPressed(KeyEvent event) {
+    public void onTextMessageKeyPressed(KeyEvent event) throws SQLException, IOException {
         if(event.getCode().equals(KeyCode.ENTER)) {
             Player receiver = databaseConnection.getPlayer(senderPseudo.getText());
             databaseConnection.sendMessage(loggedPlayer, receiver, textMessage.getText());
@@ -100,7 +102,7 @@ public class MainMenuController extends Controller implements Initializable {
      * This method should be called after an user logged in by the LoginController
      * @param player the player that just logged in
      */
-    public void initMainControllerWithPlayer(Player player) throws FileNotFoundException {
+    public void initMainControllerWithPlayer(Player player) throws IOException, SQLException {
         this.loggedPlayer = player;
 
         this.pseudo.setText(player.getPseudo());
@@ -124,7 +126,7 @@ public class MainMenuController extends Controller implements Initializable {
         return this.loggedPlayer;
     }
 
-    private void addFriend(Player friend) throws FileNotFoundException {
+    private void addFriend(Player friend) {
         Button invite = new Button("Invite");
         Button message = new Button("Message");
 
@@ -181,7 +183,13 @@ public class MainMenuController extends Controller implements Initializable {
         circle.setCenterY(30);
 
 
-        message.setOnAction(actionEvent -> loadMessage(friend));
+        message.setOnAction(actionEvent -> {
+            try {
+                loadMessage(friend);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
 
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().addAll(avatar, friendPseudo, friendRatio, invite, message);
@@ -194,7 +202,7 @@ public class MainMenuController extends Controller implements Initializable {
         friendList.getChildren().add(separator);
     }
 
-    private void loadMessage(Player sender) {
+    private void loadMessage(Player sender) throws SQLException {
         ArrayList<Message> messages = databaseConnection.getPlayerMessage(this.loggedPlayer, sender);
 
         messageList.getChildren().clear();
@@ -249,7 +257,7 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
     @FXML
-    private void onQuitAction() {
+    private void onQuitAction() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, 0);
         Platform.exit();
     }
