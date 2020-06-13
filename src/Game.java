@@ -5,7 +5,7 @@ public interface Game {
 
     java.sql.Date getStartTime();
     java.sql.Date getFinishTime();
-    String getNomJeu();
+    String getGameName();
     int getGameID();
     int getScore();
     int getState();

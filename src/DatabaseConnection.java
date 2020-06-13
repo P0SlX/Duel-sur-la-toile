@@ -331,7 +331,7 @@ public class DatabaseConnection {
         try {
             PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
             ps.setInt(1, this.getMaxIDGame() + 1);
-            ps.setString(2, g.getNomJeu());
+            ps.setString(2, g.getGameName());
             ps.setString(3, "contenuGrille");
             ps.setString(4, p1.getPseudo());
             ps.executeUpdate();

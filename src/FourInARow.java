@@ -1,7 +1,3 @@
-import com.sun.media.jfxmediaimpl.platform.Platform;
-
-import java.sql.Date;
-
 public class FourInARow implements Game {
 
     private final Player player1;
@@ -14,11 +10,13 @@ public class FourInARow implements Game {
     private int gameID;
     private int state;
     private int score;
-    private String nomJeu;
+    private String gameName;
     private Player winner;
     private Player looser;
 
-    public FourInARow(Player player1, Player player2, Player currentPlayer, String plate, java.sql.Date startTime, java.sql.Date finishTime, int elementPlaced, int gameID, int state, int score, String nomJeu, Player winner, Player looser) {
+    public FourInARow(Player player1, Player player2, Player currentPlayer, String plate, java.sql.Date startTime,
+                      java.sql.Date finishTime, int elementPlaced, int gameID, int state, int score,
+                      String gameName, Player winner, Player looser) {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = currentPlayer;
@@ -29,7 +27,7 @@ public class FourInARow implements Game {
         this.gameID = gameID;
         this.state = state;
         this.score = score;
-        this.nomJeu = nomJeu;
+        this.gameName = gameName;
         this.winner = winner;
         this.looser = looser;
     }
@@ -59,8 +57,8 @@ public class FourInARow implements Game {
     }
 
     @Override
-    public String getNomJeu() {
-        return this.nomJeu;
+    public String getGameName() {
+        return this.gameName;
     }
 
     @Override
@@ -108,8 +106,8 @@ public class FourInARow implements Game {
     }
 
     @Override
-    public void setNomJeu(String nomJeu) {
-        this.nomJeu = nomJeu;
+    public void setNomJeu(String gameName) {
+        this.gameName = gameName;
     }
 
     @Override
