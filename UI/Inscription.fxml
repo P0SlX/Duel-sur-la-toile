@@ -16,7 +16,6 @@
             <MenuItem mnemonicParsing="false" text="Quitter" />
           </items>
         </Menu>
-        <Menu disable="true" mnemonicParsing="false" text="Player" />
       </menus>
          <opaqueInsets>
             <Insets />
@@ -54,7 +53,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Button fx:id="signUp" defaultButton="true" layoutX="271.0" layoutY="363.0" mnemonicParsing="false" onAction="#onSignUpAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Sign up">
+            <Button fx:id="signUp" defaultButton="true" layoutX="271.0" layoutY="363.0" mnemonicParsing="false" onAction="#onSignUpAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="Sign up">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

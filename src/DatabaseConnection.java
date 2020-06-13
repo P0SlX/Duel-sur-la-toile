@@ -183,9 +183,11 @@ public class DatabaseConnection {
 
     public ArrayList<Player> getFriends(Player p) throws SQLException, IOException {
         ArrayList<Player> friendList = new ArrayList<>();
+
         PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?)");
         ps.setString(1, p.getPseudo());
         ResultSet rs = ps.executeQuery();
+
         while (rs.next()) {
             Player pq = new Player(
                     rs.getString("pseudo"),

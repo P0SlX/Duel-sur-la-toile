@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
 <children>
-    <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="1600.0" stylesheets="@test.css">
+    <MenuBar maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
-            <MenuItem mnemonicParsing="false" text="Se deconnecter" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+            <MenuItem mnemonicParsing="false" text="Log out" />
+                  <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Player">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Profil" />
-                  <MenuItem mnemonicParsing="false" text="Historique" />
-          </items>
-        </Menu>
+        <Menu mnemonicParsing="false" onAction="#onPlayerAction" text="Player" />
       </menus>
          <opaqueInsets>
             <Insets />
@@ -39,131 +26,40 @@
             <Cursor fx:constant="HAND" />
          </cursor>
     </MenuBar>
-      <AnchorPane layoutX="1338.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background">
+      <AnchorPane layoutX="1324.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
-            <VBox prefHeight="807.0">
+            <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane prefHeight="96.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="10.0" radius="30.0">
-                           <image>
-                              <Image url="@arza.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="126.0" layoutY="33.0" styleClass="niveau" text="Ratio: 9000">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="135.0" layoutY="48.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="15.0" layoutY="28.0" preserveRatio="true" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="23.0">
-                           <image>
-                              <Image url="@assets/logo.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="92.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" styleClass="bu" text="InviteInvite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="94.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Invite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="88.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Invite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-                  <AnchorPane prefHeight="81.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="6.0" radius="30.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="88.0" layoutY="48.0" prefHeight="21.0" prefWidth="109.0" styleClass="pseudo" text="Kalouz4">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="133.0" layoutY="33.0" styleClass="niveau" text="Ratio: NaN">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Button layoutX="15.0" layoutY="4.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Invite" />
-                        <Button layoutX="15.0" layoutY="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="71.0" style="-fx-background-radius: 5px;" text="Message" />
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
+                  <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" layoutX="198.0" layoutY="19.0" AnchorPane.rightAnchor="5.0">
+                     <image>
+                        <Image url="@assets/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.leftAnchor="70.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.leftAnchor="70.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" preserveRatio="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="23.0">
+                     <image>
+                        <Image url="@assets/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
                </children>
-            </VBox>
+            </AnchorPane>
+            <VBox prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="380.0" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="349.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="25.0">
          <children>
             <VBox prefHeight="807.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="36.0" layoutY="14.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza">
+            <Label alignment="CENTER_RIGHT" layoutX="36.0" layoutY="14.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font size="16.0" />
                </font>
@@ -173,7 +69,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Separator layoutX="36.0" layoutY="56.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Separator layoutX="36.0" layoutY="56.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
             <Label alignment="CENTER_RIGHT" layoutX="36.0" layoutY="125.0" styleClass="ratio-gros" text="Victories: 187" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="120.0">
                <font>
                   <Font size="16.0" />
@@ -198,107 +94,41 @@
       </AnchorPane>
       <AnchorPane layoutX="130.0" layoutY="130.0" minHeight="0.0" minWidth="0.0" prefHeight="559.0" prefWidth="870.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="200.0">
          <children>
-            <VBox prefHeight="569.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="870.0" style="-fx-background-color: rgba(0,0,0,0.1);" styleClass="pseudo-stat" text="Game history" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="569.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="870.0" style="-fx-background-color: rgba(0,0,0,0.1);" styleClass="pseudo-stat" text="Game history">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
                   <AnchorPane prefHeight="100.0" prefWidth="870.0">
                      <children>
-                        <Separator prefWidth="200.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
-                        <Avatar layoutX="40.0" layoutY="11.0" radius="40.0">
+                        <Separator AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                        <Label alignment="CENTER_RIGHT" layoutX="94.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="winner-history" text="Arza" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="33.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="526.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="looser-history" text="Kalouz" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="33.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" styleClass="vs-history" text="VS" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="361.0" AnchorPane.topAnchor="33.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="avatar2" fitHeight="80.0" fitWidth="80.0" layoutX="40.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0">
                            <image>
-                              <Image url="@arza.png" />
+                              <Image url="@assets/logo.png" />
                            </image>
-                        </Avatar>
-                        <Avatar layoutX="776.0" layoutY="10.0" radius="40.0" AnchorPane.rightAnchor="40.0">
+                        </ImageView>
+                        <ImageView fx:id="avatar21" fitHeight="80.0" fitWidth="80.0" layoutX="740.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="10.0">
                            <image>
-                              <Image url="@kalouz.png" />
+                              <Image url="@assets/logo.png" />
                            </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="94.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="winner-history" text="Arza">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="526.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="looser-history" text="Kalouz">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="366.0" layoutY="30.0" prefHeight="34.0" prefWidth="138.0" styleClass="vs-history" text="VS">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="100.0" prefWidth="870.0">
-                     <children>
-                        <Separator prefWidth="200.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
-                        <Avatar layoutX="40.0" layoutY="11.0" radius="40.0">
-                           <image>
-                              <Image url="@arza.png" />
-                           </image>
-                        </Avatar>
-                        <Avatar layoutX="776.0" layoutY="10.0" radius="40.0" AnchorPane.rightAnchor="40.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="94.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="looser-history" text="Arza">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="526.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="winner-history" text="Kalouz2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="366.0" layoutY="30.0" prefHeight="34.0" prefWidth="138.0" styleClass="vs-history" text="VS">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="100.0" prefWidth="870.0">
-                     <children>
-                        <Separator prefWidth="200.0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
-                        <Avatar layoutX="40.0" layoutY="11.0" radius="40.0">
-                           <image>
-                              <Image url="@arza.png" />
-                           </image>
-                        </Avatar>
-                        <Avatar layoutX="776.0" layoutY="10.0" radius="40.0" AnchorPane.rightAnchor="40.0">
-                           <image>
-                              <Image url="@kalouz.png" />
-                           </image>
-                        </Avatar>
-                        <Label alignment="CENTER_RIGHT" layoutX="94.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="winner-history" text="Arza">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="526.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="looser-history" text="Kalouz3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" layoutX="366.0" layoutY="30.0" prefHeight="34.0" prefWidth="138.0" styleClass="vs-history" text="VS">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
+                        </ImageView>
                      </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -307,11 +137,11 @@
                </children></VBox>
          </children>
       </AnchorPane>
-      <Avatar layoutX="109.0" layoutY="95.0" radius="80.0">
+      <Button fx:id="backButton" layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" onAction="#onBackAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="20.0" />
+      <ImageView fx:id="avatar1" fitHeight="160.0" fitWidth="160.0" layoutX="120.0" layoutY="120.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="120.0">
          <image>
-            <Image url="@arza.png" />
+            <Image url="@assets/logo.png" />
          </image>
-      </Avatar>
-      <Button layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 14pt;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="20.0" />
+      </ImageView>
 </children>
 </AnchorPane>

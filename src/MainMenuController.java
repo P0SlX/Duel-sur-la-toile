@@ -1,11 +1,10 @@
-import com.gluonhq.charm.glisten.control.Avatar;
-import javafx.application.Platform;
 import com.gluonhq.charm.glisten.control.TextField;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,10 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Ellipse;
-import javafx.scene.text.TextAlignment;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -59,7 +55,6 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     private Button fourInARow;
-
 
     @FXML
     private TextField textMessage;

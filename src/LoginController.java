@@ -67,8 +67,4 @@ public class LoginController extends Controller implements Initializable {
 
         if(mainMenuController == null) throw new IllegalStateException();
     }
-
-    public void setPseudo(String pseudo) {
-        this.pseudo.setText(pseudo);
-    }
 }

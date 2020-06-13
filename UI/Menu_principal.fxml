@@ -18,7 +18,10 @@
             <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Player" />
+        <Menu mnemonicParsing="false" text="Player">
+               <items>
+                  <MenuItem fx:id="playerMenu" mnemonicParsing="false" onAction="#onPlayerAction" text="Profil" />
+               </items></Menu>
       </menus>
          <opaqueInsets>
             <Insets />
@@ -27,7 +30,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
     </MenuBar>
-      <AnchorPane layoutX="1324.0" layoutY="28.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+      <AnchorPane layoutX="1324.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
             <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -55,7 +58,7 @@
                   <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
                </children>
             </AnchorPane>
-            <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
@@ -70,8 +73,7 @@
                <children>
                </children>
             </VBox>
-            <TextField floatText="Message" layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0"
-                        fx:id="textMessage" onKeyPressed="#onTextMessageKeyPressed" />
+            <TextField fx:id="textMessage" floatText="Message" layoutX="5.0" layoutY="509.0" onKeyPressed="#onTextMessageKeyPressed" prefHeight="34.0" prefWidth="240.0" />
          </children>
       </AnchorPane>
       <GridPane layoutX="500.0" layoutY="181.0" prefHeight="576.0" prefWidth="776.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
