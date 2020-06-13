@@ -18,11 +18,15 @@ public class FourInARow implements Game {
     private Player winner;
     private Player looser;
 
-    private final Pair<Integer, Integer>[][] DIRECTIONS = new Pair[][]{
-            { new Pair<>(-1, 0), new Pair<>(-2, 0), new Pair<>(1, 0), new Pair<>(2, 0) },
-            { new Pair<>(0, -1), new Pair<>(0, -2), new Pair<>(0, 1), new Pair<>(0, 2) },
-            { new Pair<>(-1, -1), new Pair<>(-2, -2), new Pair<>(1, 1), new Pair<>(2, 2) },
-            { new Pair<>(-1, 1), new Pair<>(-2, 2), new Pair<>(1, -1), new Pair<>(2, -2) }
+    private final Pair<Integer, Integer>[] DIRECTIONS = new Pair[]{
+            new Pair<>(-1, 0),  // NORTH
+            new Pair<>(1, 0),   // SOUTH
+            new Pair<>(0, -1),  // WEST
+            new Pair<>(0, 1),   // EAST
+            new Pair<>(-1, -1), // NORTH WEST
+            new Pair<>(1, 1),   // South WEST
+            new Pair<>(1, -1),  // South EAST
+            new Pair<>(-1, 1)   // North EAST
     };
 
     static private DatabaseConnection databaseConnection;
@@ -232,36 +236,44 @@ public class FourInARow implements Game {
     }
 
     public boolean checkWin() {
-        boolean win = false;
-
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++) {
-                if(plate[i][j] != '*')
-                    win = checkPosition(i, j);
+                if(plate[i][j] != '*' && checkPosition(i, j))
+                    return true;
             }
         }
 
-        return win;
+        return false;
     }
 
     private boolean inPlate(int x, int y) {
         return x >= 0 && x < 7 && y >= 0 && y < 7;
     }
 
-
+    /**
+     * @param x the x position of the case
+     * @param y the y position of the case
+     * @return a boolean : true if there's at least 4 consecutive case with
+     *          the same colour in any direction
+     */
     private boolean checkPosition(int x, int y) {
         char side = plate[x][y];
 
-        for(var dirs : DIRECTIONS) {
-            for(var pos : dirs) {
-                int line = x + pos.getFirst();
-                int column = y + pos.getSecond();
+        for(var dir : DIRECTIONS) {
+            int line = x + dir.getFirst();
+            int column = y + dir.getSecond();
+            int consecutive = 1;
 
-                if(inPlate(line, column) && plate[line][column] != side)
-                    return false;
+            while(inPlate(line, column) && plate[line][column] == side) {
+                consecutive++;
+                line += dir.getFirst();
+                column += dir.getSecond();
             }
+
+            if(consecutive >= 4)
+                return true;
         }
 
-        return true;
+        return false;
     }
 }
