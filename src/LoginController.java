@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -38,6 +39,7 @@ public class LoginController extends Controller implements Initializable {
         if(databaseConnection.connectPlayer(pseudo, password)) {
             Player p = databaseConnection.getPlayer(pseudo);
             databaseConnection.setStatus(p, 1);
+            Controller.setLoggedPlayer(p);
             this.mainMenuController.initMainControllerWithPlayer(p); // Init main menu view
             sceneController.showScene(SceneController.ViewType.MainMenu);
 

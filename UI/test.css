@@ -11,6 +11,24 @@
 
 }
 
+.text-input {
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-width: 0 0 1.2 0; // top, right, bottom, left
+    -fx-background-color: transparent;
+
+    -fx-text-inner-color: white;
+    -fx-highlight-fill: rgb(48, 172, 221);
+    -fx-highlight-text-fill: rgb(255,255,255);
+    -fx-prompt-text-fill: rgba(200, 200, 200, 1);
+  }
+
+.jfx-text-field
+{
+    -jfx-focus-color: #4eb769;
+    -jfx-unfocus-color: #fffd8c;
+}
+
+
 .transparence {     // BOUTON JEU MENU
     -fx-background-color: rgba(0, 0, 0, 0);
 }

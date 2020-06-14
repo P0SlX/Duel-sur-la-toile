@@ -34,7 +34,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Button fx:id="connect" defaultButton="true" layoutX="273.0" layoutY="344.0" mnemonicParsing="false" onAction="#onSignInAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Sign in">
+            <Button fx:id="connect" defaultButton="true" layoutX="273.0" layoutY="344.0" mnemonicParsing="false" onAction="#onSignInAction" prefHeight="38.0" prefWidth="112.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 16px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="Sign in">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
