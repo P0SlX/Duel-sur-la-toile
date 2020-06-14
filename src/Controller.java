@@ -1,4 +1,5 @@
 import com.gluonhq.charm.glisten.control.TextField;
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -150,7 +151,6 @@ public abstract class Controller {
 
     static void loadMessage(Player sender) throws SQLException {
         ArrayList<Message> messages = databaseConnection.getPlayerMessage(loggedPlayer, sender);
-
         messageList.getChildren().clear();
         messageZone.setVisible(true);
         senderPseudo.setText(sender.getPseudo());
@@ -214,5 +214,85 @@ public abstract class Controller {
 
     protected static Player getLoggedPlayer() {
         return loggedPlayer;
+    }
+
+    public static MenuItem getDisconnect() {
+        return disconnect;
+    }
+
+    public static void setDisconnect(MenuItem disconnect) {
+        Controller.disconnect = disconnect;
+    }
+
+    public static Label getPseudo() {
+        return pseudo;
+    }
+
+    public static void setPseudo(Label pseudo) {
+        Controller.pseudo = pseudo;
+    }
+
+    public static VBox getFriendList() {
+        return friendList;
+    }
+
+    public static void setFriendList(VBox friendList) {
+        Controller.friendList = friendList;
+    }
+
+    public static Label getRatio() {
+        return ratio;
+    }
+
+    public static void setRatio(Label ratio) {
+        Controller.ratio = ratio;
+    }
+
+    public static VBox getMessageList() {
+        return messageList;
+    }
+
+    public static void setMessageList(VBox messageList) {
+        Controller.messageList = messageList;
+    }
+
+    public static Label getSenderPseudo() {
+        return senderPseudo;
+    }
+
+    public static void setSenderPseudo(Label senderPseudo) {
+        Controller.senderPseudo = senderPseudo;
+    }
+
+    public static ImageView getAvatar() {
+        return avatar;
+    }
+
+    public static void setAvatar(ImageView avatar) {
+        Controller.avatar = avatar;
+    }
+
+    public static AnchorPane getMessageZone() {
+        return messageZone;
+    }
+
+    public static void setMessageZone(AnchorPane messageZone) {
+        Controller.messageZone = messageZone;
+    }
+
+    public static TextField getTextMessage() {
+        return textMessage;
+    }
+
+    public static void setTextMessage(TextField textMessage) {
+        Controller.textMessage = textMessage;
+    }
+
+    public static VBox getActiveGames() {
+        return activeGames;
+    }
+
+    public static void setActiveGames(VBox activeGames) {
+        Controller.activeGames = activeGames;
     }
 }

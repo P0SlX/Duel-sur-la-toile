@@ -90,7 +90,9 @@ public class OngoingGamesController extends Controller implements Initializable 
         avatar.setClip(circle);
         circle.setCenterX(30);
         circle.setCenterY(30);
+
         this.activeGames.getChildren().clear();
+
 
         ArrayList<Game> games = databaseConnection.getActivesGames(this.loggedPlayer, GameType.FourInARow);
 
