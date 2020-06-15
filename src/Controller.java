@@ -14,47 +14,47 @@ import java.util.ArrayList;
 
 public abstract class Controller {
 
-    public static final String PSEUDO = "-fx-font-size: 13pt; -fx-font-family: \"Segoe UI Light\";" +
+    protected static final String PSEUDO = "-fx-font-size: 13pt; -fx-font-family: \"Segoe UI Light\";" +
             "-fx-text-fill: white;" +
             "-fx-opacity: 1;";
 
-    public static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
+    protected static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
 
     @FXML
-    private static MenuItem disconnect;
+    protected static MenuItem disconnect;
 
     @FXML
-    private static Label pseudo;
+    protected static Label pseudo;
 
     /**
      * Represent the right friend list
      */
     @FXML
-    private static VBox friendList;
+    protected static VBox friendList;
 
     @FXML
-    private static Label ratio;
+    protected static Label ratio;
 
     @FXML
-    private static VBox messageList;
+    protected static VBox messageList;
 
     @FXML
-    private static Label senderPseudo;
+    protected static Label senderPseudo;
 
     @FXML
-    private static ImageView avatar;
+    protected static ImageView avatar;
 
     @FXML
-    private static AnchorPane messageZone;
+    protected static AnchorPane messageZone;
 
     @FXML
-    private static Button fourInARow;
+    protected static Button fourInARow;
 
     @FXML
-    private static TextField textMessage;
+    protected static TextField textMessage;
 
     @FXML
-    private static VBox activeGames;
+    protected static VBox activeGames;
 
     protected static DatabaseConnection databaseConnection;
 

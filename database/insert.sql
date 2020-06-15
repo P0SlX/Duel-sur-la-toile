@@ -132,7 +132,6 @@ insert into ETREAMIS values (
     "Coco"
 );
 
-
 -- Creation parties
 insert into PARTIE values (
     420,
