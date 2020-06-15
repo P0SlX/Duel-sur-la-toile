@@ -1,4 +1,3 @@
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -143,7 +142,7 @@ public class OngoingGamesController extends Controller implements Initializable 
                 sceneController.showScene(SceneController.ViewType.FourInARowGame);
             });
 
-            //play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
+            play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
             play.setMnemonicParsing(false);
             play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px;");
             play.setTextFill(Color.WHITE);

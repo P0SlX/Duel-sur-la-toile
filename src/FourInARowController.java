@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -12,7 +13,13 @@ import java.util.ResourceBundle;
 public class FourInARowController extends Controller implements Initializable {
 
     @FXML
-    public GridPane fourInARowGrid;
+    private GridPane fourInARowGrid;
+
+    @FXML
+    private Label currentPlayerLabel;
+
+    @FXML
+    private Label pseudo;
 
     private FourInARowButton[][] grid;
 
@@ -64,6 +71,11 @@ public class FourInARowController extends Controller implements Initializable {
     public void initController(FourInARow currentGame) {
         char[][] content = currentGame.getPlate();
         this.game = currentGame;
+
+        pseudo.setText(loggedPlayer.getPseudo());
+        // TODO: Ratio
+
+        currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
 
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++)
