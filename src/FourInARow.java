@@ -1,3 +1,5 @@
+import org.json.JSONArray;
+import org.json.JSONException;
 import util.Pair;
 
 import java.sql.SQLException;
@@ -41,7 +43,7 @@ public class FourInARow implements Game {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = currentPlayer;
-        this.plate = initPlate();
+        this.plate = jsonToPlate(plate);
         this.startTime = startTime;
         this.finishTime = finishTime;
         this.elementPlacedCount = elementPlaced;
@@ -286,5 +288,24 @@ public class FourInARow implements Game {
         }
 
         return plate;
+    }
+
+    private char[][] jsonToPlate(String jsonCode) {
+        char[][] res = new char[7][7];
+
+        try {
+            JSONArray jsonArray = new JSONArray(jsonCode);
+
+            for(int i = 0; i < 7; i++) {
+                JSONArray line = (JSONArray)jsonArray.get(i);
+
+                for(int j = 0; j < 7; j++)
+                    res[i][j] = ((String)line.get(i)).charAt(0);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return res;
     }
 }

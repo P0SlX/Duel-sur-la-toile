@@ -137,7 +137,15 @@ insert into ETREAMIS values (
 insert into PARTIE values (
     420,
     "FourInARow",
-    "contenuGrille",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
     "p0slx",
     0,
     CURDATE(),
@@ -150,7 +158,15 @@ insert into PARTIE values (
 insert into PARTIE values (
     69,
     "FourInARow",
-    "contenuGrille",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, B, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
     "Coco",
     1,
     CURDATE(),
