@@ -55,7 +55,6 @@ public class FourInARowController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.grid = new FourInARowButton[7][7];
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++) {
@@ -100,6 +99,7 @@ public class FourInARowController extends Controller implements Initializable {
         this.game = currentGame;
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
                 currentGame.getPlayer2() : currentGame.getPlayer1();
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
         pseudo.setText(loggedPlayer.getPseudo());
         // TODO: Ratio
@@ -162,6 +162,7 @@ public class FourInARowController extends Controller implements Initializable {
 
     @FXML
     public void onBackMenuAction() {
+        awaitBackgroundTasksAndShutdown();
         sceneController.showScene(SceneController.ViewType.OngoingGames);
     }
 
@@ -175,10 +176,9 @@ public class FourInARowController extends Controller implements Initializable {
             if (result == ButtonType.OK) {
                 try {
                     databaseConnection.updateGameStatus(game, Game.CANCELED);
-                    scheduledExecutorService.awaitTermination(1, TimeUnit.SECONDS); // Wait the background task to finish
-                    scheduledExecutorService.shutdown();
+                    awaitBackgroundTasksAndShutdown();
                     sceneController.showScene(SceneController.ViewType.OngoingGames);
-                } catch (SQLException | InterruptedException throwables) {
+                } catch (SQLException throwables) {
                     showAlert("Something went wrong :(", "Please check your internet connection and try again.");
                     throwables.printStackTrace();
                 }
@@ -197,6 +197,31 @@ public class FourInARowController extends Controller implements Initializable {
             databaseConnection.sendMessage(loggedPlayer, receiver, textMessage.getText());
             Controller.loadMessage(receiver, messageList, messageZone);
             textMessage.setText("");
+        }
+    }
+
+    public void onQuitActionFourInARow() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, Player.DISCONNECTED);
+        awaitBackgroundTasksAndShutdown();
+        Platform.exit();
+    }
+
+    public void onDisconnectActionFourInARow() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, Player.DISCONNECTED);
+        awaitBackgroundTasksAndShutdown();
+        sceneController.showScene(SceneController.ViewType.Login);
+    }
+
+    /**
+     * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
+     * @throws InterruptedException in case something was still running when it stops to wait
+     */
+    private void awaitBackgroundTasksAndShutdown()  {
+        try {
+            this.scheduledExecutorService.awaitTermination(2, TimeUnit.SECONDS); // 2 seconds
+            this.scheduledExecutorService.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
