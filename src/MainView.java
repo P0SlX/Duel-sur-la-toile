@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 
 public class MainView extends Application {
 
@@ -95,5 +96,8 @@ public class MainView extends Application {
         }
 
     }
-
+    @Override
+    public void stop() throws SQLException {
+        Controller.databaseConnection.setStatus(Controller.getLoggedPlayer(), 0);
+    }
 }
