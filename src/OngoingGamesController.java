@@ -47,6 +47,8 @@ public class OngoingGamesController extends Controller implements Initializable 
 
     private Player loggedPlayer;
 
+    private FourInARowController fourInARowController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -145,7 +147,13 @@ public class OngoingGamesController extends Controller implements Initializable 
             yourTurn.setFont(new Font(20));
 
             Button play = new Button("Play !");
-            play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
+            // Temp
+            play.setOnAction(actionEvent -> {
+                this.fourInARowController.initController((FourInARow)g);
+                sceneController.showScene(SceneController.ViewType.FourInARowGame);
+            });
+
+            //play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
             play.setMnemonicParsing(false);
             play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px;");
             play.setTextFill(Color.WHITE);
@@ -158,5 +166,13 @@ public class OngoingGamesController extends Controller implements Initializable 
             this.activeGames.getChildren().add(gameContainer);
             this.activeGames.getChildren().add(separator);
         }
+    }
+
+    public FourInARowController getFourInARowController() {
+        return fourInARowController;
+    }
+
+    public void setFourInARowController(FourInARowController fourInARowController) {
+        this.fourInARowController = fourInARowController;
     }
 }

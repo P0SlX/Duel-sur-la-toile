@@ -59,10 +59,9 @@ public abstract class Controller {
     @FXML
     private static VBox activeGames;
 
-    private static Player loggedPlayer;
-
     protected static DatabaseConnection databaseConnection;
 
+    protected static Player loggedPlayer;
 
     protected SceneController sceneController;
 
