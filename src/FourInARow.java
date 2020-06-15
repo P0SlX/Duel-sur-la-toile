@@ -223,10 +223,10 @@ public class FourInARow implements Game {
 
     /**
      * Setter for the game plate
-     * @param plate the new game plate
+     * @param jsonCode the new game plate represented in JSON
      */
-    public void setPlate(char[][] plate) {
-        this.plate = plate;
+    public void setPlate(String jsonCode) {
+        this.plate = jsonToPlate(jsonCode);
     }
 
     /**

@@ -445,6 +445,16 @@ public class DatabaseConnection {
         ps.executeQuery();
     }
 
+    public String getFourInARowPlate(FourInARow game) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select plate from PARTIE where gameID=?");
+        ps.setInt(1, game.getGameID());
+
+        ResultSet resultSet = ps.executeQuery();
+        resultSet.next();
+
+        return resultSet.getString("plate");
+    }
+
     public void updateGameStatus(Game game, int status) throws SQLException {
         PreparedStatement ps = c.prepareStatement("update PARTIE set state=? where gameID=?");
         ps.setInt(1, status);

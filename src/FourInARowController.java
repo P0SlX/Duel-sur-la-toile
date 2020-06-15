@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class FourInARowController extends Controller implements Initializable {
 
@@ -47,9 +51,14 @@ public class FourInARowController extends Controller implements Initializable {
 
     private FourInARow game;
 
+    private Task<Void> gameUpdateAsync;
+
+    private ScheduledExecutorService scheduledExecutorService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        grid = new FourInARowButton[7][7];
+        this.grid = new FourInARowButton[7][7];
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++) {
@@ -113,6 +122,28 @@ public class FourInARowController extends Controller implements Initializable {
             for(int j = 0; j < 7; j++)
                 setButton(i, j, content[i][j]);
         }
+
+        Runnable scheduledTask = () -> {
+            try {
+                game.setPlate(databaseConnection.getFourInARowPlate(game));
+                char[][] updatedContent = game.getPlate();
+
+                // We can't update javafx stuff outside its thread
+                // we have to ask javafx to do it
+                Platform.runLater(() -> {
+                    for(int i = 0; i < 7; i++) {
+                        for(int j = 0; j < 7; j++)
+                            setButton(i, j, updatedContent[i][j]);
+                    }
+                });
+
+                System.out.println("Updated game grid");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        };
+
+        this.scheduledExecutorService.scheduleAtFixedRate(scheduledTask, 1, 1, TimeUnit.SECONDS);
     }
 
     private void setButton(int i, int j, char type) {
@@ -147,8 +178,10 @@ public class FourInARowController extends Controller implements Initializable {
             if (result == ButtonType.OK) {
                 try {
                     databaseConnection.updateGameStatus(game, Game.CANCELED);
+                    scheduledExecutorService.awaitTermination(1, TimeUnit.SECONDS); // Wait the background task to finish
+                    scheduledExecutorService.shutdown();
                     sceneController.showScene(SceneController.ViewType.OngoingGames);
-                } catch (SQLException throwables) {
+                } catch (SQLException | InterruptedException throwables) {
                     showAlert("Something went wrong :(", "Please check your internet connection and try again.");
                     throwables.printStackTrace();
                 }
