@@ -1,5 +1,4 @@
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,8 +49,6 @@ public class FourInARowController extends Controller implements Initializable {
     private FourInARowButton[][] grid;
 
     private FourInARow game;
-
-    private Task<Void> gameUpdateAsync;
 
     private ScheduledExecutorService scheduledExecutorService;
 
