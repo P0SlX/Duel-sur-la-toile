@@ -32,7 +32,7 @@ class DatabaseConnectionTest {
         p = db.getPlayer("Coco");
 
         assertEquals(p.getPseudo(), "Coco");
-        assertFalse(p.isDeactivated());
+        assertFalse(p.isDesactivated());
         assertFalse(p.isAdmin());
         assertEquals(p.getEmail(), "cocolastico@gmail.com");
         assertEquals(p.getEtat(), 0);

@@ -34,156 +34,221 @@ public class FourInARow implements Game {
         this.looser = looser;
     }
 
-    /** return the score of a game by an int */
+    /**
+     * @return int score of a game
+     */
     @Override
     public int getScore() {
         return this.score;
     }
 
-    /** return the situation of a game */
+    /**
+     * @return int state of a game
+     */
     @Override
     public int getState() {
         return this.state;
     }
 
-    /** return the date when the game started */
+    /**
+     * @return Date (sql) when start the game
+     */
     @Override
     public java.sql.Date getStartTime() {
         return this.startTime;
     }
 
-    /** return the date when the game finished */
+    /**
+     * @return Date (sql) when finish the game
+     */
     @Override
     public java.sql.Date getFinishTime() {
+        /** return the date when the game finished */
+
         return this.finishTime;
     }
 
-    /** return the path of the .json file where the plate is stock */
+    /**
+     * @return String, the plate of a game
+     */
     public String getPlate() {
         return this.plate;
     }
 
-    /** return the name of the game */
+    /**
+     * @return String the name of the game
+     */
     @Override
     public String getNomJeu() {
         return this.nomJeu;
     }
 
-    /** return the id of the game indicated by an int */
+    /**
+     * @return int, the id of a game
+     */
     @Override
     public int getGameID() {
         return this.gameID;
     }
 
-    /** return an int indicating the number of pawns played */
+    /**
+     * @return int, the number of pawns placed
+     */
     public int getElementPlaced() {
         return this.elementPlaced;
     }
 
-    /** return the duration of a game */
+    /**
+     * @return long, the duration of a game
+     */
     @Override
     public long getGameDuration() {
-        return finishTime.getTime() - startTime.getTime();
+        return this.finishTime.getTime() - this.startTime.getTime();
     }
 
-    /** return the two player of a game in an Array*/
+    /**
+     * @return An Array of players which contains the players of a game
+     */
     @Override
     public Player[] getPlayers() {
         return new Player[]{this.player1, this.player2};
     }
 
-    /** return the player whose turn it is */
+    /**
+     * @return Player whose the turn it is
+     */
     @Override
     public Player getCurrentPlayer() {
         return this.currentPlayer;
     }
 
-    /** return the winner of a game */
+    /**
+     * @return Player, the winner of a game
+     */
     @Override
     public Player getWinner() {
         return this.winner;
     }
 
-    /** return the looser of a game */
+    /**
+     * @return Player, the looser of a game
+     */
     @Override
     public Player getLooser() {
         return this.looser;
     }
 
-    /** return the first player of a game */
+    /**
+     * @return Player, the first player of a game
+     */
     @Override
     public Player getPlayer1() {
         return this.player1;
     }
 
-    /** return the second player of a game */
+    /**
+     * @return Player, the second player of a game
+     */
     @Override
     public Player getPlayer2() {
         return this.player2;
     }
 
-    /** allows to change the name of a game */
+    /**
+     * Allow to modify the name of the game
+     * @param nomJeu String, the new name of the game
+     */
     @Override
     public void setNomJeu(String nomJeu) {
         this.nomJeu = nomJeu;
     }
 
-    /** allow to change the player whose turn it is */
+    /**
+     * Allow to modify the player whose turn it is
+     * @param currentPlayer Player, the player whose turn it is
+     */
     @Override
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
-    /** allow to change the id of a game */
+    /**
+     * Allow to change the id of the game
+     * @param gameID int, the new id
+     */
     @Override
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
 
-    /** allow to change the number of pawns placed */
+    /**
+     * Allow to change the number of pawns placed
+     * @param elementPlaced int, the new number of pawns placed
+     */
     public void setElementPlaced(int elementPlaced) {
         this.elementPlaced = elementPlaced;
     }
 
-    /** allows to change the path to the .json file where the grid of the game is stock */
+    /**
+     * Allow to change the plate of a game
+     * @param plate String, the new plate
+     */
     public void setPlate(String plate) {
         this.plate = plate;
     }
 
-    /** allow to change the start time of a game */
+    /**
+     * Allow to modify the start time of a game
+     * @param startTime Date (sql) the new start time
+     */
     @Override
     public void setStartTime(java.sql.Date startTime) {
         this.startTime = startTime;
     }
 
-    /** allow to change to finish time of a game */
+    /**
+     * Allow to chnage the finish time of a game
+     * @param finishTime Date (sql) the new finish time
+     */
     @Override
     public void setFinishTime(java.sql.Date finishTime) {
         this.finishTime = finishTime;
     }
 
-    /** allow to chnager the winner of a game */
+    /**
+     * Allow to change the inner of a game
+     * @param winner Player, the new winner of a game
+     */
     @Override
     public void setWinner(Player winner) {
         this.winner = winner;
     }
 
-    /** allow to change the looser of a game */
+    /**
+     * Allow to change the looser of a game
+     * @param looser Player, the new looser of the game
+     */
     @Override
     public void setLooser(Player looser) {
         this.looser = looser;
     }
 
-    /** allow the change the score of a game */
+    /**
+     * Allow to change the score of a game
+     * @param score int, the new score
+     */
     @Override
     public void setScore(int score) {
         this.score = score;
     }
 
-    /** change the statement of a game:
-        - canceled = -2
-        - ended = -1
-        - in_progress = 0
+
+    /**
+     * Allow to change the state of a game
+     * @param state int, the state of the game
+     *              - canceled = -2
+     *              - ended = -1
+     *              - in_progress = 0
      */
     @Override
     public void setState(int state) {

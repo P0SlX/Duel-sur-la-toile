@@ -107,13 +107,13 @@ class PlayerTest {
     }
 
     @Test
-    void isDeactivated() throws IOException, SQLException {
+    void isDesactivated() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
         Player e = db.getPlayer("Lanka");
-        assertFalse( p.isDeactivated());
-        assertTrue(e.isDeactivated());
+        assertFalse( p.isDesactivated());
+        assertTrue(e.isDesactivated());
 
     }
 
@@ -122,9 +122,9 @@ class PlayerTest {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
-        p.setDeactivated(true);
-        assertTrue(p.isDeactivated());
-        p.setDeactivated(false);
+        p.setDesactivated(true);
+        assertTrue(p.isDesactivated());
+        p.setDesactivated(false);
 
     }
 

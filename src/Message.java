@@ -12,44 +12,56 @@ public class Message{
         this.receiverPseudo = receiverPseudo;
     }
 
+    /**
+     * builder of message
+     * @param content, String content of the message
+     */
     public Message(String content) {
         this.content = content;
         this.date = new String();
     }
 
+    /**
+     * @return String, the content of the message
+     */
     public String getContent() {
-        /** Return a String indicating the content of the message */
-
         return this.content;
     }
 
+    /**
+     * @return String, the send date of the message
+     */
     public String getDate() {
-        /** Return a String indicating the sending date of the message */
-
         return this.date;
     }
 
+    /**
+     * @return String, the pseudo of the sender
+     */
     public String getSenderPseudo() {
-        /** Return a String indicating the sender pseudo */
-
-        return senderPseudo;
+        return this.senderPseudo;
     }
 
+    /**
+     * Allow to change the pseudo of the sender
+     * @param senderPseudo String, the pseudo of the new sender
+     */
     public void setSenderPseudo(String senderPseudo) {
-        /** Take a String in paramater and set it as the sender pseudo */
-
         this.senderPseudo = senderPseudo;
     }
 
+    /**
+     * @return String, the pseudo of the receiver
+     */
     public String getReceiverPseudo() {
-        /** Return a String indicating the receiver pseudo */
-
-        return receiverPseudo;
+        return this.receiverPseudo;
     }
 
+    /**
+     * Allow to change the receiver's pseudo
+     * @param receiverPseudo String, the pseudo of the new receiver
+     */
     public void setReceiverPseudo(String receiverPseudo) {
-        /** Take a String in paramater and set it as the receiver pseudo */
-
         this.receiverPseudo = receiverPseudo;
     }
 }

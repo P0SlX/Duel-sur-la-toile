@@ -20,6 +20,24 @@ public class Player {
     private boolean admin;
     private DatabaseConnection DB;
 
+    /**
+     * Builder of a player
+     * @param pseudo String, the player's pseudo
+     * @param email String, the player's email
+     * @param mdp String, the player's password
+     * @param avatar String, the player's profil picture path
+     * @param etat int, the situation of a player
+     *         - disconnected = 0
+     *         - connected = 1
+     *         - afk = 2
+     *         - do not disturb = 3
+     * @param desactivated boolean, the situation of an account
+     *         - false = account not desactivated
+     *         - true = account desactivated
+     * @param admin boolean, is the player an admin or not ?
+     *         - false = player isn't an admin
+     *         - true = player is an admin
+     */
     public Player(String pseudo, String email, String mdp, String avatar, int etat, boolean desactivated, boolean admin) {
         this.pseudo = pseudo;
         this.email = email;
@@ -43,120 +61,161 @@ public class Player {
         this.playerAvatar = playerAvatar;
     }
 
-    /** return playser's pseudo */
+    /**
+     * @return String le pseudo d'un joueur
+     */
     public String getPseudo() {
         return this.pseudo;
     }
 
-    /** modify player's pseudo */
+    /**
+     * Allow to chnage the pseudo of a player
+     * @param pseudo String, the new pseudo
+     */
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
 
-    /** return player's email */
+    /**
+     * @return String, the player's email
+     */
     public String getEmail() {
         return this.email;
     }
 
-    /** modify player's email */
+    /**
+     * Allow to change a player's email
+     * @param email String, the new email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /** return player's password */
+    /**
+     * @return String, the player's password
+     */
     public String getMdp() {
         return this.mdp;
     }
 
-    /** modify player's password */
+    /**
+     * Allow to change a player's password
+     * @param mdp String, the new password
+     */
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
 
-    /** return player's profil picture path */
+    /**
+     * @return String, the path ot the player's avatar
+     */
     public String getAvatar() {
         return this.avatar;
     }
 
-    /** modify player's profil picture path */
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    /** return player's situation:
-        - disconnected = 0
-        - connected = 1
-        - afk = 2
-        - do not disturb = 3
+    /**
+     * @return int the state of a player:
+     *  - disconnected = 0
+     *  - connected = 1
+     *  - afk = 2
+     *  - do not disturb = 3
      */
     public int getEtat() {
         return this.etat;
     }
 
-    /** modify player's situation */
+    /**
+     * Allow to change the path to a player's profil picture
+     * @param avatar String, the new path
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    /**
+     * Allow to change the state of a player
+     * @param etat int, the new etat of the player
+     */
     public void setEtat(int etat) {
         this.etat = etat;
     }
 
-    /** return true if the player's account is decativated,
-    return false if the player's account is not desactivated
+    /**
+     * @return boolean, the situation of a player's account
+     * - false: the account is not desactivated
+     * - true: the account is desactivated
      */
-    public boolean isDeactivated() {
+    public boolean isDesactivated() {
         return this.desactivated;
     }
 
-    /** allow to activate or desactivate an account
-       only admin can do this
+    /**
+     * @param desactivated boolean, the situation of a player's account
+     * - false: the account is not desactivated
+     * - true: the account is desactivated
      */
-    public void setDeactivated(boolean desactivated) {
+    public void setDesactivated(boolean desactivated) {
         this.desactivated = desactivated;
     }
 
-    /** return true if the account is an admin account
-       return false if the account is not an admin acount
+
+    /**
+     * @return boolean, true = player is admin and false = player isn't admin
      */
     public boolean isAdmin() {
         return this.admin;
     }
 
-    /** allow to a player, admin's permission
-       or take off an admin his permission
+    /**
+     * @param admin boolean,
+     *              - true = the player is going to be admin
+     *              - false = the player isn't going to be admin anymore
      */
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
 
-    /** return player's friend list */
+    /**
+     * @return ArrayList of player, the player's friends list
+     */
     public ArrayList<Player> getFriends() {
         return this.friends;
     }
 
-    /** modify player's friend list */
+    /**
+     * @param friends ArrayList of Player, the new player's friend list
+     */
     public void setFriends(ArrayList<Player> friends) {
         this.friends = friends;
     }
 
-    /** toString of a player */
+    /**
+     * @return String, the toString of a player retailing each parameters of this
+     */
     @Override
     public String toString() {
         return "Player{" +
-                "pseudo='" + pseudo + '\'' +
-                ", email='" + email + '\'' +
-                ", mdp='" + mdp + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", friends=" + friends +
-                ", etat=" + etat +
-                ", desactivated=" + desactivated +
-                ", admin=" + admin +
+                "pseudo='" + this.pseudo + '\'' +
+                ", email='" + this.email + '\'' +
+                ", mdp='" + this.mdp + '\'' +
+                ", avatar='" + this.avatar + '\'' +
+                ", friends=" + this.friends +
+                ", etat=" + this.etat +
+                ", desactivated=" + this.desactivated +
+                ", admin=" + this.admin +
                 '}';
     }
 
-    /** return the profil picture of a player */
+    /**
+     * @return Image, the player's profil picture
+     */
     public Image getPlayerAvatar() {
-        return playerAvatar;
+        return this.playerAvatar;
     }
 
-    /** modify the profil picture of a player */
+    /**
+     * @param playerAvatar Image, the new player's profil picture
+     */
     public void setPlayerAvatar(Image playerAvatar) {
         this.playerAvatar = playerAvatar;
     }

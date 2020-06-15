@@ -117,7 +117,7 @@ public class DatabaseConnection {
         ps.setString(1, p.getMdp());
         ps.setBinaryStream(2, fileInputStream, (int)playerAvatarFile.length());
         ps.setInt(3, p.getEtat());
-        ps.setBoolean(4, p.isDeactivated());
+        ps.setBoolean(4, p.isDesactivated());
         ps.setBoolean(5, p.isAdmin());
         ps.setString(6, p.getPseudo());
         ps.executeUpdate();
@@ -133,7 +133,7 @@ public class DatabaseConnection {
             ps.setString(3, p.getMdp());
             ps.setBinaryStream(4, fileInputStream, (int)playerAvatarFile.length());
             ps.setInt(5, p.getEtat());
-            ps.setBoolean(6, p.isDeactivated());
+            ps.setBoolean(6, p.isDesactivated());
             ps.setBoolean(7, p.isAdmin());
             ps.executeQuery();
     }
