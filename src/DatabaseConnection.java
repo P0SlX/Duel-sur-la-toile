@@ -384,4 +384,24 @@ public class DatabaseConnection {
         return resultSet.getInt(1);
     }
 
+    /********** Player Statistitcs **********/
+
+    private int getPlayedGames() throws SQLException{
+       PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
+       ResultSet pg = ps.executeQuery();
+       return pg.getInt(1);
+    }
+
+    private int getWinnedGames() throws SQLException{
+        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where winner = ?");
+        ResultSet wg = ps.executeQuery();
+        return wg.getInt(1);
+    }
+
+//    private int getActiveGames() throws SQLException{
+//        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where winner = ?");
+//        ResultSet ag = ps.executeQuery();
+//        return ag.getInt(1);
+//    }
+
 }
