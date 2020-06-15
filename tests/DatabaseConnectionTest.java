@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DatabaseConnectionTest {
 
     @Test
-    void connectPlayer() {
+    void connectPlayer() throws SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
@@ -20,7 +21,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void getPlayer() {
+    void getPlayer() throws IOException, SQLException {
 
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
@@ -40,7 +41,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void getStatus() {
+    void getStatus() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
@@ -55,7 +56,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void setStatus() {
+    void setStatus() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
@@ -70,7 +71,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void getPlayerMessage() {
+    void getPlayerMessage() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
@@ -87,7 +88,7 @@ class DatabaseConnectionTest {
 
 
     @Test
-    void updatePlayer() {
+    void updatePlayer() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
@@ -117,7 +118,7 @@ class DatabaseConnectionTest {
 
 
     @Test
-    void createInv() throws SQLException {
+    void createInv() throws SQLException, IOException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
@@ -136,7 +137,7 @@ class DatabaseConnectionTest {
     }
 
     @Test
-    void sendMessage() {
+    void sendMessage() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 

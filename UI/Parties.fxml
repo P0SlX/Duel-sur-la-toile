@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -16,23 +15,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OngoingGamesController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OngoingGamesController">
 <children>
-    <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="1600.0" stylesheets="@test.css">
+    <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
             <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onDisconnectAction" text="Log out" />
-                  <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit"/>
+                  <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Player">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Profil" />
-                  <MenuItem mnemonicParsing="false" text="History" />
-          </items>
-        </Menu>
+        <Menu mnemonicParsing="false" text="Player" />
       </menus>
          <opaqueInsets>
             <Insets />
@@ -41,40 +34,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
     </MenuBar>
-      <AnchorPane layoutX="1324.0" layoutY="28.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.rightAnchor="0.0">
-         <children>
-            <VBox fx:id="friendList" prefHeight="116.0" prefWidth="272.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <AnchorPane prefHeight="96.0" prefWidth="272.0">
-                     <children>
-                        <Avatar layoutX="206.0" layoutY="10.0" radius="30.0">
-                           <image>
-                              <!-- The default avatar is the logo -->
-                              <Image url="@assets/logo.png" />
-                           </image>
-                        </Avatar>
-                        <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo" text="Unknown">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" styleClass="niveau" text="Ratio: ">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="21.0" layoutY="23.0" preserveRatio="true" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="23.0">
-                           <image>
-                              <Image url="@assets/logo.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <Separator opacity="0.5" prefWidth="272.0" />
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
       <HBox layoutX="95.0" layoutY="120.0" prefHeight="643.0" prefWidth="1185.0">
          <children>
             <VBox prefHeight="682.0" prefWidth="1035.0">
@@ -84,7 +43,7 @@
                         <Font size="50.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="200.0" prefWidth="100.0" fx:id="activeGames">
+                  <VBox fx:id="activeGames" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
@@ -149,8 +108,7 @@
             </VBox>
          </children>
       </HBox>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="50.0" layoutY="65.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="77.0"
-              style="-fx-border-radius: 30px; -fx-background-color: #7091B2;" fx:id="backHome" onAction="#onBackHomeAction">
+      <Button fx:id="backHome" contentDisplay="GRAPHIC_ONLY" layoutX="50.0" layoutY="65.0" mnemonicParsing="false" onAction="#onBackHomeAction" prefHeight="70.0" prefWidth="77.0" style="-fx-border-radius: 30px; -fx-background-color: #7091B2;">
          <graphic>
             <ImageView accessibleRole="BUTTON" fitHeight="59.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -159,5 +117,35 @@
             </ImageView>
          </graphic>
       </Button>
+      <AnchorPane layoutX="1344.0" layoutY="50.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" layoutX="198.0" layoutY="19.0" AnchorPane.rightAnchor="5.0">
+                     <image>
+                        <Image url="@assets/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.leftAnchor="70.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.leftAnchor="70.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" layoutX="21.0" layoutY="23.0" preserveRatio="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="23.0">
+                     <image>
+                        <Image url="@assets/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+         </children>
+      </AnchorPane>
 </children>
 </AnchorPane>

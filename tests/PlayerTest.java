@@ -1,11 +1,14 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
     @Test
-    void getPseudo() {
+    void getPseudo() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -15,7 +18,7 @@ class PlayerTest {
     }
 
     @Test
-    void setPseudo() {
+    void setPseudo() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -26,7 +29,7 @@ class PlayerTest {
     }
 
     @Test
-    void getEmail() {
+    void getEmail() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -36,7 +39,7 @@ class PlayerTest {
     }
 
     @Test
-    void setEmail() {
+    void setEmail() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -47,7 +50,7 @@ class PlayerTest {
     }
 
     @Test
-    void getMdp() {
+    void getMdp() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -57,7 +60,7 @@ class PlayerTest {
     }
 
     @Test
-    void setMdp() {
+    void setMdp() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -82,7 +85,7 @@ class PlayerTest {
     }
 
     @Test
-    void getEtat() {
+    void getEtat() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -93,7 +96,7 @@ class PlayerTest {
     }
 
     @Test
-    void setEtat() {
+    void setEtat() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -104,7 +107,7 @@ class PlayerTest {
     }
 
     @Test
-    void isDeactivated() {
+    void isDeactivated() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -115,7 +118,7 @@ class PlayerTest {
     }
 
     @Test
-    void setDeactivated() {
+    void setDeactivated() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -126,7 +129,7 @@ class PlayerTest {
     }
 
     @Test
-    void isAdmin() {
+    void isAdmin() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -137,7 +140,7 @@ class PlayerTest {
     }
 
     @Test
-    void setAdmin() {
+    void setAdmin() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
@@ -152,7 +155,7 @@ class PlayerTest {
     }
 
     @Test
-    void getFriends() {
+    void getFriends() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
 
@@ -165,12 +168,12 @@ class PlayerTest {
     }
 
     @Test
-    void testToString() {
+    void testToString() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Player p = db.getPlayer("Coco");
         String res = p.toString();
 
-        assertEquals(res, "Player{pseudo='Coco', email='cocolastico@gmail.com', mdp='cocopops', friends=[Player{pseudo='Le Chef', email='gendarmerie@gmail.com', mdp='password', friends=null, etat=0, desactivated=false, admin=true}], etat=0, desactivated=false, admin=false}");
+        assertEquals(res, "Player{pseudo='Coco', email='cocolastico@gmail.com', mdp='cocopops', avatar='', friends=[Player{pseudo='Le Chef', email='gendarmerie@gmail.com', mdp='password', avatar='', friends=null, etat=0, desactivated=false, admin=true}], etat=0, desactivated=false, admin=false}");
     }
 }

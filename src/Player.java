@@ -113,6 +113,7 @@ public class Player {
                 "pseudo='" + pseudo + '\'' +
                 ", email='" + email + '\'' +
                 ", mdp='" + mdp + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", friends=" + friends +
                 ", etat=" + etat +
                 ", desactivated=" + desactivated +

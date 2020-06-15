@@ -6,16 +6,27 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OngoingGamesController extends Controller implements Initializable {
+
+    private final String PSEUDO = "-fx-font-size: 13pt; -fx-font-family: \"Segoe UI Light\";" +
+            "-fx-text-fill: white;" +
+            "-fx-opacity: 1;";
+
+    private final String BUTTON = "-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
 
     private MainMenuController mainMenuController;
 
@@ -26,41 +37,64 @@ public class OngoingGamesController extends Controller implements Initializable 
     private Label ratio;
 
     @FXML
+    private VBox friendList;
+
+    @FXML
+    private ImageView avatar;
+
+    @FXML
     public VBox activeGames;
+
+    private Player loggedPlayer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
     @FXML
-    private void onBackHomeAction() {
+    private void onBackHomeAction() throws IOException, SQLException {
+        this.mainMenuController.initMainControllerWithPlayer(this.loggedPlayer);
         sceneController.showScene(SceneController.ViewType.MainMenu);
     }
 
-    @FXML
-    private void onDisconnectAction() {
-        databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
-        sceneController.showScene(SceneController.ViewType.Login);
-    }
 
     @FXML
-    private void onQuitAction() {
+    private void onQuitAction() throws SQLException {
         databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
         Platform.exit();
     }
+
+
+
 
     public void setMainMenuController(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
     }
 
-    public void initOnGoingGameView() {
-        Player p = this.mainMenuController.getLoggedPlayer();
+    public void initOnGoingGameView() throws IOException, SQLException {
 
-        this.pseudo.setText(p.getPseudo());
-        this.ratio.setText("Unknown"); // TODO: Statistics
+        this.loggedPlayer = this.mainMenuController.getLoggedPlayer();
+        this.friendList.getChildren().clear();
+        ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
+
+        for(Player p : friends)
+            Controller.addFriend(p, this.friendList);
+
+        this.pseudo.setText(loggedPlayer.getPseudo());
+        this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
+
+        avatar.setImage(this.loggedPlayer.getPlayerAvatar());
+        Ellipse circle = new Ellipse();
+        circle.setRadiusX(30);
+        circle.setRadiusY(30);
+        avatar.setClip(circle);
+        circle.setCenterX(30);
+        circle.setCenterY(30);
+
         this.activeGames.getChildren().clear();
 
-        ArrayList<Game> games = databaseConnection.getActivesGames(p, GameType.FourInARow);
+
+        ArrayList<Game> games = databaseConnection.getActivesGames(this.loggedPlayer, GameType.FourInARow);
 
         // In case the player has not active game show a message
         if(games == null) {
@@ -81,7 +115,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             gameContainer.prefWidth(200.0);
             gameContainer.setSpacing(50);
 
-            String opponentName = p.getPseudo().equals(g.getPlayer1().getPseudo()) ?
+            String opponentName = this.loggedPlayer.getPseudo().equals(g.getPlayer1().getPseudo()) ?
                     g.getPlayer2().getPseudo() : g.getPlayer1().getPseudo();
 
             Label opponent = new Label("Against : " + opponentName);
@@ -98,7 +132,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             startedOn.setTextFill(Color.WHITE);
 
             Label yourTurn = new Label();
-            if(g.getCurrentPlayer().getPseudo().equals(p.getPseudo())) {
+            if(g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo())) {
                 yourTurn.setText("Your turn");
                 yourTurn.setTextFill(Color.web("#3cb929"));
             } else {
@@ -111,7 +145,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             yourTurn.setFont(new Font(20));
 
             Button play = new Button("Play !");
-            play.setDisable(!g.getCurrentPlayer().getPseudo().equals(p.getPseudo()));
+            play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
             play.setMnemonicParsing(false);
             play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px;");
             play.setTextFill(Color.WHITE);

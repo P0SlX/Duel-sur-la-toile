@@ -32,117 +32,95 @@ public class DatabaseConnection {
         return this.c;
     }
 
-    /* DEPRECATED */
-    public int getStatus(Player p) {
+    /********** DEPRECATED **********/
+    public int getStatus(Player p) throws SQLException {
         int etat = 0;
-        try {
-            PreparedStatement ps = c.prepareStatement("select etat from JOUEUR where pseudo = ?");
-            ps.setString(1, p.getPseudo());
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            etat = rs.getInt("etat");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return -1;
-        }
+        PreparedStatement ps = c.prepareStatement("select etat from JOUEUR where pseudo = ?");
+        ps.setString(1, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        etat = rs.getInt("etat");
         return etat;
     }
 
-    /* DEPRECATED */
-    public void setStatus(Player p, int etat) {
-        try{
-            PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
-            ps.setInt(1, etat);
-            ps.setString(2, p.getPseudo());
-            ps.executeUpdate();
-        } catch (SQLException exception){
-            exception.printStackTrace();
-        }
+    /********** DEPRECATED **********/
+    public void setStatus(Player p, int etat) throws SQLException {
+        PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
+        ps.setInt(1, etat);
+        ps.setString(2, p.getPseudo());
+        ps.executeUpdate();
+
     }
 
 
     /********** PLAYER **********/
-    public boolean connectPlayer(String pseudo, String password) {
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=? and mdp=?");
-            ps.setString(1, pseudo);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next())
-                return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public boolean connectPlayer(String pseudo, String password) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=? and mdp=?");
+        ps.setString(1, pseudo);
+        ps.setString(2, password);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+            return true;
         return false;
     }
 
-    public ArrayList<Player> getAllPlayers() {
-        try {
-            ArrayList<Player> listPlayers = new ArrayList<>();
-            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Player pq = new Player(
-                        rs.getString("pseudo"),
-                        rs.getString("email"),
-                        rs.getString("mdp"),
-                        loadImageFromStream(rs.getBinaryStream("avatar"), rs.getString("pseudo")),
-                        rs.getInt("etat"),
-                        rs.getBoolean("desactive"),
-                        rs.getBoolean("admin")
-                );
-                listPlayers.add(pq);
-            }
-            return listPlayers;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
+    public ArrayList<Player> getAllPlayers() throws SQLException, IOException {
+        ArrayList<Player> listPlayers = new ArrayList<>();
+        PreparedStatement ps = c.prepareStatement("select * from  JOUEUR");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Player pq = new Player(
+                    rs.getString("pseudo"),
+                    rs.getString("email"),
+                    rs.getString("mdp"),
+                    loadImageFromStream(rs.getBinaryStream("avatar"), rs.getString("pseudo")),
+                    rs.getInt("etat"),
+                    rs.getBoolean("desactive"),
+                    rs.getBoolean("admin")
+            );
+            listPlayers.add(pq);
+        }
+        return listPlayers;
+    }
+
+    public Player getPlayer(String pseudo) throws SQLException, IOException {
+        PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=?");
+        ps.setString(1, pseudo);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            InputStream stream = rs.getBinaryStream("avatar");
+
+            Player p = new Player(
+                    rs.getString("pseudo"),
+                    rs.getString("email"),
+                    rs.getString("mdp"),
+                    loadImageFromStream(stream, pseudo),
+                    rs.getInt("etat"),
+                    rs.getBoolean("desactive"),
+                    rs.getBoolean("admin")
+                    );
+            p.setFriends(this.getFriends(p));
+            return p;
         }
         return null;
     }
 
-    public Player getPlayer(String pseudo) {
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUEUR where pseudo=?");
-            ps.setString(1, pseudo);
-
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                InputStream stream = rs.getBinaryStream("avatar");
-
-                Player p = new Player(
-                        rs.getString("pseudo"),
-                        rs.getString("email"),
-                        rs.getString("mdp"),
-                        loadImageFromStream(stream, pseudo),
-                        rs.getInt("etat"),
-                        rs.getBoolean("desactive"),
-                        rs.getBoolean("admin")
-                        );
-                p.setFriends(this.getFriends(p));
-                return p;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public void updatePlayer(Player p) throws SQLException, FileNotFoundException {
+        if (p.getAvatar().equals("")) {
+            p.setAvatar("img/avatarDefault.png");
         }
-        return null;
-    }
+        File playerAvatarFile = new File(p.getAvatar());
+        FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
 
-    public void updatePlayer(Player p) {
-        try {
-            File playerAvatarFile = new File(p.getAvatar());
-            FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
-
-            PreparedStatement ps = c.prepareStatement("update JOUEUR set mdp=?, avatar=?, etat=?, desactive=?, admin=? where pseudo=?");
-            ps.setString(1, p.getMdp());
-            ps.setBinaryStream(2, fileInputStream, (int)playerAvatarFile.length());
-            ps.setInt(3, p.getEtat());
-            ps.setBoolean(4, p.isDeactivated());
-            ps.setBoolean(5, p.isAdmin());
-            ps.setString(6, p.getPseudo());
-            ps.executeUpdate();
-        } catch (SQLException | FileNotFoundException throwables) {
-            throwables.printStackTrace();
-        }
+        PreparedStatement ps = c.prepareStatement("update JOUEUR set mdp=?, avatar=?, etat=?, desactive=?, admin=? where pseudo=?");
+        ps.setString(1, p.getMdp());
+        ps.setBinaryStream(2, fileInputStream, (int)playerAvatarFile.length());
+        ps.setInt(3, p.getEtat());
+        ps.setBoolean(4, p.isDeactivated());
+        ps.setBoolean(5, p.isAdmin());
+        ps.setString(6, p.getPseudo());
+        ps.executeUpdate();
     }
 
     public void createPlayer(Player p) throws FileNotFoundException, SQLException {
@@ -160,100 +138,79 @@ public class DatabaseConnection {
             ps.executeQuery();
     }
 
-    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) {
+    public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) throws SQLException {
         ArrayList<Message> messageArrayList = new ArrayList<>();
+        PreparedStatement ps = c.prepareStatement(
+                "select contenumessage, datemessage, pseudo, destinataire " +
+                        "from MESSAGE natural join COMMUNIQUER " +
+                        "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?)" +
+                        "order by datemessage"
+        );
 
-        try {
-            PreparedStatement ps = c.prepareStatement(
-                    "select contenumessage, datemessage, pseudo, destinataire " +
-                            "from MESSAGE natural join COMMUNIQUER " +
-                            "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?)" +
-                            "order by datemessage"
+        ps.setString(1, sender.getPseudo());
+        ps.setString(2, receiver.getPseudo());
+        ps.setString(3, receiver.getPseudo());
+        ps.setString(4, sender.getPseudo());
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while(resultSet.next()) {
+            messageArrayList.add(
+                    new Message(resultSet.getString("contenumessage"),
+                            resultSet.getDate("datemessage").toString(),
+                            resultSet.getString("pseudo"),
+                            resultSet.getString("destinataire"))
             );
-
-            ps.setString(1, sender.getPseudo());
-            ps.setString(2, receiver.getPseudo());
-            ps.setString(3, receiver.getPseudo());
-            ps.setString(4, sender.getPseudo());
-
-            ResultSet resultSet = ps.executeQuery();
-
-            while(resultSet.next()) {
-                messageArrayList.add(
-                        new Message(resultSet.getString("contenumessage"),
-                                resultSet.getDate("datemessage").toString(),
-                                resultSet.getString("pseudo"),
-                                resultSet.getString("destinataire"))
-                );
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
-
         return messageArrayList;
     }
 
-    public boolean sendMessage(Player sender, Player receiver, String content) {
+    public boolean sendMessage(Player sender, Player receiver, String content) throws SQLException {
         int maxId = getIdMaxMessage() + 1;
         boolean result = true;
+        PreparedStatement psMessage =  c.prepareStatement("insert into MESSAGE values(?, CURDATE(), ?, true)");
+        psMessage.setInt(1, maxId);
+        psMessage.setString(2, content);
+        psMessage.execute();
 
-        try {
-            PreparedStatement psMessage =  c.prepareStatement("insert into MESSAGE values(?, CURDATE(), ?, true)");
-            psMessage.setInt(1, maxId);
-            psMessage.setString(2, content);
-            psMessage.execute();
-
-            psMessage = c.prepareStatement("insert into COMMUNIQUER values(?, ?, ?)");
-            psMessage.setString(1, sender.getPseudo());
-            psMessage.setString(2, receiver.getPseudo());
-            psMessage.setInt(3, maxId);
-            psMessage.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            result = false;
-        }
-
+        psMessage = c.prepareStatement("insert into COMMUNIQUER values(?, ?, ?)");
+        psMessage.setString(1, sender.getPseudo());
+        psMessage.setString(2, receiver.getPseudo());
+        psMessage.setInt(3, maxId);
+        psMessage.execute();
         return result;
     }
 
-    public ArrayList<Player> getFriends(Player p) {
-        try {
-            ArrayList<Player> friendList = new ArrayList<>();
-            PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?)");
-            ps.setString(1, p.getPseudo());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Player pq = new Player(
-                        rs.getString("pseudo"),
-                        rs.getString("email"),
-                        rs.getString("mdp"),
-                        loadImageFromStream(rs.getBinaryStream("avatar"), p.getPseudo()),
-                        rs.getInt("etat"),
-                        rs.getBoolean("desactive"),
-                        rs.getBoolean("admin")
-                );
-                friendList.add(pq);
-            }
-            return friendList;
-        } catch (SQLException throwables){
-            throwables.printStackTrace();
+    public ArrayList<Player> getFriends(Player p) throws SQLException, IOException {
+        ArrayList<Player> friendList = new ArrayList<>();
+
+        PreparedStatement ps = c.prepareStatement("select * from  JOUEUR where pseudo IN (select amis from ETREAMIS natural  join  JOUEUR where pseudo = ?)");
+        ps.setString(1, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Player pq = new Player(
+                    rs.getString("pseudo"),
+                    rs.getString("email"),
+                    rs.getString("mdp"),
+                    loadImageFromStream(rs.getBinaryStream("avatar"), p.getPseudo()),
+                    rs.getInt("etat"),
+                    rs.getBoolean("desactive"),
+                    rs.getBoolean("admin")
+            );
+            friendList.add(pq);
         }
-        return null;
+        return friendList;
     }
 
-    public ArrayList<Game> getPlayerHistory(Player p) {         //TODO
+    public ArrayList<Game> getPlayerHistory(Player p) throws SQLException, IOException {         //TODO
         ArrayList<Game> listGameHistory = new ArrayList<>();
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where pseudo=? or adversaire=? and state=1 or state=-1");
-            fetchGames(p, listGameHistory, ps, GameType.FourInARow);
-            return listGameHistory;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
+        PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where pseudo=? or adversaire=? and state=1 or state=-1");
+        fetchGames(p, listGameHistory, ps, GameType.FourInARow);
+        return listGameHistory;
     }
 
-    private void fetchGames(Player p, ArrayList<Game> listGameHistory, PreparedStatement ps, GameType type) throws SQLException {
+    private void fetchGames(Player p, ArrayList<Game> listGameHistory, PreparedStatement ps, GameType type) throws SQLException, IOException {
         ps.setString(1, p.getPseudo());
         ps.setString(2, p.getPseudo());
         ps.setString(3, type.toString());
@@ -261,7 +218,7 @@ public class DatabaseConnection {
         processFetchedGames(listGameHistory, rs);
     }
 
-    private void processFetchedGames(ArrayList<Game> listGameHistory, ResultSet rs) throws SQLException {
+    private void processFetchedGames(ArrayList<Game> listGameHistory, ResultSet rs) throws SQLException, IOException {
         while (rs.next()) {
             Game g = new FourInARow(
                     this.getPlayer(rs.getString("pseudo")),
@@ -285,193 +242,146 @@ public class DatabaseConnection {
 
 
     /********** GAMES **********/
-    public ArrayList<Game> getGameList() {
+    public ArrayList<Game> getGameList() throws SQLException, IOException {
         ArrayList<Game> gameList = new ArrayList<>();
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER");
-            ResultSet rs = ps.executeQuery();
-            processFetchedGames(gameList, rs);
-            return gameList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
+        PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER");
+        ResultSet rs = ps.executeQuery();
+        processFetchedGames(gameList, rs);
+        return gameList;
     }
 
-    public int getMaxIDGame() {
-        try {
-            PreparedStatement ps = c.prepareStatement("select gameID from PARTIE natural join JOUER order by gameID DESC");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("gameID");
-            } else {
-                return 0;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public int getMaxIDGame() throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select gameID from PARTIE natural join JOUER order by gameID DESC");
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("gameID");
+        } else {
+            return 0;
         }
-        return -1;
     }
 
-    public ArrayList<Game> getActivesGames(Player p, GameType type) {
+    public ArrayList<Game> getActivesGames(Player p, GameType type) throws SQLException, IOException {
         ArrayList<Game> listActiveGames = new ArrayList<>();
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE " +
-                    "where (pseudo=? or adversaire=?) and nomJeu=? and state=0");
-            fetchGames(p, listActiveGames, ps, type);
-            return listActiveGames;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
+        PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE " +
+                "where (pseudo=? or adversaire=?) and nomJeu=? and state=0");
+        fetchGames(p, listActiveGames, ps, type);
+        return listActiveGames;
     }
 
-    public void addNewGame(Player p1, Player p2, Game g) {
-        // Ajout dans la table PARTIE
-        try {
-            PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
-            ps.setInt(1, this.getMaxIDGame() + 1);
-            ps.setString(2, g.getGameName());
-            ps.setString(3, "contenuGrille");
-            ps.setString(4, p1.getPseudo());
-            ps.executeUpdate();
-            PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
-            ps2.setString(1, p1.getPseudo());
-            ps2.setString(2, p2.getPseudo());
-            ps2.setInt(3, this.getMaxIDGame() + 1);
-            ps2.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    public void addNewGame(Player p1, Player p2, Game g) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
+        ps.setInt(1, this.getMaxIDGame() + 1);
+        ps.setString(2, g.getGameName());
+        ps.setString(3, "contenuGrille");
+        ps.setString(4, p1.getPseudo());
+        ps.executeUpdate();
+        PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
+        ps2.setString(1, p1.getPseudo());
+        ps2.setString(2, p2.getPseudo());
+        ps2.setInt(3, this.getMaxIDGame() + 1);
+        ps2.executeUpdate();
     }
 
-    public String getFourInRowPlate(Game g) {       //TODO
+    public String getFourInRowPlate(Game g) throws SQLException {       //TODO
         return "";
     }
 
-    public void updateFourInARowPlate(FourInARow fourInARow) {    //TODO
+    public void playForInARowTurn(Player p, int line, int col) throws SQLException {    //TODO
 
     }
-    /***************************/
-
-
 
     /********** INVITATIONS **********/
-    public int getMaxIdInv() {
-        try {
-            PreparedStatement ps = c.prepareStatement("select idinv from INVITATION natural join INVITER order by idinv DESC");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("idinv");
-            } else {
-                return 0;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public int getMaxIdInv() throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select idinv from INVITATION natural join INVITER order by idinv DESC");
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("idinv");
+        } else {
+            return 0;
         }
-        return -1;
     }
 
-    public Invitation getInv(int id) {
-        try {
-            PreparedStatement ps = c.prepareStatement("select * from INVITATION natural join INVITER where idinv=?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+    public Invitation getInv(int id) throws SQLException, IOException {
+        PreparedStatement ps = c.prepareStatement("select * from INVITATION natural join INVITER where idinv=?");
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                if (rs.getBoolean("type")) { // SI C'EST UN JEU
-                    return new GameInvitation(
-                            this.getPlayer(rs.getString("expediteurInvit")),
-                            this.getPlayer(rs.getString("destinataireInvit")),
-                            rs.getDate("dateinv"),
-                            rs.getInt("etatinv"),
-                            rs.getInt("idinv")
-                    );
-                } else {
-                    return new FriendInvitation(
-                            this.getPlayer(rs.getString("expediteurInvit")),
-                            this.getPlayer(rs.getString("destinataireInvit")),
-                            rs.getDate("dateinv"),
-                            rs.getInt("etatinv"),
-                            rs.getInt("idinv")
-                    );
-                }
+        if (rs.next()) {
+            if (rs.getBoolean("type")) { // SI C'EST UN JEU
+                return new GameInvitation(
+                        this.getPlayer(rs.getString("expediteurInvit")),
+                        this.getPlayer(rs.getString("destinataireInvit")),
+                        rs.getDate("dateinv"),
+                        rs.getInt("etatinv"),
+                        rs.getInt("idinv")
+                );
+            } else {
+                return new FriendInvitation(
+                        this.getPlayer(rs.getString("expediteurInvit")),
+                        this.getPlayer(rs.getString("destinataireInvit")),
+                        rs.getDate("dateinv"),
+                        rs.getInt("etatinv"),
+                        rs.getInt("idinv")
+                );
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
         return null;
     }
 
-    public void createInv(Player expediteur, Player destinataire, boolean type) {
-        try {
-            PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?, ?)");
-            int gameId = this.getMaxIdInv() + 1;
-            ps.setInt(1, gameId);
-            ps.setInt(2, GameInvitation.PENDING);
-            ps.setBoolean(3, type);
-            ps.executeUpdate();
-            PreparedStatement ps2 = c.prepareStatement("insert into INVITER values (?, ?, ?)");
-            ps2.setString(1, expediteur.getPseudo());
-            ps2.setString(2, destinataire.getPseudo());
-            ps2.setInt(3, gameId);
-            ps2.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    public void createInv(Player expediteur, Player destinataire, boolean type) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?, ?)");
+        int gameId = this.getMaxIdInv() + 1;
+        ps.setInt(1, gameId);
+        ps.setInt(2, GameInvitation.PENDING);
+        ps.setBoolean(3, type);
+        ps.executeUpdate();
+        PreparedStatement ps2 = c.prepareStatement("insert into INVITER values (?, ?, ?)");
+        ps2.setString(1, expediteur.getPseudo());
+        ps2.setString(2, destinataire.getPseudo());
+        ps2.setInt(3, gameId);
+        ps2.executeUpdate();
+
     }
 
-    public void changeStateInv(Invitation inv) {
-        try {
-            PreparedStatement ps = c.prepareStatement("update INVITATION set etatinv = ? where idinv = ?");
-            ps.setInt(1, inv.getEtatInv());
-            ps.setInt(2, inv.getId());
-            ps.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    public void changeStateInv(Invitation inv) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update INVITATION set etatinv = ? where idinv = ?");
+        ps.setInt(1, inv.getEtatInv());
+        ps.setInt(2, inv.getId());
+        ps.executeUpdate();
 
     }
     /***************************/
 
-    private Image loadImageFromStream(InputStream inputStream, String pseudo) {
+    private Image loadImageFromStream(InputStream inputStream, String pseudo) throws SQLException, IOException {
         String fileName = String.format("user_%s.png", pseudo);
 
-        try {
-            if(inputStream == null) return new Image(new FileInputStream("UI/assets/logo.png"));
+        if(inputStream == null) return new Image(new FileInputStream("UI/assets/logo.png"));
 
-            File avatar = new File(fileName);
-            FileOutputStream fileOutputStream = new FileOutputStream(avatar);
+        File avatar = new File(fileName);
+        FileOutputStream fileOutputStream = new FileOutputStream(avatar);
 
-            byte[] buff = new byte[1024]; // Read 1kio block
-            int fileLength = 0;
+        byte[] buff = new byte[1024]; // Read 1kio block
+        int fileLength = 0;
 
-            while((fileLength = inputStream.read(buff)) != -1)
-                fileOutputStream.write(buff, 0, fileLength);
+        while((fileLength = inputStream.read(buff)) != -1)
+            fileOutputStream.write(buff, 0, fileLength);
 
-            // Flush it to the file
-            fileOutputStream.flush();
-            fileOutputStream.close();
-            return new Image(new FileInputStream("./" + fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Flush it to the file
+        fileOutputStream.flush();
+        fileOutputStream.close();
+        return new Image(new FileInputStream("./" + fileName));
 
-        return null;
     }
 
-    private int getIdMaxMessage() {
-        try {
-            PreparedStatement ps = c.prepareStatement("select max(idMessage) from MESSAGE");
-            ResultSet resultSet = ps.executeQuery();
-            resultSet.next();
+    private int getIdMaxMessage() throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select max(idMessage) from MESSAGE");
+        ResultSet resultSet = ps.executeQuery();
+        resultSet.next();
 
-            return resultSet.getInt(1);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return -1;
+        return resultSet.getInt(1);
     }
 
+    public void updateFourInARowPlate(FourInARow fourInARow) {
+        // TODO: Update Four in a row plate in database
+    }
 }

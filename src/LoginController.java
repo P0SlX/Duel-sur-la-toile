@@ -3,11 +3,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LoginController extends Controller implements Initializable {
@@ -29,13 +32,14 @@ public class LoginController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) { }
 
     @FXML
-    private void onSignInAction() throws FileNotFoundException {
+    private void onSignInAction() throws IOException, SQLException {
         String pseudo = this.pseudo.getText();
         String password = this.password.getText();
 
         if(databaseConnection.connectPlayer(pseudo, password)) {
             Player p = databaseConnection.getPlayer(pseudo);
             databaseConnection.setStatus(p, 1);
+            Controller.setLoggedPlayer(p);
             this.mainMenuController.initMainControllerWithPlayer(p); // Init main menu view
             sceneController.showScene(SceneController.ViewType.MainMenu);
 
@@ -64,9 +68,5 @@ public class LoginController extends Controller implements Initializable {
         this.mainMenuController = mainMenuController;
 
         if(mainMenuController == null) throw new IllegalStateException();
-    }
-
-    public void setPseudo(String pseudo) {
-        this.pseudo.setText(pseudo);
     }
 }

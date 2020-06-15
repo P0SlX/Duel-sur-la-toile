@@ -1,13 +1,15 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameInvitationTest {
 
     @Test
-    void getSender() {
+    void getSender() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Date d1 = new Date(2020,5,6);
@@ -20,7 +22,7 @@ class GameInvitationTest {
     }
 
     @Test
-    void getReceiver() {
+    void getReceiver() throws IOException, SQLException  {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Date d1 = new Date(2020,5,6);
@@ -33,7 +35,7 @@ class GameInvitationTest {
     }
 
     @Test
-    void getEmissionDate() {
+    void getEmissionDate() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Date d1 = new Date(2020,5,6);
@@ -47,7 +49,7 @@ class GameInvitationTest {
     }
 
     @Test
-    void getEtatInv() {
+    void getEtatInv() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Date d1 = new Date(2020,5,6);
@@ -59,7 +61,7 @@ class GameInvitationTest {
     }
 
     @Test
-    void getId() {
+    void getId() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Date d1 = new Date(2020,5,6);
@@ -71,7 +73,7 @@ class GameInvitationTest {
     }
 
     @Test
-    void accept() {
+    void accept() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Date d1 = new Date(2020,5,6);
@@ -84,7 +86,7 @@ class GameInvitationTest {
     }
 
     @Test
-    void decline() {
+    void decline() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
         Date d1 = new Date(2020,5,6);
