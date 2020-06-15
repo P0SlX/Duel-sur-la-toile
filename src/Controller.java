@@ -1,5 +1,4 @@
 import com.gluonhq.charm.glisten.control.TextField;
-import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -22,6 +21,8 @@ public abstract class Controller {
             "-fx-opacity: 1;";
 
     public static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
+
+    public static Threads thread;
 
     @FXML
     private static MenuItem disconnect;
@@ -208,6 +209,7 @@ public abstract class Controller {
     public void onDisconnectAction() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
         sceneController.showScene(SceneController.ViewType.Login);
+        thread.stopThread();
     }
 
     protected static void setLoggedPlayer(Player p) {
@@ -296,5 +298,13 @@ public abstract class Controller {
 
     public static void setActiveGames(VBox activeGames) {
         Controller.activeGames = activeGames;
+    }
+
+    public Threads getThread() {
+        return thread;
+    }
+
+    public static void setThread(Threads threads) {
+        thread = threads;
     }
 }

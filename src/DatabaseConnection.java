@@ -59,9 +59,7 @@ public class DatabaseConnection {
         ps.setString(1, pseudo);
         ps.setString(2, password);
         ResultSet rs = ps.executeQuery();
-        if(rs.next())
-            return true;
-        return false;
+        return rs.next();
     }
 
     public ArrayList<Player> getAllPlayers() throws SQLException, IOException {
@@ -386,10 +384,14 @@ public class DatabaseConnection {
 
     /********** Player Statistitcs **********/
 
-    private int getPlayedGames() throws SQLException{
+    private int getPlayedGames(Player p) throws SQLException {
        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
-       ResultSet pg = ps.executeQuery();
-       return pg.getInt(1);
+       ps.setString(1, p.getPseudo());
+       ResultSet rs = ps.executeQuery();
+       if (rs.next()){
+           return rs.getInt(1);
+       }
+       return -1;
     }
 
     private int getWinnedGames() throws SQLException{

@@ -27,14 +27,14 @@ public class MainView extends Application {
             controller.setSceneController(this.sceneController);
             controller.setDatabaseConnection(databaseConnection);
 
-            if(controller instanceof LoginController) {
-                LoginController loginController = (LoginController)controller;
+            if (controller instanceof LoginController) {
+                LoginController loginController = (LoginController) controller;
                 loginController.setMainMenuController(mainMenuController);
-            } else if(controller instanceof MainMenuController) {
-                this.mainMenuController = (MainMenuController)controller;
+            } else if (controller instanceof MainMenuController) {
+                this.mainMenuController = (MainMenuController) controller;
                 this.ongoingGamesController.setMainMenuController(mainMenuController);
-            } else if(controller instanceof OngoingGamesController)
-                this.ongoingGamesController = (OngoingGamesController)controller;
+            } else if (controller instanceof OngoingGamesController)
+                this.ongoingGamesController = (OngoingGamesController) controller;
 
             return root;
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class MainView extends Application {
         }
     }
 
-    private Pane loadRoot(String fxmlPath) throws FxmlLoadingError{
+    private Pane loadRoot(String fxmlPath) throws FxmlLoadingError {
         try {
             URL url = new File(fxmlPath).toURI().toURL();
             FXMLLoader loader = new FXMLLoader(url);
@@ -68,10 +68,10 @@ public class MainView extends Application {
             this.sceneController = new SceneController(scene);
             this.databaseConnection.connexion();
 
-            Pane ongoingGames    = new Pane(loadRootWithController("UI/Parties.fxml"));
-            Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
-            Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
-            Pane registerScene   = new Pane(loadRootWithController("UI/Inscription.fxml"));
+            Pane ongoingGames = new Pane(loadRootWithController("UI/Parties.fxml"));
+            Pane mainMenuScene = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
+            Pane loginScene = new Pane(loadRootWithController("UI/Connexion.fxml"));
+            Pane registerScene = new Pane(loadRootWithController("UI/Inscription.fxml"));
             //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
             //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
 
@@ -91,14 +91,14 @@ public class MainView extends Application {
             primaryStage.show();
 
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void stop() throws SQLException, FileNotFoundException {
-        if (Controller.getLoggedPlayer() != null){
+        if (Controller.getLoggedPlayer() != null) {
             Controller.getLoggedPlayer().setEtat(0);
             databaseConnection.updatePlayer(Controller.getLoggedPlayer());
         }
