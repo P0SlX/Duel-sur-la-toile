@@ -1,11 +1,18 @@
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -20,6 +27,21 @@ public class FourInARowController extends Controller implements Initializable {
 
     @FXML
     private Label pseudo;
+
+    @FXML
+    private Label senderPseudo;
+
+    @FXML
+    private VBox friendList;
+
+    @FXML
+    private TextField textMessage;
+
+    @FXML
+    private AnchorPane messageZone;
+
+    @FXML
+    private VBox messageList;
 
     private FourInARowButton[][] grid;
 
@@ -63,7 +85,6 @@ public class FourInARowController extends Controller implements Initializable {
                         throwables.printStackTrace();
                     }
                 });
-
             }
         }
     }
@@ -71,9 +92,20 @@ public class FourInARowController extends Controller implements Initializable {
     public void initController(FourInARow currentGame) {
         char[][] content = currentGame.getPlate();
         this.game = currentGame;
+        Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
+                currentGame.getPlayer2() : currentGame.getPlayer1();
 
         pseudo.setText(loggedPlayer.getPseudo());
         // TODO: Ratio
+
+        senderPseudo.setText(enemy.getPseudo());
+
+        try {
+            loadMessage(enemy, messageList, messageZone);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            showAlert("Something wrong just happened :(", "Couldn't load your opponent messages :(");
+        }
 
         currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
 
@@ -126,5 +158,15 @@ public class FourInARowController extends Controller implements Initializable {
 
     @FXML
     public void onPlayerProfilAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onTextMessageKeyPressed(KeyEvent keyEvent) throws SQLException, IOException {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)) {
+            Player receiver = databaseConnection.getPlayer(senderPseudo.getText());
+            databaseConnection.sendMessage(loggedPlayer, receiver, textMessage.getText());
+            Controller.loadMessage(receiver, messageList, messageZone);
+            textMessage.setText("");
+        }
     }
 }

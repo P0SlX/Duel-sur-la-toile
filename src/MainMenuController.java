@@ -77,10 +77,7 @@ public class MainMenuController extends Controller implements Initializable {
         if(event.getCode().equals(KeyCode.ENTER)) {
             Player receiver = databaseConnection.getPlayer(senderPseudo.getText());
             databaseConnection.sendMessage(loggedPlayer, receiver, textMessage.getText());
-            Controller.setMessageList(this.messageList);
-            Controller.setMessageZone(this.messageZone);
-            Controller.setSenderPseudo(this.senderPseudo);
-            Controller.loadMessage(receiver);
+            Controller.loadMessage(receiver, messageList, messageZone);
             textMessage.setText("");
         }
     }
@@ -106,14 +103,20 @@ public class MainMenuController extends Controller implements Initializable {
         circle.setCenterX(30);
         circle.setCenterY(30);
 
-        Controller.setMessageList(this.messageList);
-        Controller.setMessageZone(this.messageZone);
-        Controller.setSenderPseudo(this.senderPseudo);
-
         ArrayList<Player> friends = databaseConnection.getFriends(loggedPlayer);
 
         for(Player p : friends)
-            Controller.addFriend(p, this.friendList);
+            Controller.addFriend(p, friendList, actionEvent -> {
+                messageZone.setVisible(true);
+
+                senderPseudo.setText(p.getPseudo());
+                try {
+                    loadMessage(loggedPlayer, messageList, messageZone);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    showAlert("Something wrong just happened !", "Unable to fetch message from database !");
+                }
+            });
     }
 
     public void setOngoingGamesController(OngoingGamesController ongoingGamesController) {
