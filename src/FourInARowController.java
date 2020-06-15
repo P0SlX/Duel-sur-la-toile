@@ -36,6 +36,17 @@ public class FourInARowController extends Controller implements Initializable {
                                 fourInARowButton.setText("R");
                             else
                                 fourInARowButton.setText("B");
+
+                            if(game.checkWin()) {
+                                if(game.getWinner().equals(loggedPlayer))
+                                    showAlert("You won the game !", "You're the winner congratulation !");
+                                else
+                                    showAlert("You loose the game !", "You lose the game, better luck next time !");
+
+                                databaseConnection.updateGameStatus(game, Game.ENDED);
+
+                                sceneController.showScene(SceneController.ViewType.OngoingGames);
+                            }
                         } else
                             showAlert("You can't do that", "This case isn't empty !\nPlease play somewhere else !");
                     } catch (SQLException throwables) {
@@ -43,6 +54,7 @@ public class FourInARowController extends Controller implements Initializable {
                         throwables.printStackTrace();
                     }
                 });
+
             }
         }
     }

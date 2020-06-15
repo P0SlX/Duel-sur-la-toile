@@ -272,8 +272,17 @@ public class FourInARow implements Game {
                 column += dir.getSecond();
             }
 
-            if(consecutive >= 4)
+            if(consecutive >= 4) {
+                if(side == 'R') {
+                    this.winner = this.player1;
+                    this.looser = this.player2;
+                } else {
+                    this.winner = this.player2;
+                    this.looser = this.player1;
+                }
+
                 return true;
+            }
         }
 
         return false;

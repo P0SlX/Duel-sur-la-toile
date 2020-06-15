@@ -201,7 +201,7 @@ public abstract class Controller {
     protected void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
-        alert.setTitle("Ooops something wrong just happened :(");
+        alert.setTitle("Alert : Duel sur la toile");
         alert.setHeaderText(title);
         alert.setContentText(content);
         alert.show();

@@ -312,6 +312,13 @@ public class DatabaseConnection {
         ps.executeQuery();
     }
 
+    public void updateGameStatus(Game game, int status) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update PARTIE set state=? where gameID=?");
+        ps.setInt(1, status);
+        ps.setInt(2, game.getGameID());
+        ps.executeQuery();
+    }
+
     public String getFourInRowPlate(Game g) throws SQLException {       //TODO
         return "";
     }
