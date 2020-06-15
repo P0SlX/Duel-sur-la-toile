@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 
@@ -94,10 +95,12 @@ public class MainView extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     @Override
-    public void stop() throws SQLException {
-        databaseConnection.setStatus(Controller.getLoggedPlayer(), 0);
+    public void stop() throws SQLException, FileNotFoundException {
+        if (Controller.getLoggedPlayer() != null){
+            Controller.getLoggedPlayer().setEtat(0);
+            databaseConnection.updatePlayer(Controller.getLoggedPlayer());
+        }
     }
 }

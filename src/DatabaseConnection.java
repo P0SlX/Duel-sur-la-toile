@@ -32,7 +32,7 @@ public class DatabaseConnection {
         return this.c;
     }
 
-    /********** DEPRECATED **********/
+    @Deprecated
     public int getStatus(Player p) throws SQLException {
         int etat = 0;
         PreparedStatement ps = c.prepareStatement("select etat from JOUEUR where pseudo = ?");
@@ -43,7 +43,7 @@ public class DatabaseConnection {
         return etat;
     }
 
-    /********** DEPRECATED **********/
+    @Deprecated
     public void setStatus(Player p, int etat) throws SQLException {
         PreparedStatement ps= c.prepareStatement("update JOUEUR set etat = ? where pseudo = ?");
         ps.setInt(1, etat);
