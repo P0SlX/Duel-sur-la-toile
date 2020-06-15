@@ -57,7 +57,7 @@ public class FourInARow implements Game {
 
     /**
      * This constructor is for the test class.
-     * It shouldn't be used in any other ways, all the attributes are initialized to null
+     * It shouldn't be used in any other way, all the attributes are initialized to null
      * @param plate a game plate
      */
     public FourInARow(char[][] plate) {
@@ -132,7 +132,7 @@ public class FourInARow implements Game {
     }
 
     /**
-     * @return int, the number of pawns placed
+     * @return int, the number of placed pawns
      */
     public int getElementPlaced() {
         return this.elementPlacedCount;
@@ -155,7 +155,7 @@ public class FourInARow implements Game {
     }
 
     /**
-     * @return Player whose the turn it is
+     * @return Player whose turn it is
      */
     @Override
     public Player getCurrentPlayer() {
@@ -239,7 +239,7 @@ public class FourInARow implements Game {
     }
 
     /**
-     * Allow to chnage the finish time of a game
+     * Allow to change the finish time of a game
      * @param finishTime Date (sql) the new finish time
      */
     @Override
@@ -288,7 +288,7 @@ public class FourInARow implements Game {
     }
 
     /**
-     * @param p The player that is palying
+     * @param p The player that is playing
      * @param x the x coordinate of the selected case
      * @param y the y coordinate of the selected case
      * @return a boolean : is it possible to play here ?
@@ -356,7 +356,7 @@ public class FourInARow implements Game {
     /**
      * @param x the x position of the case
      * @param y the y position of the case
-     * @return a boolean : true if there's at least 4 consecutive case with
+     * @return a boolean : true if there's at least 4 consecutive cases with
      *          the same colour in any direction
      */
     private boolean checkPosition(int x, int y) {
