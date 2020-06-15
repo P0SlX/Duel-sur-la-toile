@@ -41,7 +41,7 @@ public class FourInARow implements Game {
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = currentPlayer;
-        this.plate = new char[7][7];
+        this.plate = initPlate();
         this.startTime = startTime;
         this.finishTime = finishTime;
         this.elementPlacedCount = elementPlaced;
@@ -275,5 +275,16 @@ public class FourInARow implements Game {
         }
 
         return false;
+    }
+
+    private char[][] initPlate() {
+        char[][] plate = new char[7][7];
+
+        for(int i = 0; i < 7; i++) {
+            for(int j = 0; j < 7; j++)
+                plate[i][j] = '*';
+        }
+
+        return plate;
     }
 }

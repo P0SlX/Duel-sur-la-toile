@@ -149,6 +149,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             Button play = new Button("Play !");
             // Temp
             play.setOnAction(actionEvent -> {
+                FourInARow.setDatabaseConnection(databaseConnection);
                 this.fourInARowController.initController((FourInARow)g);
                 sceneController.showScene(SceneController.ViewType.FourInARowGame);
             });
