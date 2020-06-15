@@ -300,7 +300,7 @@ public class FourInARow implements Game {
                 JSONArray line = (JSONArray)jsonArray.get(i);
 
                 for(int j = 0; j < 7; j++)
-                    res[i][j] = ((String)line.get(i)).charAt(0);
+                    res[i][j] = ((String)line.get(j)).charAt(0);
             }
         } catch (JSONException e) {
             e.printStackTrace();

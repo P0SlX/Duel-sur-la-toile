@@ -1,8 +1,6 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -31,9 +29,14 @@ public class FourInARowController extends Controller implements Initializable {
                     FourInARowButton fourInARowButton = (FourInARowButton)event.getSource();
                     try {
                         if(game.playerPlayTurn(loggedPlayer,
-                                fourInARowButton.getCoords().getFirst(), fourInARowButton.getCoords().getSecond()))
+                                fourInARowButton.getCoords().getFirst(), fourInARowButton.getCoords().getSecond())) {
                             databaseConnection.updateFourInARowPlate(game);
-                        else
+
+                            if(game.getPlayer1().equals(loggedPlayer))
+                                fourInARowButton.setText("R");
+                            else
+                                fourInARowButton.setText("B");
+                        } else
                             showAlert("You can't do that", "This case isn't empty !\nPlease play somewhere else !");
                     } catch (SQLException throwables) {
                         showAlert("Something went wrong with the database :(", "Check your internet connection and try again");
