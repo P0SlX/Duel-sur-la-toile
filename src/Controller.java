@@ -1,18 +1,20 @@
 import com.gluonhq.charm.glisten.control.TextField;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Ellipse;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Set;
 
 public abstract class Controller {
 
@@ -21,8 +23,6 @@ public abstract class Controller {
             "-fx-opacity: 1;";
 
     public static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
-
-    public static Threads thread;
 
     @FXML
     private static MenuItem disconnect;
@@ -60,12 +60,46 @@ public abstract class Controller {
     @FXML
     private static VBox activeGames;
 
-    private static Player loggedPlayer;
+    protected static Player loggedPlayer;
 
     protected static DatabaseConnection databaseConnection;
 
+    protected static Thread th = null;
 
     protected SceneController sceneController;
+
+    public static void fetchBackgroundMessages() throws IOException, SQLException {
+        Player friend = databaseConnection.getPlayer(senderPseudo.getText());
+        Runnable task = new Task<Integer>() {
+            @Override
+            protected Integer call() throws Exception {
+                while (true){
+                    Player friend = databaseConnection.getPlayer(senderPseudo.getText());
+                    if (friend != null){
+                        Platform.runLater(() -> {
+                            try {
+                                loadMessage(friend);
+                            } catch (SQLException throwables) {
+                                throwables.printStackTrace();
+                            }
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            senderPseudo.setText("Nobody");
+                        });
+                    }
+                    Thread.sleep(500);
+                }
+            }
+        };
+        if (Controller.th == null){
+            if (friend == null){
+                Controller.th = new Thread(task);
+                Controller.th.start();
+                System.out.println("Thread Started");
+            }
+        }
+    }
 
     public void setSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
@@ -131,7 +165,7 @@ public abstract class Controller {
         circle.setCenterX(30);
         circle.setCenterY(30);
 
-        message.setOnAction(actionEvent -> {
+        message.setOnAction(actionEvent -> {    // Lors clique bouton message
             try {
                 loadMessage(friend);
             } catch (SQLException throwables) {
@@ -151,7 +185,7 @@ public abstract class Controller {
     }
 
     static void loadMessage(Player sender) throws SQLException {
-        ArrayList<Message> messages = databaseConnection.getPlayerMessage(loggedPlayer, sender);
+        ArrayList<Message> messages = databaseConnection.getPlayerMessage(Controller.loggedPlayer, sender);
         messageList.getChildren().clear();
         messageZone.setVisible(true);
         senderPseudo.setText(sender.getPseudo());
@@ -208,8 +242,9 @@ public abstract class Controller {
     @FXML
     public void onDisconnectAction() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
+        messageZone.setVisible(false);
+        messageList.getChildren().clear();
         sceneController.showScene(SceneController.ViewType.Login);
-        thread.stopThread();
     }
 
     protected static void setLoggedPlayer(Player p) {
@@ -298,13 +333,5 @@ public abstract class Controller {
 
     public static void setActiveGames(VBox activeGames) {
         Controller.activeGames = activeGames;
-    }
-
-    public Threads getThread() {
-        return thread;
-    }
-
-    public static void setThread(Threads threads) {
-        thread = threads;
     }
 }

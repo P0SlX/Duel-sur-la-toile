@@ -1,7 +1,7 @@
-import java.io.IOException;
-import java.sql.SQLException;
+import javafx.application.Platform;
 
 public class Threads extends java.lang.Thread {
+    private Player loggedPlayer;
     private volatile boolean running = true;
 
     public void stopThread() {
@@ -12,11 +12,13 @@ public class Threads extends java.lang.Thread {
     public void run() {
         DatabaseConnection db = new DatabaseConnection();
         db.connexion();
+        this.loggedPlayer = Controller.getLoggedPlayer();
+
         while (running) {
             try {
-                Thread.sleep(500);
-                // COOOOOOOODE
-            } catch (InterruptedException ex) {
+
+
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }

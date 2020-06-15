@@ -1,9 +1,7 @@
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -26,7 +24,6 @@ public class LoginController extends Controller implements Initializable {
 
     private MainMenuController mainMenuController;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { }
 
@@ -42,10 +39,8 @@ public class LoginController extends Controller implements Initializable {
             Controller.setLoggedPlayer(p);
             this.mainMenuController.initMainControllerWithPlayer(p); // Init main menu view
             sceneController.showScene(SceneController.ViewType.MainMenu);
+            Controller.fetchBackgroundMessages();
 
-            thread = new Threads();
-            thread.start();
-            Controller.setThread(thread);
 
             // If the player log out later, it is preferable to not show password again
             this.password.setText("");

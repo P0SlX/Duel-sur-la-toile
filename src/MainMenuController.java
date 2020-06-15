@@ -1,4 +1,5 @@
 import com.gluonhq.charm.glisten.control.TextField;
+import com.sun.javafx.scene.shape.MeshHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -76,13 +77,16 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     public void onTextMessageKeyPressed(KeyEvent event) throws SQLException, IOException {
         if(event.getCode().equals(KeyCode.ENTER)) {
-            Player receiver = databaseConnection.getPlayer(senderPseudo.getText());
-            databaseConnection.sendMessage(loggedPlayer, receiver, textMessage.getText());
-            Controller.setMessageList(this.messageList);
-            Controller.setMessageZone(this.messageZone);
-            Controller.setSenderPseudo(this.senderPseudo);
-            Controller.loadMessage(receiver);
-            textMessage.setText("");
+            if (!senderPseudo.getText().equals("Nobody")){
+                Player receiver = databaseConnection.getPlayer(senderPseudo.getText());
+                databaseConnection.sendMessage(loggedPlayer, receiver, textMessage.getText());
+                Controller.setMessageList(this.messageList);
+                Controller.setMessageZone(this.messageZone);
+                Controller.setSenderPseudo(this.senderPseudo);
+                //Controller.fetchBackgroundMessages();
+                //Controller.loadMessage(receiver);
+                textMessage.setText("");
+            }
         }
     }
 
