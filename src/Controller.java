@@ -21,7 +21,7 @@ public abstract class Controller {
             "-fx-text-fill: white;" +
             "-fx-opacity: 1;";
 
-    public static final String BUTTON = "-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
+    public static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
 
     @FXML
     private static MenuItem disconnect;
@@ -156,35 +156,37 @@ public abstract class Controller {
         senderPseudo.setText(sender.getPseudo());
 
         for(Message m : messages) {
-            HBox messageVBox = new HBox();
-            messageVBox.prefWidth(250.0);
+            if (! m.getContent().isBlank()) {
+                HBox messageVBox = new HBox();
+                messageVBox.prefWidth(250.0);
 
-            VBox content = new VBox();
-            content.setAlignment(Pos.CENTER);
-            content.maxHeight(1.7976931348623157E308);
-            content.maxWidth(1.7976931348623157E308);
-            content.minHeight(Double.NEGATIVE_INFINITY);
-            content.minWidth(Double.NEGATIVE_INFINITY);
+                VBox content = new VBox();
+                content.setAlignment(Pos.CENTER);
+                content.maxHeight(1.7976931348623157E308);
+                content.maxWidth(1.7976931348623157E308);
+                content.minHeight(Double.NEGATIVE_INFINITY);
+                content.minWidth(Double.NEGATIVE_INFINITY);
 
-            Label pseudo = new Label(m.getSenderPseudo());
-            Label time = new Label(m.getDate());
+                Label pseudo = new Label(m.getSenderPseudo());
+                Label time = new Label(m.getDate());
 
-            setMessageLabelStyle(pseudo);
-            setMessageLabelStyle(time);
-            content.getChildren().addAll(pseudo, time);
-            messageVBox.getChildren().add(content);
+                setMessageLabelStyle(pseudo);
+                setMessageLabelStyle(time);
+                content.getChildren().addAll(pseudo, time);
+                messageVBox.getChildren().add(content);
 
-            Label messageContent = new Label(m.getContent());
-            setMessageLabelStyle(messageContent);
-            messageContent.setPrefWidth(175.0);
-            messageVBox.getChildren().add(messageContent);
+                Label messageContent = new Label(m.getContent());
+                setMessageLabelStyle(messageContent);
+                messageContent.setPrefWidth(175.0);
+                messageVBox.getChildren().add(messageContent);
 
-            Separator separator = new Separator();
-            separator.prefHeight(16.0);
-            separator.prefWidth(250.0);
-            separator.setStyle("-fx-opacity: 0.5;");
+                Separator separator = new Separator();
+                separator.prefHeight(16.0);
+                separator.prefWidth(250.0);
+                separator.setStyle("-fx-opacity: 0.5;");
 
-            messageList.getChildren().addAll(separator, messageVBox);
+                messageList.getChildren().addAll(separator, messageVBox);
+            }
         }
     }
 
