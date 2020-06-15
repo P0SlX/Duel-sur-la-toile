@@ -386,22 +386,48 @@ public class DatabaseConnection {
 
     /********** Player Statistitcs **********/
 
-    private int getPlayedGames() throws SQLException{
-       PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
-       ResultSet pg = ps.executeQuery();
-       return pg.getInt(1);
+    /** Player Stats **/
+
+    private int getPlayedGames(Player p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("SELECT COUNT() FROM PARTIE natural join  JOUER where currentPlayer = ? or adversaire = ?");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()){
+            return rs.getInt(1);
+        }
+        return -1;
     }
 
-    private int getWinnedGames() throws SQLException{
-        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where winner = ?");
-        ResultSet wg = ps.executeQuery();
-        return wg.getInt(1);
+    private int getWinnedGames(Player p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("SELECT COUNT() FROM PARTIE natural join JOUER where winner = ?");
+        ps.setString(1, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()){
+            return rs.getInt(1);
+        }
+        return -1;
     }
 
-//    private int getActiveGames() throws SQLException{
-//        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where winner = ?");
-//        ResultSet ag = ps.executeQuery();
-//        return ag.getInt(1);
-//    }
+
+    public PlayerStatistics getPlayerStatistics(Player p) throws SQLException, IOException {
+        PreparedStatement ps = c.prepareStatement("SELECT * FROM PARTIE natural Join JOUER where currentPlayer = ?");
+        ps.setString(1, p.getPseudo());
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            //
+            PlayerStatistics pStats = new PlayerStatistics(
+                    this.getPlayedGames(p),
+                    this.getWinnedGames(p),
+                    rs.getDouble("elementPlaced"),
+                    rs.getInt("state"),
+                    rs.getInt("state")
+            );
+            return pStats;
+        }
+        return null;
+    }
 
 }
