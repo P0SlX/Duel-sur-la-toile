@@ -1,12 +1,11 @@
 import javafx.scene.image.Image;
-import org.json.JSONArray;
 
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * All getters in this class took informations in the database
+ * All getters in this class took information in the database
  * All setters in this class modify the database
  */
 public class DatabaseConnection {
@@ -439,6 +438,11 @@ public class DatabaseConnection {
         ps.setString(1, createJSONFromPlate(fourInARow.getPlate()));
         ps.setInt(2, fourInARow.getGameID());
         ps.executeQuery();
+
+        ps = c.prepareStatement("update PARTIE set elementPlaced=? where gameID=?");
+        ps.setInt(1, getNumberOfElementPlaced(fourInARow) + 1);
+        ps.setInt(2, fourInARow.getGameID());
+        ps.executeQuery();
     }
 
     public void updateGameStatus(Game game, int status) throws SQLException {
@@ -562,7 +566,14 @@ public class DatabaseConnection {
         fileOutputStream.flush();
         fileOutputStream.close();
         return new Image(new FileInputStream("./" + fileName));
+    }
 
+    private int getNumberOfElementPlaced(Game g) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select elementPlaced from PARTIE where gameID=?");
+        ps.setInt(1, g.getGameID());
+        ResultSet resultSet = ps.executeQuery();
+        resultSet.next();
+        return resultSet.getInt("elementPlaced");
     }
 
     /**

@@ -88,7 +88,6 @@ class DatabaseConnectionTest {
         assertEquals(messages.size(), 1);
     }
 
-
     @Test
     void updatePlayer() throws IOException, SQLException {
         DatabaseConnection db = new DatabaseConnection();
