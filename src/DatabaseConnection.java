@@ -1,4 +1,5 @@
 import javafx.scene.image.Image;
+import org.json.JSONArray;
 
 import java.io.*;
 import java.sql.*;
@@ -7,6 +8,27 @@ import java.util.ArrayList;
 public class DatabaseConnection {
 
     private Connection c;
+
+    /**
+     * Return a JSON string that represents the game plate
+     * @param plate game plate
+     * @return A String that represents the game plate formatted in JSON
+     */
+    public static String createJSONFromPlate(char[][] plate) {
+        StringBuilder generatedJSON = new StringBuilder("[\n");
+
+        for(char[] line : plate) {
+            generatedJSON.append("[ ");
+            for(char c : line)
+                generatedJSON.append(String.format("%c, ", c));
+
+            generatedJSON.append("],\n");
+        }
+
+        generatedJSON.append("]\n");
+        System.out.println(generatedJSON.toString());
+        return generatedJSON.toString();
+    }
 
     public DatabaseConnection() {}
 
@@ -272,7 +294,7 @@ public class DatabaseConnection {
         PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
         ps.setInt(1, this.getMaxIDGame() + 1);
         ps.setString(2, g.getGameName());
-        ps.setString(3, "contenuGrille");
+        ps.setString(3, g instanceof FourInARow ? createJSONFromPlate(((FourInARow)g).getPlate()) : "Unknown");
         ps.setString(4, p1.getPseudo());
         ps.executeUpdate();
         PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
@@ -280,6 +302,14 @@ public class DatabaseConnection {
         ps2.setString(2, p2.getPseudo());
         ps2.setInt(3, this.getMaxIDGame() + 1);
         ps2.executeUpdate();
+    }
+
+    public void updateFourInARowPlate(FourInARow fourInARow) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update PARTIE set plate=? where gameID=?");
+
+        ps.setString(1, createJSONFromPlate(fourInARow.getPlate()));
+        ps.setInt(2, fourInARow.getGameID());
+        ps.executeQuery();
     }
 
     public String getFourInRowPlate(Game g) throws SQLException {       //TODO
@@ -381,7 +411,5 @@ public class DatabaseConnection {
         return resultSet.getInt(1);
     }
 
-    public void updateFourInARowPlate(FourInARow fourInARow) {
-        // TODO: Update Four in a row plate in database
-    }
+
 }

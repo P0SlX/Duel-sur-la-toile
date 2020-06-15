@@ -32,8 +32,7 @@ public class FourInARowController extends Controller implements Initializable {
                     try {
                         if(game.playerPlayTurn(loggedPlayer,
                                 fourInARowButton.getCoords().getFirst(), fourInARowButton.getCoords().getSecond()))
-                            //databaseConnection.updateFourInARowPlate(game);
-                            System.out.println("Coup joué");
+                            databaseConnection.updateFourInARowPlate(game);
                         else
                             showAlert("You can't do that", "This case isn't empty !\nPlease play somewhere else !");
                     } catch (SQLException throwables) {
