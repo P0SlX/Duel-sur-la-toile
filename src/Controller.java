@@ -1,11 +1,8 @@
 import com.gluonhq.charm.glisten.control.TextField;
-import com.sun.tools.javac.Main;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -59,10 +56,9 @@ public abstract class Controller {
     @FXML
     private static VBox activeGames;
 
-    private static Player loggedPlayer;
-
     protected static DatabaseConnection databaseConnection;
 
+    protected static Player loggedPlayer;
 
     protected SceneController sceneController;
 
@@ -71,7 +67,7 @@ public abstract class Controller {
     }
 
     public void setDatabaseConnection(DatabaseConnection database) {
-        this.databaseConnection = database;
+        databaseConnection = database;
     }
 
     public static void addFriend(Player friend, VBox friendList) {
@@ -202,10 +198,25 @@ public abstract class Controller {
         label.setStyle(LABEL_BRIGHT);
     }
 
+    protected void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        alert.setTitle("Alert : Duel sur la toile");
+        alert.setHeaderText(title);
+        alert.setContentText(content);
+        alert.show();
+    }
+
     @FXML
-    public void onDisconnectAction() throws SQLException {
+    protected void onDisconnectAction() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
         sceneController.showScene(SceneController.ViewType.Login);
+    }
+
+    @FXML
+    protected void onQuitAction() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, 0);
+        Platform.exit();
     }
 
     protected static void setLoggedPlayer(Player p) {

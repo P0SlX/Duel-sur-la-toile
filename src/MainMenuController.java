@@ -25,6 +25,7 @@ public class MainMenuController extends Controller implements Initializable {
                                   "-fx-opacity: 1;";
 
     private final String BUTTON = "-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
+
     @FXML
     private MenuItem disconnect;
 
@@ -58,15 +59,12 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     private TextField textMessage;
 
-    private Player loggedPlayer;
-
     private OngoingGamesController ongoingGamesController;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
 
     @FXML
     public void onFourInARowAction() throws IOException, SQLException {
@@ -96,11 +94,11 @@ public class MainMenuController extends Controller implements Initializable {
         this.friendList.getChildren().clear();
         this.messageZone.setVisible(false);
 
-        this.loggedPlayer = Controller.getLoggedPlayer();
+        loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
         this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
 
-        avatar.setImage(this.loggedPlayer.getPlayerAvatar());
+        avatar.setImage(loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();
         circle.setRadiusX(30);
         circle.setRadiusY(30);
@@ -112,17 +110,10 @@ public class MainMenuController extends Controller implements Initializable {
         Controller.setMessageZone(this.messageZone);
         Controller.setSenderPseudo(this.senderPseudo);
 
-        ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
+        ArrayList<Player> friends = databaseConnection.getFriends(loggedPlayer);
 
         for(Player p : friends)
             Controller.addFriend(p, this.friendList);
-    }
-
-
-    @FXML
-    private void onQuitAction() throws SQLException {
-        databaseConnection.setStatus(loggedPlayer, 0);
-        Platform.exit();
     }
 
     public void setOngoingGamesController(OngoingGamesController ongoingGamesController) {

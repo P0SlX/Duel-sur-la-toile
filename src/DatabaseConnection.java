@@ -1,4 +1,5 @@
 import javafx.scene.image.Image;
+import org.json.JSONArray;
 
 import java.io.*;
 import java.sql.*;
@@ -11,6 +12,27 @@ import java.util.ArrayList;
 public class DatabaseConnection {
 
     private Connection c;
+
+    /**
+     * Return a JSON string that represents the game plate
+     * @param plate game plate
+     * @return A String that represents the game plate formatted in JSON
+     */
+    public static String createJSONFromPlate(char[][] plate) {
+        StringBuilder generatedJSON = new StringBuilder("[\n");
+
+        for(char[] line : plate) {
+            generatedJSON.append("[ ");
+            for(char c : line)
+                generatedJSON.append(String.format("%c, ", c));
+
+            generatedJSON.append("],\n");
+        }
+
+        generatedJSON.append("]\n");
+        System.out.println(generatedJSON.toString());
+        return generatedJSON.toString();
+    }
 
     public DatabaseConnection() {}
 
@@ -395,8 +417,8 @@ public class DatabaseConnection {
     public void addNewGame(Player p1, Player p2, Game g) throws SQLException {
         PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
         ps.setInt(1, this.getMaxIDGame() + 1);
-        ps.setString(2, g.getNomJeu());
-        ps.setString(3, "contenuGrille");
+        ps.setString(2, g.getGameName());
+        ps.setString(3, g instanceof FourInARow ? createJSONFromPlate(((FourInARow)g).getPlate()) : "Unknown");
         ps.setString(4, p1.getPseudo());
         ps.executeUpdate();
         PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
@@ -411,27 +433,24 @@ public class DatabaseConnection {
      * @return String, the plate of the game
      * @throws SQLException
      */
-    public String getFourInRowPlate(Game g) throws SQLException {       //TODO
-        return "";
+    public void updateFourInARowPlate(FourInARow fourInARow) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update PARTIE set plate=? where gameID=?");
+
+        ps.setString(1, createJSONFromPlate(fourInARow.getPlate()));
+        ps.setInt(2, fourInARow.getGameID());
+        ps.executeQuery();
     }
 
-    /**
-     * @param p Player, the player which have to play
-     * @param line int, the line he played
-     * @param col int, the column he played
-     * @throws SQLException
-     */
-    public void playForInARowTurn(Player p, int line, int col) throws SQLException {    //TODO
-
+    public void updateGameStatus(Game game, int status) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update PARTIE set state=? where gameID=?");
+        ps.setInt(1, status);
+        ps.setInt(2, game.getGameID());
+        ps.executeQuery();
     }
-    /***************************/
-
-
 
     /********** INVITATIONS **********/
 
     /**
-     *
      * @return int, the bigger id of an invitation (game or friend) (normally the last invitation created)
      * @throws SQLException
      */
@@ -506,7 +525,7 @@ public class DatabaseConnection {
      *            -1 = invitation refused
      *            0 = invitation pending
      *            1 =invitation accepted
-     * @throws SQLException
+     * @throws SQLException if something wrong happens with a SQL query
      */
     public void changeStateInv(Invitation inv) throws SQLException {
         PreparedStatement ps = c.prepareStatement("update INVITATION set etatinv = ? where idinv = ?");
@@ -522,8 +541,8 @@ public class DatabaseConnection {
      * @param inputStream, the InputStream of the image
      * @param pseudo String, the player's pseudo concerning by the avatar
      * @return Image, the player's avatar
-     * @throws SQLException
-     * @throws IOException
+     * @throws SQLException if something wrong happens with a SQL query
+     * @throws IOException if something wrong happens with a Input/Output
      */
     private Image loadImageFromStream(InputStream inputStream, String pseudo) throws SQLException, IOException {
         String fileName = String.format("user_%s.png", pseudo);

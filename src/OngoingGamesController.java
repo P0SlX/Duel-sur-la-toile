@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -47,6 +46,8 @@ public class OngoingGamesController extends Controller implements Initializable 
 
     private Player loggedPlayer;
 
+    private FourInARowController fourInARowController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -57,23 +58,13 @@ public class OngoingGamesController extends Controller implements Initializable 
         sceneController.showScene(SceneController.ViewType.MainMenu);
     }
 
-
-    @FXML
-    private void onQuitAction() throws SQLException {
-        databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
-        Platform.exit();
-    }
-
-
-
-
     public void setMainMenuController(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
     }
 
     public void initOnGoingGameView() throws IOException, SQLException {
 
-        this.loggedPlayer = this.mainMenuController.getLoggedPlayer();
+        this.loggedPlayer = getLoggedPlayer();
         this.friendList.getChildren().clear();
         ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
 
@@ -145,7 +136,14 @@ public class OngoingGamesController extends Controller implements Initializable 
             yourTurn.setFont(new Font(20));
 
             Button play = new Button("Play !");
-            play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
+            // Temp
+            play.setOnAction(actionEvent -> {
+                FourInARow.setDatabaseConnection(databaseConnection);
+                this.fourInARowController.initController((FourInARow)g);
+                sceneController.showScene(SceneController.ViewType.FourInARowGame);
+            });
+
+            //play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
             play.setMnemonicParsing(false);
             play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px;");
             play.setTextFill(Color.WHITE);
@@ -158,5 +156,13 @@ public class OngoingGamesController extends Controller implements Initializable 
             this.activeGames.getChildren().add(gameContainer);
             this.activeGames.getChildren().add(separator);
         }
+    }
+
+    public FourInARowController getFourInARowController() {
+        return fourInARowController;
+    }
+
+    public void setFourInARowController(FourInARowController fourInARowController) {
+        this.fourInARowController = fourInARowController;
     }
 }

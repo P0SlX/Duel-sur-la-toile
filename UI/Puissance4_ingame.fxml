@@ -20,7 +20,8 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="FourInARowController">
 <children>
       <MenuBar layoutX="10.0" layoutY="9.0" maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
@@ -32,7 +33,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Player">
                <items>
-                  <MenuItem fx:id="playerMenu" mnemonicParsing="false" onAction="#onPlayerAction" text="Profil" />
+                  <MenuItem fx:id="playerMenu" mnemonicParsing="false" onAction="#onPlayerProfilAction" text="Profil" />
                </items>
             </Menu>
          </menus>
@@ -73,7 +74,7 @@
             <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
-      <GridPane gridLinesVisible="true" layoutX="303.0" layoutY="68.0" prefHeight="674.0" prefWidth="780.0">
+      <GridPane gridLinesVisible="true" layoutX="303.0" layoutY="68.0" prefHeight="674.0" prefWidth="780.0" fx:id="fourInARowGrid">
         <columnConstraints>
           <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
@@ -145,8 +146,12 @@
       </AnchorPane>
       <Label layoutX="428.0" layoutY="761.0" styleClass="label-header" text="&lt;pseudo&gt;, its your turn." />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1240.0" layoutY="150.0" prefHeight="34.0" prefWidth="50.0" style="-fx-font-size: 25pt; -fx-font-family: &quot;Segoe UI Light&quot;; -fx-text-fill: rgb(43, 208, 219);" styleClass="label-jeux" text="VS" textFill="WHITE" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="145.0" />
-      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="190.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0" />
-      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0" />
+      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="190.0"
+              style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;"
+              text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0" onAction="#onBackMenuAction" />
+      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;"
+              styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0"
+                onAction="#onSurrendAction"/>
       <ImageView fx:id="avatar11" fitHeight="60.0" fitWidth="60.0" layoutX="1235.0" layoutY="166.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="200.0">
          <image>
             <Image url="@assets/logo.png" />

@@ -15,6 +15,7 @@ public class MainView extends Application {
     private SceneController sceneController;
     private DatabaseConnection databaseConnection;
     private OngoingGamesController ongoingGamesController;
+    private FourInARowController fourInARowController;
 
     private MainMenuController mainMenuController;
 
@@ -33,8 +34,11 @@ public class MainView extends Application {
             } else if(controller instanceof MainMenuController) {
                 this.mainMenuController = (MainMenuController)controller;
                 this.ongoingGamesController.setMainMenuController(mainMenuController);
-            } else if(controller instanceof OngoingGamesController)
-                this.ongoingGamesController = (OngoingGamesController)controller;
+            } else if(controller instanceof OngoingGamesController) {
+                this.ongoingGamesController = (OngoingGamesController) controller;
+                this.ongoingGamesController.setFourInARowController(this.fourInARowController);
+            } else if(controller instanceof FourInARowController)
+                this.fourInARowController = (FourInARowController) controller;
 
             return root;
         } catch (Exception e) {
@@ -68,29 +72,27 @@ public class MainView extends Application {
             this.sceneController = new SceneController(scene);
             this.databaseConnection.connexion();
 
+            Pane fourInARowScene = new Pane(loadRootWithController("UI/Puissance4_ingame.fxml"));
             Pane ongoingGames    = new Pane(loadRootWithController("UI/Parties.fxml"));
             Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
             Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane(loadRootWithController("UI/Inscription.fxml"));
             //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
-            //Pane fourInARowScene = new Pane(loadRoot("UI/Puissance4_ingame.fxml"));
 
             this.mainMenuController.setOngoingGamesController(this.ongoingGamesController);
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);
             sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
+            sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
             sceneController.addScene(SceneController.ViewType.OngoingGames, ongoingGames);
             //sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
-            //sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
 
             sceneController.showScene(SceneController.ViewType.Login);
 
             primaryStage.setScene(scene);
             primaryStage.setTitle("Duel sur la toile");
             primaryStage.show();
-
-
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,3 +1,5 @@
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -148,5 +150,36 @@ class DatabaseConnectionTest {
         assertNotNull(p2);
 
         assertTrue(db.sendMessage(p1, p2, "Hello bg !"));
+    }
+
+    @Test
+    void createJSONFromPlate() {
+        final char[][] PLATE = {
+                { '*', '*', '*', '*', '*', '*', '*' },
+                { '*', '*', '*', '*', '*', '*', '*' },
+                { '*', '*', '*', '*', '*', '*', '*' },
+                { '*', '*', '*', '*', '*', '*', '*' },
+                { '*', '*', '*', '*', '*', '*', '*' },
+                { '*', '*', '*', '*', '*', '*', '*' },
+                { '*', '*', '*', '*', '*', '*', '*' },
+        };
+
+        final String expected = "[\n" +
+                "[ *, *, *, *, *, *, *, ],\n" +
+                "[ *, *, *, *, *, *, *, ],\n" +
+                "[ *, *, *, *, *, *, *, ],\n" +
+                "[ *, *, *, *, *, *, *, ],\n" +
+                "[ *, *, *, *, *, *, *, ],\n" +
+                "[ *, *, *, *, *, *, *, ],\n" +
+                "[ *, *, *, *, *, *, *, ],\n" +
+                "]\n";
+
+        try {
+            JSONArray array = new JSONArray(DatabaseConnection.createJSONFromPlate(PLATE));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            fail();
+        }
+        assertEquals(DatabaseConnection.createJSONFromPlate(PLATE), expected);
     }
 }

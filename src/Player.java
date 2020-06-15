@@ -219,4 +219,12 @@ public class Player {
     public void setPlayerAvatar(Image playerAvatar) {
         this.playerAvatar = playerAvatar;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Player)
+            return pseudo.equals(((Player)obj).getPseudo());
+
+        return false;
+    }
 }
