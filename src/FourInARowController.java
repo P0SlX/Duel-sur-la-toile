@@ -1,10 +1,12 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class FourInARowController extends Controller implements Initializable {
@@ -12,20 +14,32 @@ public class FourInARowController extends Controller implements Initializable {
     @FXML
     public GridPane fourInARowGrid;
 
-    private Button[][] grid;
+    private FourInARowButton[][] grid;
 
     private FourInARow game;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        grid = new Button[7][7];
+        grid = new FourInARowButton[7][7];
 
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++) {
-                grid[i][j] = new Button();
+                grid[i][j] = new FourInARowButton(i, j);
                 fourInARowGrid.add(grid[i][j], j, i);
+
                 grid[i][j].setOnAction(event -> {
-                    // TODO: Click handle
+                    FourInARowButton fourInARowButton = (FourInARowButton)event.getSource();
+                    try {
+                        if(game.playerPlayTurn(loggedPlayer,
+                                fourInARowButton.getCoords().getFirst(), fourInARowButton.getCoords().getSecond()))
+                            //databaseConnection.updateFourInARowPlate(game);
+                            System.out.println("Coup joué");
+                        else
+                            showAlert("You can't do that", "This case isn't empty !\nPlease play somewhere else !");
+                    } catch (SQLException throwables) {
+                        showAlert("Something went wrong with the database :(", "Check your internet connection and try again");
+                        throwables.printStackTrace();
+                    }
                 });
             }
         }
@@ -33,6 +47,7 @@ public class FourInARowController extends Controller implements Initializable {
 
     public void initController(FourInARow currentGame) {
         char[][] content = currentGame.getPlate();
+        this.game = currentGame;
 
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++)
@@ -57,9 +72,12 @@ public class FourInARowController extends Controller implements Initializable {
         this.game = game;
     }
 
+    @FXML
     public void onQuitAction(ActionEvent actionEvent) {
     }
 
+    @FXML
     public void onPlayerProfilAction(ActionEvent actionEvent) {
     }
+
 }

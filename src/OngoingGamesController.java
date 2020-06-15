@@ -75,7 +75,7 @@ public class OngoingGamesController extends Controller implements Initializable 
 
     public void initOnGoingGameView() throws IOException, SQLException {
 
-        this.loggedPlayer = this.mainMenuController.getLoggedPlayer();
+        this.loggedPlayer = getLoggedPlayer();
         this.friendList.getChildren().clear();
         ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
 

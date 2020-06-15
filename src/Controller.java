@@ -2,10 +2,7 @@ import com.gluonhq.charm.glisten.control.TextField;
 import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -199,6 +196,15 @@ public abstract class Controller {
                 "-fx-text-fill: white;" +
                 "-fx-opacity: 1;";
         label.setStyle(LABEL_BRIGHT);
+    }
+
+    protected void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        alert.setTitle("Ooops something wrong just happened :(");
+        alert.setHeaderText(title);
+        alert.setContentText(content);
+        alert.show();
     }
 
     @FXML
