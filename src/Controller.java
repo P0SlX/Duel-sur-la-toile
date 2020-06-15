@@ -1,5 +1,5 @@
 import com.gluonhq.charm.glisten.control.TextField;
-import com.sun.tools.javac.Main;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -67,7 +67,7 @@ public abstract class Controller {
     }
 
     public void setDatabaseConnection(DatabaseConnection database) {
-        this.databaseConnection = database;
+        databaseConnection = database;
     }
 
     public static void addFriend(Player friend, VBox friendList) {
@@ -208,9 +208,15 @@ public abstract class Controller {
     }
 
     @FXML
-    public void onDisconnectAction() throws SQLException {
+    protected void onDisconnectAction() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
         sceneController.showScene(SceneController.ViewType.Login);
+    }
+
+    @FXML
+    protected void onQuitAction() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, 0);
+        Platform.exit();
     }
 
     protected static void setLoggedPlayer(Player p) {

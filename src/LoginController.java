@@ -60,7 +60,7 @@ public class LoginController extends Controller implements Initializable {
     }
 
     @FXML
-    private void onQuitAction() {
+    private void onLoginQuitAction() {
         Platform.exit();
     }
 

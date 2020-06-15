@@ -58,16 +58,6 @@ public class OngoingGamesController extends Controller implements Initializable 
         sceneController.showScene(SceneController.ViewType.MainMenu);
     }
 
-
-    @FXML
-    private void onQuitAction() throws SQLException {
-        databaseConnection.setStatus(mainMenuController.getLoggedPlayer(), 0);
-        Platform.exit();
-    }
-
-
-
-
     public void setMainMenuController(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
     }

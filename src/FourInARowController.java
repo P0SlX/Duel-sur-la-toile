@@ -1,6 +1,8 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -87,11 +89,30 @@ public class FourInARowController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onQuitAction(ActionEvent actionEvent) {
+    public void onBackMenuAction() {
+        sceneController.showScene(SceneController.ViewType.OngoingGames);
+    }
+
+    @FXML
+    public void onSurrendAction() {
+        Alert confirmAlert = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        confirmAlert.setContentText("Do you really to surrend this game ?\n" +
+                "You can't undo that and the game will be lost.");
+
+        confirmAlert.showAndWait().ifPresent(result -> {
+            if (result == ButtonType.OK) {
+                try {
+                    databaseConnection.updateGameStatus(game, Game.CANCELED);
+                    sceneController.showScene(SceneController.ViewType.OngoingGames);
+                } catch (SQLException throwables) {
+                    showAlert("Something went wrong :(", "Please check your internet connection and try again.");
+                    throwables.printStackTrace();
+                }
+            }
+        });
     }
 
     @FXML
     public void onPlayerProfilAction(ActionEvent actionEvent) {
     }
-
 }

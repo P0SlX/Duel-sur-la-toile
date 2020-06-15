@@ -146,8 +146,12 @@
       </AnchorPane>
       <Label layoutX="428.0" layoutY="761.0" styleClass="label-header" text="&lt;pseudo&gt;, its your turn." />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1240.0" layoutY="150.0" prefHeight="34.0" prefWidth="50.0" style="-fx-font-size: 25pt; -fx-font-family: &quot;Segoe UI Light&quot;; -fx-text-fill: rgb(43, 208, 219);" styleClass="label-jeux" text="VS" textFill="WHITE" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="145.0" />
-      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="190.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0" />
-      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0" />
+      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="190.0"
+              style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;"
+              text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0" onAction="#onBackMenuAction" />
+      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;"
+              styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0"
+                onAction="#onSurrendAction"/>
       <ImageView fx:id="avatar11" fitHeight="60.0" fitWidth="60.0" layoutX="1235.0" layoutY="166.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="200.0">
          <image>
             <Image url="@assets/logo.png" />

@@ -115,13 +115,6 @@ public class MainMenuController extends Controller implements Initializable {
             Controller.addFriend(p, this.friendList);
     }
 
-
-    @FXML
-    private void onQuitAction() throws SQLException {
-        databaseConnection.setStatus(loggedPlayer, 0);
-        Platform.exit();
-    }
-
     public void setOngoingGamesController(OngoingGamesController ongoingGamesController) {
         this.ongoingGamesController = ongoingGamesController;
     }
