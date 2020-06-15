@@ -62,6 +62,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     private OngoingGamesController ongoingGamesController;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }

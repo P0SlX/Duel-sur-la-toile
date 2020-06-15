@@ -156,7 +156,6 @@ public abstract class Controller {
         senderPseudo.setText(sender.getPseudo());
 
         for(Message m : messages) {
-            if (! m.getContent().isBlank()) {
                 HBox messageVBox = new HBox();
                 messageVBox.prefWidth(250.0);
 
@@ -186,7 +185,6 @@ public abstract class Controller {
                 separator.setStyle("-fx-opacity: 0.5;");
 
                 messageList.getChildren().addAll(separator, messageVBox);
-            }
         }
     }
 
