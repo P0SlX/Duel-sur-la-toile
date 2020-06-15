@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 <children>
-    <MenuBar maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <MenuBar maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
@@ -56,92 +64,99 @@
             <VBox prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="14.0" layoutY="380.0" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="349.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="25.0">
+      <AnchorPane layoutX="626.0" layoutY="234.0" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="349.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="150.0">
          <children>
             <VBox prefHeight="807.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="36.0" layoutY="14.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="15.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="38.0" layoutY="79.0" styleClass="ratio-gros" text="Ratio: 9000" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="80.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="506.0" layoutY="14.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
             <Separator layoutX="36.0" layoutY="56.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="36.0" layoutY="125.0" styleClass="ratio-gros" text="Victories: 187" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="120.0">
+            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="100.0" styleClass="ratio-gros" text="Ratio: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="100.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="172.0" styleClass="ratio-gros" text="Defeats: 19" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0">
+            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="136.0" styleClass="ratio-gros" text="Victories: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="150.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="38.0" layoutY="214.0" styleClass="ratio-gros" text="Current games: 2" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="200.0">
+            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="176.0" styleClass="ratio-gros" text="Defeats: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="200.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="38.0" layoutY="257.0" styleClass="ratio-gros" text="Consecutive wins: 4" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="240.0">
+            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="216.0" styleClass="ratio-gros" text="Active games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="250.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="390.0" styleClass="ratio-gros" text="Consecutive wins: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="430.0" styleClass="ratio-gros" text="Played games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="350.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="470.0" styleClass="ratio-gros" text="Average turn played: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="400.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="510.0" styleClass="ratio-gros" text="Abandoned games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="450.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="emailTextBox" layoutX="159.0" layoutY="196.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="200.0" />
+            <TextField fx:id="passwordTextBox" layoutX="159.0" layoutY="246.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="250.0" />
+            <TextField fx:id="stateTextBox" layoutX="159.0" layoutY="296.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="300.0" />
+            <Label alignment="CENTER_RIGHT" layoutX="463.0" layoutY="196.0" styleClass="ratio-gros" text="Email" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="200.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="424.0" layoutY="246.0" styleClass="ratio-gros" text="Password" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="250.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="466.0" layoutY="296.0" styleClass="ratio-gros" text="State" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="387.0" layoutY="346.0" styleClass="ratio-gros" text="Desactivated" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="350.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="454.0" layoutY="396.0" styleClass="ratio-gros" text="Admin" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="400.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Separator layoutX="527.0" layoutY="65.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="19.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="61.0" />
+            <Button fx:id="desactivatedButton" layoutX="181.0" layoutY="342.0" mnemonicParsing="false" onAction="#onDesactivatedButtonAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="True" />
+            <Button fx:id="adminButton" layoutX="181.0" layoutY="392.0" mnemonicParsing="false" onAction="#onAdminButtonAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="False" />
+            <Button fx:id="adminButton1" layoutX="181.0" layoutY="482.0" mnemonicParsing="false" onAction="#onAdminButtonAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #FF4444; -fx-border-color: #FF4444; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Update player" AnchorPane.rightAnchor="715.0" />
+            <ImageView fx:id="avatar1" fitHeight="100.0" fitWidth="100.0" layoutX="222.0" layoutY="75.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="85.0">
+               <image>
+                  <Image url="@assets/logo.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="130.0" layoutY="130.0" minHeight="0.0" minWidth="0.0" prefHeight="559.0" prefWidth="870.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="200.0">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="870.0" style="-fx-background-color: rgba(0,0,0,0.1);" styleClass="pseudo-stat" text="Game history" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <VBox prefHeight="569.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-               <children>
-                  <AnchorPane prefHeight="100.0" prefWidth="870.0">
-                     <children>
-                        <Separator AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
-                        <Label alignment="CENTER_RIGHT" layoutX="94.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="winner-history" text="Arza" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="33.0">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="526.0" layoutY="33.0" prefHeight="34.0" prefWidth="250.0" styleClass="looser-history" text="Kalouz" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="33.0">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" styleClass="vs-history" text="VS" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="361.0" AnchorPane.rightAnchor="361.0" AnchorPane.topAnchor="33.0">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <ImageView fx:id="avatar2" fitHeight="80.0" fitWidth="80.0" layoutX="40.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="10.0">
-                           <image>
-                              <Image url="@assets/logo.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="avatar21" fitHeight="80.0" fitWidth="80.0" layoutX="740.0" layoutY="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="10.0">
-                           <image>
-                              <Image url="@assets/logo.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </AnchorPane>
-               </children></VBox>
-         </children>
-      </AnchorPane>
-      <Button fx:id="backButton" layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" onAction="#onBackAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="20.0" />
-      <ImageView fx:id="avatar1" fitHeight="160.0" fitWidth="160.0" layoutX="120.0" layoutY="120.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="120.0">
-         <image>
-            <Image url="@assets/logo.png" />
-         </image>
-      </ImageView>
+      <Button fx:id="backButton" layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" onAction="#onBackAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="290.0" />
+      <TextField layoutX="254.0" layoutY="59.0" prefHeight="31.0" prefWidth="929.0" promptText="Player" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="400.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
 </children>
 </AnchorPane>
