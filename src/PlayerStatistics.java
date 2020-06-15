@@ -8,11 +8,11 @@ public class PlayerStatistics {
 
     /**
      * builder of PlayerStatistic
-     * @param playedGames int, the number of game played by a player
-     * @param wonGames int, the number of game won by a player
-     * @param turnPlayedPerGamesAverage, double, the average number of turn played by game
-     * @param activeGames int, number of game in_progress
-     * @param abandonedGames int, number of game abandonned
+     * @param playedGames int, the number of games played by a player
+     * @param wonGames int, the number of games won by a player
+     * @param turnPlayedPerGamesAverage, double, the average number of turns played by game
+     * @param activeGames int, number of games in_progress
+     * @param abandonedGames int, number of games abandoned
      */
     public PlayerStatistics(int playedGames, int wonGames, double turnPlayedPerGamesAverage, int activeGames, int abandonedGames){
         this.playedGames=playedGames;
@@ -24,35 +24,35 @@ public class PlayerStatistics {
     }
 
     /**
-     * @return int, the number of game played
+     * @return int, the number of games played
      */
     public int getPlayedGames() {
         return this.playedGames;
     }
 
     /**
-     * @return int, the number of game won
+     * @return int, the number of games won
      */
     public int getWonGames() {
         return this.wonGames;
     }
 
     /**
-     * @return double, the average number of turn per game
+     * @return double, the average number of turns per game
      */
     public double getTurnPlayedPerGamesAverage() {
         return this.turnPlayedPerGamesAverage;
     }
 
     /**
-     * @return int, the number of game in_progress
+     * @return int, the number of games in_progress
      */
     public int getActiveGames() {
         return this.activeGames;
     }
 
     /**
-     * @return int, the number of game abandonned
+     * @return int, the number of games abandonned
      */
     public int getAbandonedGames() {
         return this.abandonedGames;
