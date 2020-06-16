@@ -128,7 +128,14 @@ public class MainMenuController extends Controller implements Initializable {
                     }
                 },
                 actionEvent -> {
-                        // TODO: Send invitation to player
+                        try {
+                            databaseConnection.createInv(loggedPlayer, p, true); // game invitation
+                            showAlert("Invitation successfully sent",
+                                    String.format("Invitation sent to %s.", p.getPseudo()));
+                        } catch(SQLException exception) {
+                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            exception.printStackTrace();
+                        }
             });
 
         Runnable scheduledTask = () -> {
