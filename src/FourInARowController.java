@@ -75,9 +75,9 @@ public class FourInARowController extends Controller implements Initializable {
 
                             if(game.checkWin()) {
                                 if(game.getWinner().equals(loggedPlayer))
-                                    showAlert("You won the game !", "You're the winner congratulation !");
+                                    showAlert("You win the game !", "You're the winner congratulation !");
                                 else
-                                    showAlert("You loose the game !", "You lose the game, better luck next time !");
+                                    showAlert("You lose the game !", "You lose the game, better luck next time !");
 
                                 databaseConnection.updateGameStatus(game, Game.ENDED);
 
@@ -196,7 +196,7 @@ public class FourInARowController extends Controller implements Initializable {
     @FXML
     public void onSurrendAction() {
         Alert confirmAlert = new Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
-        confirmAlert.setContentText("Do you really to surrend this game ?\n" +
+        confirmAlert.setContentText("Do you really want to give up ?\n" +
                 "You can't undo that and the game will be lost.");
 
         confirmAlert.showAndWait().ifPresent(result -> {
