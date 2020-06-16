@@ -692,7 +692,7 @@ public class DatabaseConnection {
         return 0;
     }
 
-    private PlayerStatistics getPlayerStatistics(Player p) throws SQLException {
+    public PlayerStatistics getPlayerStatistics(Player p) throws SQLException {
         return new PlayerStatistics(
                 this.getVictories(p),
                 this.getDefeat(p),

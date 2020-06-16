@@ -196,7 +196,8 @@ public class MainMenuController extends Controller implements Initializable {
         awaitBackgroundTasksAndShutdown();
         messageZone.setVisible(false);
         messageList.getChildren().clear();
-        playerAccountController.initPlayerAccountController(databaseConnection.getPlayer(pseudo.getText()));
+        playerAccountController.setMainMenuController(this);
+        playerAccountController.initPlayerAccountController(loggedPlayer);
         sceneController.showScene(SceneController.ViewType.PlayerAccount);
     }
 }
