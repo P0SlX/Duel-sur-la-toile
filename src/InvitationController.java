@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -24,6 +25,9 @@ public class InvitationController extends Controller implements Initializable {
 
     @FXML
     public Label pseudo;
+
+    @FXML
+    public TextField friendRequestPlayerName;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -157,5 +161,17 @@ public class InvitationController extends Controller implements Initializable {
             showAlert("Failed to refresh invitations", "Please check your Internet connection and try again.");
             exception.printStackTrace();
         }
+    }
+
+    @FXML
+    public void onSendFriendRequestAction() throws IOException, SQLException {
+        Player p = databaseConnection.getPlayer(this.friendRequestPlayerName.getText());
+
+        if(p != null) {
+            databaseConnection.createInv(loggedPlayer, p, Invitation.INVFRIEND);
+            showAlert("Friend request sucessfuly sent",
+                    String.format("A friend request has been sent to %s.", p.getPseudo()));
+        } else
+            showAlert("No such player found !", String.format("Player : %s does not exists", this.friendRequestPlayerName.getText()));
     }
 }

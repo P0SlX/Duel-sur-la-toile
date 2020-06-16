@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -119,11 +120,17 @@
                 <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
             </children>
         </AnchorPane>
-      <Button layoutX="81.0" layoutY="763.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="121.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 30px;"
-              text="Refresh" textFill="WHITE" onAction="#onRefreshAction">
+      <Button layoutX="81.0" layoutY="763.0" mnemonicParsing="false" onAction="#onRefreshAction" prefHeight="43.0" prefWidth="121.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 30px;" text="Refresh" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
+      <Button layoutX="857.0" layoutY="768.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="225.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 30px;"
+              text="Send friend a request" textFill="WHITE" onAction="#onSendFriendRequestAction">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <TextField layoutX="1105.0" layoutY="768.0" promptText="Type a player pseudo" fx:id="friendRequestPlayerName"/>
     </children>
 </AnchorPane>
