@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -105,11 +106,13 @@ public class MainView extends Application {
             e.printStackTrace();
         }
     }
+
     @Override
     public void stop() throws SQLException, FileNotFoundException {
         if (Controller.getLoggedPlayer() != null){
             Controller.getLoggedPlayer().setEtat(0);
             databaseConnection.updatePlayer(Controller.getLoggedPlayer());
         }
+        Platform.exit();
     }
 }
