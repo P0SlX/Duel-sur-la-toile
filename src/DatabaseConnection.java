@@ -161,7 +161,7 @@ public class DatabaseConnection {
                     rs.getInt("etat"),
                     rs.getBoolean("desactive"),
                     rs.getBoolean("admin")
-                    );
+            );
             p.setFriends(this.getFriends(p));
             return p;
         }
@@ -198,18 +198,18 @@ public class DatabaseConnection {
      * @throws SQLException
      */
     public void createPlayer(Player p) throws FileNotFoundException, SQLException {
-            File playerAvatarFile = new File(p.getAvatar());
-            FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
+        File playerAvatarFile = new File(p.getAvatar());
+        FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
 
-            PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
-            ps.setString(1, p.getPseudo());
-            ps.setString(2, p.getEmail());
-            ps.setString(3, p.getMdp());
-            ps.setBinaryStream(4, fileInputStream, (int)playerAvatarFile.length());
-            ps.setInt(5, p.getEtat());
-            ps.setBoolean(6, p.isDesactivated());
-            ps.setBoolean(7, p.isAdmin());
-            ps.executeQuery();
+        PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getEmail());
+        ps.setString(3, p.getMdp());
+        ps.setBinaryStream(4, fileInputStream, (int)playerAvatarFile.length());
+        ps.setInt(5, p.getEtat());
+        ps.setBoolean(6, p.isDesactivated());
+        ps.setBoolean(7, p.isAdmin());
+        ps.executeQuery();
     }
 
     /**
@@ -624,9 +624,9 @@ public class DatabaseConnection {
      * @throws SQLException
      */
     private int getPlayedGames() throws SQLException{
-       PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
-       ResultSet pg = ps.executeQuery();
-       return pg.getInt(1);
+        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
+        ResultSet pg = ps.executeQuery();
+        return pg.getInt(1);
     }
 
     /**
