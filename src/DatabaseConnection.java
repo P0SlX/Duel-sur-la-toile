@@ -196,6 +196,7 @@ public class DatabaseConnection {
      * @param p Player, the player whose we want to put information on the database
      * @throws FileNotFoundException Player not found
      * @throws SQLException
+     * @throws FileNotFoundException
      */
     public void createPlayer(Player p) throws FileNotFoundException, SQLException {
         File playerAvatarFile = new File(p.getAvatar());
