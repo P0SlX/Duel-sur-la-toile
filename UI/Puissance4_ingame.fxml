@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.TextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -20,19 +19,21 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.TextField?>
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="FourInARowController">
 <children>
       <MenuBar layoutX="10.0" layoutY="9.0" maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
             <Menu mnemonicParsing="false" text="Duel sur la toile">
                <items>
-                  <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onDisconnectAction" text="Log out" />
-                  <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
+                  <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onDisconnectActionFourInARow" text="Log out" />
+                  <MenuItem mnemonicParsing="false" onAction="#onQuitActionFourInARow" text="Quit" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Player">
                <items>
-                  <MenuItem fx:id="playerMenu" mnemonicParsing="false" onAction="#onPlayerAction" text="Profil" />
+                  <MenuItem fx:id="playerMenu" mnemonicParsing="false" onAction="#onPlayerProfilAction" text="Profil" />
                </items>
             </Menu>
          </menus>
@@ -73,7 +74,7 @@
             <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
-      <GridPane gridLinesVisible="true" layoutX="303.0" layoutY="68.0" prefHeight="674.0" prefWidth="780.0">
+      <GridPane gridLinesVisible="true" layoutX="303.0" layoutY="68.0" prefHeight="674.0" prefWidth="780.0" fx:id="fourInARowGrid">
         <columnConstraints>
           <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
@@ -108,23 +109,23 @@
             <Circle fill="#f4ad05" radius="50.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <AnchorPane layoutY="276.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 5px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+      <AnchorPane layoutY="276.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 5px;"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" fx:id="messageZone">
          <children>
             <ImageView fx:id="avatar1" fitHeight="50.0" fitWidth="50.0" layoutX="190.0" layoutY="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <image>
                   <Image url="@assets/logo.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux" text="Kalouz" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="10.0" />
+            <Label alignment="CENTER_RIGHT" layoutY="10.0" prefHeight="51.0" prefWidth="178.0" styleClass="label-jeux"
+                   text="Unknown" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="10.0" fx:id="senderPseudo" />
             <Separator layoutY="63.0" prefHeight="16.0" prefWidth="250.0" styleClass="separator-message" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="60.0" />
-            <VBox layoutY="82.0" prefWidth="250.0" AnchorPane.topAnchor="80.0">
+            <VBox layoutY="82.0" prefWidth="250.0" AnchorPane.topAnchor="80.0" fx:id="messageList">
                <children>
                   <HBox prefWidth="250.0">
                      <children>
                         <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
                            <children>
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="Pseudo2" />
-                              <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="75.0" styleClass="label-bright" text="13:02" />
                            </children>
                         </VBox>
                         <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="175.0" styleClass="label-bright" text="This is a useless test message, in fact it is use only to see how the text will wrap " wrapText="true" />
@@ -137,16 +138,21 @@
                   </Separator>
                </children>
             </VBox>
-            <TextField layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0" promptText="Message" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+            <TextField layoutX="5.0" layoutY="509.0" prefHeight="34.0" prefWidth="240.0" promptText="Message" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                       fx:id="textMessage" onKeyPressed="#onTextMessageKeyPressed">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
          </children>
       </AnchorPane>
-      <Label layoutX="428.0" layoutY="761.0" styleClass="label-header" text="&lt;pseudo&gt;, its your turn." />
+      <Label layoutX="428.0" layoutY="761.0" styleClass="label-header" text="&lt;pseudo&gt;, its your turn." fx:id="currentPlayerLabel" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1240.0" layoutY="150.0" prefHeight="34.0" prefWidth="50.0" style="-fx-font-size: 25pt; -fx-font-family: &quot;Segoe UI Light&quot;; -fx-text-fill: rgb(43, 208, 219);" styleClass="label-jeux" text="VS" textFill="WHITE" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="145.0" />
-      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="190.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0" />
-      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0" />
+      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="190.0"
+              style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;"
+              text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0" onAction="#onBackMenuAction" />
+      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;"
+              styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0"
+                onAction="#onSurrendAction"/>
       <ImageView fx:id="avatar11" fitHeight="60.0" fitWidth="60.0" layoutX="1235.0" layoutY="166.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="200.0">
          <image>
             <Image url="@assets/logo.png" />

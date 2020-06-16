@@ -77,8 +77,18 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
+    "L'ananas",
+    "p0slx"
+);
+
+insert into ETREAMIS values (
     "p0slx",
     "Coco"
+);
+
+insert into ETREAMIS values (
+    "Coco",
+    "p0slx"
 );
 
 insert into ETREAMIS values (
@@ -87,8 +97,18 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
+    "Le chef",
+    "Coco"
+);
+
+insert into ETREAMIS values (
     "L'ananas",
     "p0slx"
+);
+
+insert into ETREAMIS values (
+    "p0slx",
+    "L'ananas"
 );
 
 insert into ETREAMIS values (
@@ -96,10 +116,19 @@ insert into ETREAMIS values (
     "L'ananas"
 );
 
+insert into ETREAMIS values (
+    "L'ananas",
+    "Le chef"
+);
 
 insert into ETREAMIS values (
     "L'ananas",
     "Jordan"
+);
+
+insert into ETREAMIS values (
+    "Jordan",
+    "L'ananas"
 );
 
 insert into ETREAMIS values (
@@ -108,8 +137,18 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
+    "L'ananas",
+    "admin"
+);
+
+insert into ETREAMIS values (
     "admin",
     "Jordan"
+);
+
+insert into ETREAMIS values (
+    "Jordan",
+    "admin"
 );
 
 insert into ETREAMIS values (
@@ -128,8 +167,18 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
+    "p0slx",
+    "admin"
+);
+
+insert into ETREAMIS values (
     "admin",
     "Coco"
+);
+
+insert into ETREAMIS values (
+    "Coco",
+    "admin"
 );
 
 
@@ -137,8 +186,16 @@ insert into ETREAMIS values (
 insert into PARTIE values (
     420,
     "FourInARow",
-    "contenuGrille",
-    "p0slx",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
+    "Coco",
     0,
     CURDATE(),
     CURDATE(),
@@ -150,7 +207,15 @@ insert into PARTIE values (
 insert into PARTIE values (
     69,
     "FourInARow",
-    "contenuGrille",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, B, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
     "Coco",
     1,
     CURDATE(),

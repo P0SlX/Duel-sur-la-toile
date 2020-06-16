@@ -1,11 +1,11 @@
 import com.gluonhq.charm.glisten.control.TextField;
-import com.sun.tools.javac.Main;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -17,52 +17,15 @@ import java.util.ArrayList;
 
 public abstract class Controller {
 
-    public static final String PSEUDO = "-fx-font-size: 13pt; -fx-font-family: \"Segoe UI Light\";" +
+    protected static final String PSEUDO = "-fx-font-size: 13pt; -fx-font-family: \"Segoe UI Light\";" +
             "-fx-text-fill: white;" +
             "-fx-opacity: 1;";
 
-    public static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
-
-    @FXML
-    private static MenuItem disconnect;
-
-    @FXML
-    private static Label pseudo;
-
-    /**
-     * Represent the right friend list
-     */
-    @FXML
-    private static VBox friendList;
-
-    @FXML
-    private static Label ratio;
-
-    @FXML
-    private static VBox messageList;
-
-    @FXML
-    private static Label senderPseudo;
-
-    @FXML
-    private static ImageView avatar;
-
-    @FXML
-    private static AnchorPane messageZone;
-
-    @FXML
-    private static Button fourInARow;
-
-    @FXML
-    private static TextField textMessage;
-
-    @FXML
-    private static VBox activeGames;
-
-    private static Player loggedPlayer;
+    protected static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
 
     protected static DatabaseConnection databaseConnection;
 
+    protected static Player loggedPlayer;
 
     protected SceneController sceneController;
 
@@ -71,10 +34,10 @@ public abstract class Controller {
     }
 
     public void setDatabaseConnection(DatabaseConnection database) {
-        this.databaseConnection = database;
+        databaseConnection = database;
     }
 
-    public static void addFriend(Player friend, VBox friendList) {
+    public static void addFriend(Player friend, VBox friendList, EventHandler<ActionEvent> messageButtonEventHandler) {
         Button invite = new Button("Invite");
         Button message = new Button("Message");
 
@@ -130,13 +93,7 @@ public abstract class Controller {
         circle.setCenterX(30);
         circle.setCenterY(30);
 
-        message.setOnAction(actionEvent -> {
-            try {
-                loadMessage(friend);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        });
+        message.setOnAction(messageButtonEventHandler);
 
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().addAll(avatar, friendPseudo, friendRatio, invite, message);
@@ -149,14 +106,12 @@ public abstract class Controller {
         friendList.getChildren().add(separator);
     }
 
-    static void loadMessage(Player sender) throws SQLException {
+    static void loadMessage(Player sender, VBox messageList, AnchorPane messageZone) throws SQLException {
         ArrayList<Message> messages = databaseConnection.getPlayerMessage(loggedPlayer, sender);
         messageList.getChildren().clear();
         messageZone.setVisible(true);
-        senderPseudo.setText(sender.getPseudo());
 
         for(Message m : messages) {
-            if (! m.getContent().isBlank()) {
                 HBox messageVBox = new HBox();
                 messageVBox.prefWidth(250.0);
 
@@ -186,7 +141,6 @@ public abstract class Controller {
                 separator.setStyle("-fx-opacity: 0.5;");
 
                 messageList.getChildren().addAll(separator, messageVBox);
-            }
         }
     }
 
@@ -204,10 +158,19 @@ public abstract class Controller {
         label.setStyle(LABEL_BRIGHT);
     }
 
+    protected void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        alert.setTitle("Alert : Duel sur la toile");
+        alert.setHeaderText(title);
+        alert.setContentText(content);
+        alert.show();
+    }
+
     @FXML
-    public void onDisconnectAction() throws SQLException {
-        databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
-        sceneController.showScene(SceneController.ViewType.Login);
+    protected void onQuitAction() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, 0);
+        Platform.exit();
     }
 
     protected static void setLoggedPlayer(Player p) {
@@ -218,83 +181,4 @@ public abstract class Controller {
         return loggedPlayer;
     }
 
-    public static MenuItem getDisconnect() {
-        return disconnect;
-    }
-
-    public static void setDisconnect(MenuItem disconnect) {
-        Controller.disconnect = disconnect;
-    }
-
-    public static Label getPseudo() {
-        return pseudo;
-    }
-
-    public static void setPseudo(Label pseudo) {
-        Controller.pseudo = pseudo;
-    }
-
-    public static VBox getFriendList() {
-        return friendList;
-    }
-
-    public static void setFriendList(VBox friendList) {
-        Controller.friendList = friendList;
-    }
-
-    public static Label getRatio() {
-        return ratio;
-    }
-
-    public static void setRatio(Label ratio) {
-        Controller.ratio = ratio;
-    }
-
-    public static VBox getMessageList() {
-        return messageList;
-    }
-
-    public static void setMessageList(VBox messageList) {
-        Controller.messageList = messageList;
-    }
-
-    public static Label getSenderPseudo() {
-        return senderPseudo;
-    }
-
-    public static void setSenderPseudo(Label senderPseudo) {
-        Controller.senderPseudo = senderPseudo;
-    }
-
-    public static ImageView getAvatar() {
-        return avatar;
-    }
-
-    public static void setAvatar(ImageView avatar) {
-        Controller.avatar = avatar;
-    }
-
-    public static AnchorPane getMessageZone() {
-        return messageZone;
-    }
-
-    public static void setMessageZone(AnchorPane messageZone) {
-        Controller.messageZone = messageZone;
-    }
-
-    public static TextField getTextMessage() {
-        return textMessage;
-    }
-
-    public static void setTextMessage(TextField textMessage) {
-        Controller.textMessage = textMessage;
-    }
-
-    public static VBox getActiveGames() {
-        return activeGames;
-    }
-
-    public static void setActiveGames(VBox activeGames) {
-        Controller.activeGames = activeGames;
-    }
 }
