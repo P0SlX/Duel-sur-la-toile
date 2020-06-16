@@ -1,5 +1,6 @@
 import com.gluonhq.charm.glisten.control.TextField;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -164,12 +165,6 @@ public abstract class Controller {
         alert.setHeaderText(title);
         alert.setContentText(content);
         alert.show();
-    }
-
-    @FXML
-    protected void onDisconnectAction() throws SQLException {
-        databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
-        sceneController.showScene(SceneController.ViewType.Login);
     }
 
     @FXML
