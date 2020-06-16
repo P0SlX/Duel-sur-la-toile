@@ -462,6 +462,18 @@ public class DatabaseConnection {
         ps.executeQuery();
     }
 
+    /**
+     * Update game current game player in database
+     * @param game the concerned game
+     * @throws SQLException An SQL exception
+     */
+    public void updateCurrentGamePlayer(Game game) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update PARTIE set currentPlayer=? where gameID=?");
+        ps.setString(1, game.getCurrentPlayer().getPseudo());
+        ps.setInt(2, game.getGameID());
+        ps.executeQuery();
+    }
+
     /********** INVITATIONS **********/
 
     /**
@@ -598,7 +610,7 @@ public class DatabaseConnection {
         return resultSet.getInt(1);
     }
 
-    /********** Player Statistitcs **********/
+    /********** Player Statistics **********/
 
     /**
      * @return int, the number of game played

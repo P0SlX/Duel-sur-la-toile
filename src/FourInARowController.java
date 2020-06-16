@@ -68,10 +68,15 @@ public class FourInARowController extends Controller implements Initializable {
                                 fourInARowButton.getCoords().getFirst(), fourInARowButton.getCoords().getSecond())) {
                             databaseConnection.updateFourInARowPlate(game);
 
-                            if(game.getPlayer1().equals(loggedPlayer))
+                            if(game.getPlayer1().equals(loggedPlayer)) {
                                 fourInARowButton.setText("R");
-                            else
+                                game.setCurrentPlayer(game.getPlayer2());
+                            } else {
                                 fourInARowButton.setText("B");
+                                game.setCurrentPlayer(game.getPlayer1());
+                            }
+
+                            updateCurrentPlayerLabelAndDB();
 
                             if(game.checkWin()) {
                                 if(game.getWinner().equals(loggedPlayer))
@@ -113,7 +118,7 @@ public class FourInARowController extends Controller implements Initializable {
             showAlert("Something wrong just happened :(", "Couldn't load your opponent messages :(");
         }
 
-        currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
+        updateCurrentPlayerLabelAndDB();
 
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++)
@@ -253,6 +258,30 @@ public class FourInARowController extends Controller implements Initializable {
             this.scheduledExecutorService.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateCurrentPlayerLabelAndDB() {
+        if(loggedPlayer.equals(game.getCurrentPlayer())) {
+            currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
+            for(int i = 0; i < 7; i++) {
+                for(int j = 0; j < 7; j++)
+                    grid[i][j].setVisible(true);
+            }
+        } else {
+            currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+
+            for(int i = 0; i < 7; i++) {
+                for(int j = 0; j < 7; j++)
+                    grid[i][j].setVisible(false);
+            }
+        }
+
+        try {
+            databaseConnection.updateCurrentGamePlayer(game);
+        } catch (SQLException throwables) {
+            showAlert("Something wrong just happenned", "Unable to update the database, please check your Internet connection.");
+            throwables.printStackTrace();
         }
     }
 }
