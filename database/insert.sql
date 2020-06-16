@@ -290,14 +290,14 @@ insert into INVITATION values (
     1,
     CURDATE(),
     0,
-    False
+    false
 );
 
 insert into INVITATION values (
     2,
     CURDATE(),
     1,
-    False
+    true
 );
 
 insert into INVITER values (

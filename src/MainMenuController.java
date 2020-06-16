@@ -66,6 +66,8 @@ public class MainMenuController extends Controller implements Initializable {
 
     private OngoingGamesController ongoingGamesController;
 
+    private InvitationController invitationController;
+
     private ScheduledExecutorService scheduledExecutorService;
 
 
@@ -130,6 +132,7 @@ public class MainMenuController extends Controller implements Initializable {
                 },
                 actionEvent -> {
                     awaitBackgroundTasksAndShutdown();
+                    invitationController.initInvitationController();
                     sceneController.showScene(SceneController.ViewType.Invitations);
             });
 
@@ -179,7 +182,6 @@ public class MainMenuController extends Controller implements Initializable {
 
     /**
      * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
-     * @throws InterruptedException in case something was still running when it stops to wait
      */
     private void awaitBackgroundTasksAndShutdown()  {
         try {
@@ -194,6 +196,10 @@ public class MainMenuController extends Controller implements Initializable {
     public void onPlayerAccountAction() {
         awaitBackgroundTasksAndShutdown();
         sceneController.showScene(SceneController.ViewType.PlayerAccount);
+    }
+
+    public void setInvitationController(InvitationController invitationController) {
+        this.invitationController = invitationController;
     }
 }
 

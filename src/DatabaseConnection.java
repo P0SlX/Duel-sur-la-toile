@@ -531,14 +531,14 @@ public class DatabaseConnection {
     }
 
     /**
-     * @param expediteur Player, the sender of the invitation
-     * @param destinataire Player, the receiver of the invitation
+     * @param sender Player, the sender of the invitation
+     * @param receiver Player, the receiver of the invitation
      * @param type boolean, the type of the invitation
      *             - true = Invitation to play
      *             - false = invitation to be friends
      * @throws SQLException
      */
-    public void createInv(Player expediteur, Player destinataire, boolean type) throws SQLException {
+    public void createInv(Player sender, Player receiver, boolean type) throws SQLException {
         PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?, ?)");
         int gameId = this.getMaxIdInv() + 1;
         ps.setInt(1, gameId);
@@ -546,11 +546,46 @@ public class DatabaseConnection {
         ps.setBoolean(3, type);
         ps.executeUpdate();
         PreparedStatement ps2 = c.prepareStatement("insert into INVITER values (?, ?, ?)");
-        ps2.setString(1, expediteur.getPseudo());
-        ps2.setString(2, destinataire.getPseudo());
+        ps2.setString(1, sender.getPseudo());
+        ps2.setString(2, receiver.getPseudo());
         ps2.setInt(3, gameId);
         ps2.executeUpdate();
+    }
 
+    public ArrayList<? extends Invitation> getPlayerInvitations(Player player) throws SQLException, IOException {
+        ArrayList<Invitation> invitations = new ArrayList<>();
+
+        PreparedStatement ps = c.prepareStatement("select *" +
+                "from INVITATION natural join INVITER where destinataireInvit=?");
+
+        ps.setString(1, player.getPseudo());
+        ResultSet resultSet = ps.executeQuery();
+
+        while(resultSet.next()) {
+            if(resultSet.getBoolean("type")) {
+                invitations.add(
+                        new GameInvitation(
+                                getPlayer(resultSet.getString("expediteurInvit")),
+                                player,
+                                resultSet.getDate("dateInv"),
+                                resultSet.getInt("etatinv"),
+                                resultSet.getInt("idinv")
+                        )
+                );
+            } else {
+                invitations.add(
+                        new FriendInvitation(
+                                getPlayer(resultSet.getString("expediteurInvit")),
+                                player,
+                                resultSet.getDate("dateInv"),
+                                resultSet.getInt("etatinv"),
+                                resultSet.getInt("idinv")
+                        )
+                );
+            }
+        }
+
+        return invitations;
     }
 
     /**
