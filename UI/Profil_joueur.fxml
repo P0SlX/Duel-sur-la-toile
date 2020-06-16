@@ -13,8 +13,8 @@
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#onLogoutAction" text="Log out" />
-                  <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
+            <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onLogoutAction" text="Log out" />
+                  <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Player" />
@@ -53,7 +53,7 @@
                   <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
                </children>
             </AnchorPane>
-            <VBox prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <VBox fx:id="friendList" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="380.0" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="349.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="25.0">

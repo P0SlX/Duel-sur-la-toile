@@ -66,6 +66,8 @@ public class MainMenuController extends Controller implements Initializable {
 
     private OngoingGamesController ongoingGamesController;
 
+    private PlayerAccountController playerAccountController;
+
     private ScheduledExecutorService scheduledExecutorService;
 
 
@@ -185,9 +187,16 @@ public class MainMenuController extends Controller implements Initializable {
         }
     }
 
+    public void setPlayerAccountController(PlayerAccountController playerAccountController) {
+        this.playerAccountController = playerAccountController;
+    }
+
     @FXML
-    public void onPlayerAccountAction() {
+    public void onPlayerAccountAction() throws IOException, SQLException {
         awaitBackgroundTasksAndShutdown();
+        messageZone.setVisible(false);
+        messageList.getChildren().clear();
+        playerAccountController.initPlayerAccountController(databaseConnection.getPlayer(pseudo.getText()));
         sceneController.showScene(SceneController.ViewType.PlayerAccount);
     }
 }
