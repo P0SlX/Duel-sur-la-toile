@@ -102,16 +102,6 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
-    "L'ananas",
-    "p0slx"
-);
-
-insert into ETREAMIS values (
-    "p0slx",
-    "L'ananas"
-);
-
-insert into ETREAMIS values (
     "Le chef",
     "L'ananas"
 );
