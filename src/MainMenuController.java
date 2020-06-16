@@ -115,16 +115,21 @@ public class MainMenuController extends Controller implements Initializable {
         ArrayList<Player> friends = databaseConnection.getFriends(loggedPlayer);
 
         for(Player p : friends)
-            Controller.addFriend(p, friendList, actionEvent -> {
-                messageZone.setVisible(true);
+            Controller.addFriend(
+                    p, friendList, actionEvent -> {
+                    messageZone.setVisible(true);
 
-                senderPseudo.setText(p.getPseudo());
-                try {
-                    loadMessage(loggedPlayer, messageList, messageZone);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                    showAlert("Something wrong just happened !", "Unable to fetch message from database !");
-                }
+                    senderPseudo.setText(p.getPseudo());
+                    try {
+                        loadMessage(loggedPlayer, messageList, messageZone);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                        showAlert("Something wrong just happened !", "Unable to fetch message from database !");
+                    }
+                },
+                actionEvent -> {
+                    awaitBackgroundTasksAndShutdown();
+                    sceneController.showScene(SceneController.ViewType.Invitations);
             });
 
         Runnable scheduledTask = () -> {
