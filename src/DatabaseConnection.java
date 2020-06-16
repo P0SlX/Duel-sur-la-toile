@@ -221,9 +221,9 @@ public class DatabaseConnection {
     public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) throws SQLException {
         ArrayList<Message> messageArrayList = new ArrayList<>();
         PreparedStatement ps = c.prepareStatement(
-                "select contenumessage, datemessage, pseudo, destinataire " +
+                "select * " +
                         "from MESSAGE natural join COMMUNIQUER " +
-                        "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?)" +
+                        "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?) " +
                         "order by datemessage"
         );
 
@@ -239,10 +239,17 @@ public class DatabaseConnection {
                     new Message(resultSet.getString("contenumessage"),
                             resultSet.getDate("datemessage").toString(),
                             resultSet.getString("pseudo"),
-                            resultSet.getString("destinataire"))
+                            resultSet.getString("destinataire"),
+                            resultSet.getInt("idmessage"),
+                            resultSet.getBoolean("messagelu")
+                    )
             );
         }
         return messageArrayList;
+    }
+
+    public void markPlayerMessagesAsRead(Player sender, Player receiver) {
+
     }
 
     /**
@@ -428,7 +435,7 @@ public class DatabaseConnection {
     }
 
     /**
-     * @param g Game, the game whose we want the plate
+     * @param fourInARow Game, the game whose we want the plate
      * @return String, the plate of the game
      * @throws SQLException
      */

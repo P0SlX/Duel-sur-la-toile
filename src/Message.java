@@ -4,12 +4,16 @@ public class Message{
     private String date;
     private String senderPseudo;
     private String receiverPseudo;
+    private int id;
+    private boolean isRead;
 
-    public Message(String content, String date, String senderPseudo, String receiverPseudo){
+    public Message(String content, String date, String senderPseudo, String receiverPseudo, int id, boolean isRead){
         this.content = content;
         this.date = date;
         this.senderPseudo = senderPseudo;
         this.receiverPseudo = receiverPseudo;
+        this.id = id;
+        this.isRead = isRead;
     }
 
     /**

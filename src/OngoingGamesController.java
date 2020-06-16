@@ -138,7 +138,11 @@ public class OngoingGamesController extends Controller implements Initializable 
             // Temp
             play.setOnAction(actionEvent -> {
                 FourInARow.setDatabaseConnection(databaseConnection);
-                this.fourInARowController.initController((FourInARow)g);
+                try {
+                    this.fourInARowController.initController((FourInARow)g);
+                } catch (IOException | SQLException e) {
+                    e.printStackTrace();
+                }
                 sceneController.showScene(SceneController.ViewType.FourInARowGame);
             });
 

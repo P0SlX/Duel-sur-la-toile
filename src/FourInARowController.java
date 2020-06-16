@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -99,7 +100,7 @@ public class FourInARowController extends Controller implements Initializable {
         }
     }
 
-    public void initController(FourInARow currentGame) {
+    public void initController(FourInARow currentGame) throws IOException, SQLException {
         char[][] content = currentGame.getPlate();
         this.game = currentGame;
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
@@ -110,6 +111,11 @@ public class FourInARowController extends Controller implements Initializable {
         // TODO: Ratio
 
         senderPseudo.setText(enemy.getPseudo());
+
+        ArrayList<Player> friends = databaseConnection.getFriends(databaseConnection.getPlayer(pseudo.getText()));
+
+        for(Player p : friends)
+            Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"));
 
         try {
             loadMessage(enemy, messageList, messageZone);
@@ -148,7 +154,6 @@ public class FourInARowController extends Controller implements Initializable {
         this.scheduledExecutorService.scheduleAtFixedRate(scheduledTask, 1, 1, TimeUnit.SECONDS);
 
         Runnable fetchMessages = () -> {
-            System.out.println("je suis la");
             try {
                 Player friend = databaseConnection.getPlayer(senderPseudo.getText());
                 if (friend != null) {
