@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -142,6 +143,19 @@ public class InvitationController extends Controller implements Initializable {
             separator.prefHeight(14.0);
             separator.prefWidth(1067.0);
             this.activeInvitations.getChildren().add(separator);
+        }
+    }
+
+    @FXML
+    public void onRefreshAction() {
+        ArrayList<? extends Invitation> invitations;
+
+        try {
+            invitations = databaseConnection.getPlayerInvitations(loggedPlayer);
+            loadInvitations(invitations);
+        } catch (SQLException | IOException exception) {
+            showAlert("Failed to refresh invitations", "Please check your Internet connection and try again.");
+            exception.printStackTrace();
         }
     }
 }

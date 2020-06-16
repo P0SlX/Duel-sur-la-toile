@@ -180,7 +180,7 @@ public class FourInARowController extends Controller implements Initializable {
 
     private void setButton(int i, int j, char type) {
         // TODO: Colored buttons and proper style
-        switch (type) {
+        switch(type) {
             case 'B' -> grid[i][j].setText("B");
             case 'R' -> grid[i][j].setText("R");
             default -> grid[i][j].setText("*");
