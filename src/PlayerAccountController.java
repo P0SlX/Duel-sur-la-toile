@@ -126,7 +126,7 @@ public class PlayerAccountController extends Controller implements Initializable
     }
 
     private void displayHistory(Player p) throws IOException, SQLException {
-        history.getChildren().clear();
+        this.history.getChildren().clear();
         ArrayList<Game> listGame = databaseConnection.getGameListPlayer(p);
 
         for (int i = 0; i < 4; i++){

@@ -90,12 +90,12 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="playedGames" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="250.0" styleClass="ratio-gros" text="Played games: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0">
+            <Label fx:id="playedGames" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="250.0" styleClass="ratio-gros" text="Played games: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="260.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="abandGames" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="330.0" styleClass="ratio-gros" text="Abandoned games: " AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="340.0">
+            <Label fx:id="abandGames" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="330.0" styleClass="ratio-gros" text="Abandoned games: " AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="300.0">
                <font>
                   <Font size="16.0" />
                </font>
@@ -109,7 +109,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <VBox prefHeight="569.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+            <VBox fx:id="history" prefHeight="569.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                <children>
                   <AnchorPane prefHeight="100.0" prefWidth="870.0">
                      <children>
