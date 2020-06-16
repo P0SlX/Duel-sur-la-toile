@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -41,7 +42,6 @@ public class InvitationController extends Controller implements Initializable {
     public void initInvitationController() {
         this.pseudo.setText(loggedPlayer.getPseudo());
         ArrayList<? extends Invitation> invitations;
-        this.activeInvitations.getChildren().clear();
 
         try {
             invitations = databaseConnection.getPlayerInvitations(loggedPlayer);
@@ -49,6 +49,12 @@ public class InvitationController extends Controller implements Initializable {
             throwables.printStackTrace();
             invitations = new ArrayList<>();
         }
+
+        loadInvitations(invitations);
+    }
+
+    public void loadInvitations(ArrayList<? extends Invitation> invitations) {
+        this.activeInvitations.getChildren().clear();
 
         for(Invitation inv : invitations) {
             HBox invitationHBox = new HBox();
@@ -104,9 +110,10 @@ public class InvitationController extends Controller implements Initializable {
                     }
 
                     databaseConnection.changeStateInv(inv);
-                } catch (SQLException throwables) {
+                    loadInvitations(databaseConnection.getPlayerInvitations(loggedPlayer));
+                } catch (SQLException | IOException throwables) {
                     throwables.printStackTrace();
-                    showAlert("Something wrong occured", "Failed to accept your Invitation");
+                    showAlert("Something wrong occurred", "Failed to accept your Invitation");
                 }
             });
 
@@ -121,7 +128,8 @@ public class InvitationController extends Controller implements Initializable {
                 try {
                     inv.decline();
                     databaseConnection.changeStateInv(inv);
-                } catch (SQLException throwables) {
+                    loadInvitations(databaseConnection.getPlayerInvitations(loggedPlayer));
+                } catch (SQLException | IOException throwables) {
                     throwables.printStackTrace();
                     showAlert("Something wrong occured", "Failed to decline your Invitation");
                 }
