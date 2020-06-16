@@ -300,6 +300,13 @@ insert into INVITATION values (
     true
 );
 
+insert into INVITATION values (
+    3,
+    CURDATE(),
+    0,
+    true
+);
+
 insert into INVITER values (
     "L'ananas",
     "Coco",
@@ -310,4 +317,10 @@ insert into INVITER values (
     "p0slx",
     "Coco",
     2
+);
+
+insert into INVITER values (
+    "p0slx",
+    "Coco",
+    3
 );
