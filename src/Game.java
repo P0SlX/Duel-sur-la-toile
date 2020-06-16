@@ -3,8 +3,8 @@ public interface Game {
     public static final int ENDED       = -1;
     public static final int IN_PROGRESS = 0;
 
-    java.sql.Date getStartTime();
-    java.sql.Date getFinishTime();
+    String getStartTime();
+    String getFinishTime();
     String getGameName();
     int getGameID();
     int getScore();
@@ -19,8 +19,8 @@ public interface Game {
     void setNomJeu(String nomJeu);
     void setCurrentPlayer(Player currentPlayer);
     void setGameID(int gameID);
-    void setStartTime(java.sql.Date startTime);
-    void setFinishTime(java.sql.Date finishTime);
+    void setStartTime(String startTime);
+    void setFinishTime(String finishTime);
     void setLooser(Player looser);
     void setWinner(Player winner);
     void setScore(int score);

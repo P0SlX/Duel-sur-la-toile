@@ -93,6 +93,22 @@ public class InvitationController extends Controller implements Initializable {
             accept.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px;");
             accept.setText("Accept");
             accept.setFont(new Font(21.0));
+            accept.setOnAction(actionEvent -> {
+                try {
+                    inv.accept();
+
+                    if(inv instanceof GameInvitation) {
+                        databaseConnection.addNewGame(inv.getReceiver(), inv.getSender());
+                    } else {
+                        databaseConnection.addNewFriend(loggedPlayer, inv.getSender());
+                    }
+
+                    databaseConnection.changeStateInv(inv);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    showAlert("Something wrong occured", "Failed to accept your Invitation");
+                }
+            });
 
             Button refused = new Button();
             refused.setMnemonicParsing(false);
@@ -101,6 +117,15 @@ public class InvitationController extends Controller implements Initializable {
             refused.setStyle("-fx-background-color: #ad1a07; -fx-border-radius: 30px;");
             refused.setText("Refused");
             refused.setFont(new Font(21.0));
+            refused.setOnAction(actionEvent -> {
+                try {
+                    inv.decline();
+                    databaseConnection.changeStateInv(inv);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    showAlert("Something wrong occured", "Failed to decline your Invitation");
+                }
+            });
 
             invitationHBox.getChildren().addAll(playerName, invitationDate, gameType, accept, refused);
             this.activeInvitations.getChildren().add(invitationHBox);

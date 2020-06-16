@@ -352,8 +352,8 @@ public class DatabaseConnection {
                     this.getPlayer(rs.getString("adversaire")),
                     this.getPlayer(rs.getString("currentPlayer")),
                     rs.getString("plate"),
-                    rs.getDate("startTime"),
-                    rs.getDate("finishTime"),
+                    rs.getDate("startTime").toString(),
+                    rs.getDate("finishTime").toString(),
                     rs.getInt("elementPlaced"),
                     rs.getInt("gameID"),
                     rs.getInt("state"),
@@ -417,14 +417,20 @@ public class DatabaseConnection {
      * create a new Game of the game g betwen two players, p1 and p2
      * @param p1 Player, first player in the game
      * @param p2 Player, second player in the game
-     * @param g Game, game which will be played by the two players
      * @throws SQLException
      */
-    public void addNewGame(Player p1, Player p2, Game g) throws SQLException {
+    public void addNewGame(Player p1, Player p2) throws SQLException {
+        char[][] plate = new char[7][7];
+        for(int i = 0; i < 7; i++) {
+            for(int j = 0; j < 7; j++)
+                plate[i][j] = '*';
+        }
+        FourInARow g = new FourInARow(p1, p2, p1, createJSONFromPlate(plate), "FourInARow");
+
         PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
         ps.setInt(1, this.getMaxIDGame() + 1);
         ps.setString(2, g.getGameName());
-        ps.setString(3, g instanceof FourInARow ? createJSONFromPlate(((FourInARow)g).getPlate()) : "Unknown");
+        ps.setString(3, createJSONFromPlate(g.getPlate()));
         ps.setString(4, p1.getPseudo());
         ps.executeUpdate();
         PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
@@ -478,6 +484,18 @@ public class DatabaseConnection {
         PreparedStatement ps = c.prepareStatement("update PARTIE set currentPlayer=? where gameID=?");
         ps.setString(1, game.getCurrentPlayer().getPseudo());
         ps.setInt(2, game.getGameID());
+        ps.executeQuery();
+    }
+
+    public void addNewFriend(Player player, Player newFriend) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("insert into ETREAMIS values(?, ?)");
+        ps.setString(1, player.getPseudo());
+        ps.setString(2, newFriend.getPseudo());
+        ps.executeQuery();
+
+        ps = c.prepareStatement("insert into ETREAMIS values(?, ?)");
+        ps.setString(1, newFriend.getPseudo());
+        ps.setString(2, player.getPseudo());
         ps.executeQuery();
     }
 
@@ -556,7 +574,7 @@ public class DatabaseConnection {
         ArrayList<Invitation> invitations = new ArrayList<>();
 
         PreparedStatement ps = c.prepareStatement("select *" +
-                "from INVITATION natural join INVITER where destinataireInvit=?");
+                "from INVITATION natural join INVITER where destinataireInvit=? and etatinv=0");
 
         ps.setString(1, player.getPseudo());
         ResultSet resultSet = ps.executeQuery();

@@ -1,9 +1,9 @@
 public interface Invitation {
-    public static final int REFUSED  = -1;
-    public static final int PENDING  = 0;
-    public static final int ACCEPTED = 1;
-    public static final boolean INVGAME = true;
-    public static final boolean INVFRIEND = false;
+    int REFUSED  = -1;
+    int PENDING  = 0;
+    int ACCEPTED = 1;
+    boolean INVGAME = true;
+    boolean INVFRIEND = false;
 
     public Player getSender();
     public Player getReceiver();

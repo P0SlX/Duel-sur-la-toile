@@ -2,6 +2,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import util.Pair;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 public class FourInARow implements Game {
@@ -10,8 +11,8 @@ public class FourInARow implements Game {
     private final Player player2;
     private Player currentPlayer;
     private char[][] plate;
-    private java.sql.Date startTime;
-    private java.sql.Date finishTime;
+    private String startTime;
+    private String finishTime;
     private int elementPlacedCount;
     private int gameID;
     private int state;
@@ -37,8 +38,8 @@ public class FourInARow implements Game {
         FourInARow.databaseConnection = connection;
     }
 
-    public FourInARow(Player player1, Player player2, Player currentPlayer, String plate, java.sql.Date startTime,
-                      java.sql.Date finishTime, int elementPlaced, int gameID, int state, int score,
+    public FourInARow(Player player1, Player player2, Player currentPlayer, String plate, String startTime,
+                      String finishTime, int elementPlaced, int gameID, int state, int score,
                       String gameName, Player winner, Player looser) {
         this.player1 = player1;
         this.player2 = player2;
@@ -55,6 +56,21 @@ public class FourInARow implements Game {
         this.looser = looser;
     }
 
+    public FourInARow(Player player1, Player player2, Player currentPlayer, String plate, String gameName) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.currentPlayer = currentPlayer;
+        this.plate = jsonToPlate(plate);
+        this.startTime = "";
+        this.finishTime = "";
+        this.elementPlacedCount = 0;
+        this.gameID = 0;
+        this.state = 0;
+        this.score = 0;
+        this.gameName = gameName;
+        this.winner = null;
+        this.looser = null;
+    }
     /**
      * This constructor is for the test class.
      * It shouldn't be used in any other way, all the attributes are initialized to null
@@ -94,7 +110,7 @@ public class FourInARow implements Game {
      * @return Date (sql) when start the game
      */
     @Override
-    public java.sql.Date getStartTime() {
+    public String getStartTime() {
         return this.startTime;
     }
 
@@ -102,9 +118,8 @@ public class FourInARow implements Game {
      * @return Date (sql) when finish the game
      */
     @Override
-    public java.sql.Date getFinishTime() {
+    public String getFinishTime() {
         /** return the date when the game finished */
-
         return this.finishTime;
     }
 
@@ -143,7 +158,7 @@ public class FourInARow implements Game {
      */
     @Override
     public long getGameDuration() {
-        return this.finishTime.getTime() - this.startTime.getTime();
+        return 0; // TODO
     }
 
     /**
@@ -234,7 +249,7 @@ public class FourInARow implements Game {
      * @param startTime Date (sql) the new start time
      */
     @Override
-    public void setStartTime(java.sql.Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
@@ -243,7 +258,7 @@ public class FourInARow implements Game {
      * @param finishTime Date (sql) the new finish time
      */
     @Override
-    public void setFinishTime(java.sql.Date finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
 
