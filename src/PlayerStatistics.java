@@ -17,7 +17,11 @@ public class PlayerStatistics{
      * @param abandonedGames int, number of games abandoned
      */
     public PlayerStatistics(int victories, int defeats, int activeGames, int consecutiveWins, int playedGames, int abandonedGames) {
-        this.ratio = Math.round((victories/defeats) * 100.0) / 100.0;
+        if (defeats == 0) {
+            this.ratio = victories;
+        } else {
+            this.ratio = Math.round((victories/defeats) * 100.0) / 100.0;
+        }
         this.victories = victories;
         this.defeats = defeats;
         this.activeGames = activeGames;

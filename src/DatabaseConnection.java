@@ -175,7 +175,7 @@ public class DatabaseConnection {
      * @throws FileNotFoundException
      */
     public void updatePlayer(Player p) throws SQLException, FileNotFoundException {
-        if (p.getAvatar().equals("")) {
+        if (p.getPlayerAvatar().getWidth()==0) {
             p.setAvatar("img/avatarDefault.png");
         }
         File playerAvatarFile = new File(p.getAvatar());
@@ -382,6 +382,16 @@ public class DatabaseConnection {
         ResultSet rs = ps.executeQuery();
         processFetchedGames(gameList, rs);
         return gameList;
+    }
+
+    public ArrayList<Game> getGameListPlayer(Player p) throws SQLException, IOException {
+        ArrayList<Game> gameListPlayer = new ArrayList<>();
+        PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER where (pseudo=? or adversaire=?) and (state=-1 or state=-2)");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        this.processFetchedGames(gameListPlayer,rs);
+        return gameListPlayer;
     }
 
     /**
