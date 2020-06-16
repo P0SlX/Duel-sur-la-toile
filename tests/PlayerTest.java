@@ -166,14 +166,4 @@ class PlayerTest {
     @Test
     void setFriends() {
     }
-
-    @Test
-    void testToString() throws IOException, SQLException {
-        DatabaseConnection db = new DatabaseConnection();
-        db.connexion();
-        Player p = db.getPlayer("Coco");
-        String res = p.toString();
-
-        assertEquals(res, "Player{pseudo='Coco', email='cocolastico@gmail.com', mdp='cocopops', avatar='', friends=[Player{pseudo='Le Chef', email='gendarmerie@gmail.com', mdp='password', avatar='', friends=null, etat=0, desactivated=false, admin=true}], etat=0, desactivated=false, admin=false}");
-    }
 }

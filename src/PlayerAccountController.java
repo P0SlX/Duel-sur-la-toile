@@ -5,17 +5,21 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class InvitationController extends Controller implements Initializable {
+public class PlayerAccountController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
     @FXML
-    public void onDisconnectAction(ActionEvent actionEvent) {
+    public void onPlayerAction() {
     }
 
     @FXML
-    public void onBackHomeAction(ActionEvent actionEvent) {
+    public void onLogoutAction() {
+    }
+
+    @FXML
+    public void onBackAction() {
     }
 }

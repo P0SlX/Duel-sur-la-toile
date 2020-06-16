@@ -1,6 +1,7 @@
 import com.gluonhq.charm.glisten.control.TextField;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -187,6 +188,12 @@ public class MainMenuController extends Controller implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void onPlayerAccountAction() {
+        awaitBackgroundTasksAndShutdown();
+        sceneController.showScene(SceneController.ViewType.PlayerAccount);
     }
 }
 

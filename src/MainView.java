@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -77,8 +76,8 @@ public class MainView extends Application {
             Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
             Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane(loadRootWithController("UI/Inscription.fxml"));
-            Pane invitation      = new Pane(loadRoot("UI/Invitations.fxml"));
-            //Pane playerAccount    = new Pane(loadRoot("UI/Profil_joueur.fxml"));
+            Pane invitation      = new Pane(loadRootWithController("UI/Invitations.fxml"));
+            Pane playerAccount    = new Pane(loadRootWithController("UI/Profil_joueur.fxml"));
 
             this.mainMenuController.setOngoingGamesController(this.ongoingGamesController);
 
@@ -89,6 +88,7 @@ public class MainView extends Application {
             sceneController.addScene(SceneController.ViewType.OngoingGames, ongoingGames);
             sceneController.addScene(SceneController.ViewType.Invitations, invitation);
             //sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
+            sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
 
             sceneController.showScene(SceneController.ViewType.Login);
 

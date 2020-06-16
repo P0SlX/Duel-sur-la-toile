@@ -161,7 +161,7 @@ public class DatabaseConnection {
                     rs.getInt("etat"),
                     rs.getBoolean("desactive"),
                     rs.getBoolean("admin")
-                    );
+            );
             p.setFriends(this.getFriends(p));
             return p;
         }
@@ -198,18 +198,18 @@ public class DatabaseConnection {
      * @throws SQLException
      */
     public void createPlayer(Player p) throws FileNotFoundException, SQLException {
-            File playerAvatarFile = new File(p.getAvatar());
-            FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
+        File playerAvatarFile = new File(p.getAvatar());
+        FileInputStream fileInputStream = new FileInputStream(playerAvatarFile);
 
-            PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
-            ps.setString(1, p.getPseudo());
-            ps.setString(2, p.getEmail());
-            ps.setString(3, p.getMdp());
-            ps.setBinaryStream(4, fileInputStream, (int)playerAvatarFile.length());
-            ps.setInt(5, p.getEtat());
-            ps.setBoolean(6, p.isDesactivated());
-            ps.setBoolean(7, p.isAdmin());
-            ps.executeQuery();
+        PreparedStatement ps = c.prepareStatement("insert into JOUEUR values (?,?,?,?,?,?,?)");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getEmail());
+        ps.setString(3, p.getMdp());
+        ps.setBinaryStream(4, fileInputStream, (int)playerAvatarFile.length());
+        ps.setInt(5, p.getEtat());
+        ps.setBoolean(6, p.isDesactivated());
+        ps.setBoolean(7, p.isAdmin());
+        ps.executeQuery();
     }
 
     /**
@@ -221,9 +221,9 @@ public class DatabaseConnection {
     public ArrayList<Message> getPlayerMessage(Player sender, Player receiver) throws SQLException {
         ArrayList<Message> messageArrayList = new ArrayList<>();
         PreparedStatement ps = c.prepareStatement(
-                "select contenumessage, datemessage, pseudo, destinataire " +
+                "select * " +
                         "from MESSAGE natural join COMMUNIQUER " +
-                        "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?)" +
+                        "where (pseudo=? and destinataire=?) or (pseudo=? and destinataire=?) " +
                         "order by datemessage"
         );
 
@@ -239,10 +239,17 @@ public class DatabaseConnection {
                     new Message(resultSet.getString("contenumessage"),
                             resultSet.getDate("datemessage").toString(),
                             resultSet.getString("pseudo"),
-                            resultSet.getString("destinataire"))
+                            resultSet.getString("destinataire"),
+                            resultSet.getInt("idmessage"),
+                            resultSet.getBoolean("messagelu")
+                    )
             );
         }
         return messageArrayList;
+    }
+
+    public void markPlayerMessagesAsRead(Player sender, Player receiver) {
+
     }
 
     /**
@@ -428,7 +435,7 @@ public class DatabaseConnection {
     }
 
     /**
-     * @param g Game, the game whose we want the plate
+     * @param fourInARow Game, the game whose we want the plate
      * @return String, the plate of the game
      * @throws SQLException
      */
@@ -617,9 +624,9 @@ public class DatabaseConnection {
      * @throws SQLException
      */
     private int getPlayedGames() throws SQLException{
-       PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
-       ResultSet pg = ps.executeQuery();
-       return pg.getInt(1);
+        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
+        ResultSet pg = ps.executeQuery();
+        return pg.getInt(1);
     }
 
     /**
