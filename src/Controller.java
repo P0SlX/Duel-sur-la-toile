@@ -11,10 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Ellipse;
 
-import javax.swing.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.function.Function;
 
 public abstract class Controller {
 
