@@ -20,7 +20,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Player">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Profil" />
+                  <MenuItem mnemonicParsing="false" text="Profil" onAction="#onPlayerAccountAction"/>
                </items></Menu>
       </menus>
          <opaqueInsets>
