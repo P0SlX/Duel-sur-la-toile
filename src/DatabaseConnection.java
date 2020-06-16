@@ -175,7 +175,7 @@ public class DatabaseConnection {
      * @throws FileNotFoundException
      */
     public void updatePlayer(Player p) throws SQLException, FileNotFoundException {
-        if (p.getPlayerAvatar().getWidth()==0) {
+        if (p.getPlayerAvatar().getWidth()==0 || p.getAvatar().equals("")) {
             p.setAvatar("img/avatarDefault.png");
         }
         File playerAvatarFile = new File(p.getAvatar());
