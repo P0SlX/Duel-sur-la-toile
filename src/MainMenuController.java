@@ -1,5 +1,6 @@
 import com.gluonhq.charm.glisten.control.TextField;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -123,13 +124,11 @@ public class MainMenuController extends Controller implements Initializable {
                         loadMessage(loggedPlayer, messageList, messageZone);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
-                        showAlert("Something wrong just happened !", "Unable to fetch message from database !");
+                        showAlert("Something wrong just happened !", "Unable to fetch messages from database !");
                     }
                 },
                 actionEvent -> {
-                    awaitBackgroundTasksAndShutdown();
-                    invitationController.initInvitationController();
-                    sceneController.showScene(SceneController.ViewType.Invitations);
+                        // TODO: Send invitation to player
             });
 
         Runnable scheduledTask = () -> {
@@ -194,9 +193,17 @@ public class MainMenuController extends Controller implements Initializable {
         sceneController.showScene(SceneController.ViewType.PlayerAccount);
     }
 
+    @FXML
+    public void onInvitationsAction() {
+        awaitBackgroundTasksAndShutdown();
+        this.invitationController.initInvitationController();
+        this.sceneController.showScene(SceneController.ViewType.Invitations);
+    }
+
     public void setInvitationController(InvitationController invitationController) {
         this.invitationController = invitationController;
     }
+
 }
 
 
