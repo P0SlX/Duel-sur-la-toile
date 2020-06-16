@@ -141,6 +141,31 @@ public class FourInARowController extends Controller implements Initializable {
         };
 
         this.scheduledExecutorService.scheduleAtFixedRate(scheduledTask, 1, 1, TimeUnit.SECONDS);
+
+        Runnable fetchMessages = () -> {
+            System.out.println("je suis la");
+            try {
+                Player friend = databaseConnection.getPlayer(senderPseudo.getText());
+                if (friend != null) {
+                    Platform.runLater(() -> {
+                        try {
+                            loadMessage(friend, this.messageList, this.messageZone);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    });
+                } else {
+                    Platform.runLater(() -> {
+                        senderPseudo.setText("Nobody");
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        this.scheduledExecutorService.scheduleAtFixedRate(fetchMessages, 500, 500, TimeUnit.MILLISECONDS);
+
     }
 
     private void setButton(int i, int j, char type) {
@@ -163,6 +188,8 @@ public class FourInARowController extends Controller implements Initializable {
     @FXML
     public void onBackMenuAction() {
         awaitBackgroundTasksAndShutdown();
+        messageList.getChildren().clear();
+        messageZone.setVisible(false);
         sceneController.showScene(SceneController.ViewType.OngoingGames);
     }
 
@@ -200,15 +227,19 @@ public class FourInARowController extends Controller implements Initializable {
         }
     }
 
+    @FXML
     public void onQuitActionFourInARow() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, Player.DISCONNECTED);
         awaitBackgroundTasksAndShutdown();
         Platform.exit();
     }
 
+    @FXML
     public void onDisconnectActionFourInARow() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, Player.DISCONNECTED);
         awaitBackgroundTasksAndShutdown();
+        messageList.getChildren().clear();
+        messageZone.setVisible(false);
         sceneController.showScene(SceneController.ViewType.Login);
     }
 
@@ -218,7 +249,7 @@ public class FourInARowController extends Controller implements Initializable {
      */
     private void awaitBackgroundTasksAndShutdown()  {
         try {
-            this.scheduledExecutorService.awaitTermination(2, TimeUnit.SECONDS); // 2 seconds
+            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS); // 2 seconds
             this.scheduledExecutorService.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();

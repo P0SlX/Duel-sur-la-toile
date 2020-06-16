@@ -1,5 +1,6 @@
 import com.gluonhq.charm.glisten.control.TextField;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -17,6 +18,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainMenuController extends Controller implements Initializable {
 
@@ -61,6 +65,8 @@ public class MainMenuController extends Controller implements Initializable {
 
     private OngoingGamesController ongoingGamesController;
 
+    private ScheduledExecutorService scheduledExecutorService;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,6 +75,8 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     public void onFourInARowAction() throws IOException, SQLException {
         this.ongoingGamesController.initOnGoingGameView();
+        messageList.getChildren().clear();
+        messageZone.setVisible(false);
         sceneController.showScene(SceneController.ViewType.OngoingGames);
     }
 
@@ -88,6 +96,7 @@ public class MainMenuController extends Controller implements Initializable {
      * @param player the player that just logged in
      */
     public void initMainControllerWithPlayer(Player player) throws IOException, SQLException {
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
         this.friendList.getChildren().clear();
         this.messageZone.setVisible(false);
 
@@ -117,16 +126,63 @@ public class MainMenuController extends Controller implements Initializable {
                     showAlert("Something wrong just happened !", "Unable to fetch message from database !");
                 }
             });
+
+        Runnable scheduledTask = () -> {
+            try {
+                Player friend = databaseConnection.getPlayer(senderPseudo.getText());
+                if (friend != null) {
+                    Platform.runLater(() -> {
+                        try {
+                            loadMessage(friend, this.messageList, this.messageZone);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    });
+                } else {
+                    Platform.runLater(() -> {
+                        senderPseudo.setText("Nobody");
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        this.scheduledExecutorService.scheduleAtFixedRate(scheduledTask, 500, 500, TimeUnit.MILLISECONDS);
     }
 
     public void setOngoingGamesController(OngoingGamesController ongoingGamesController) {
         this.ongoingGamesController = ongoingGamesController;
     }
 
-    public VBox getVBoxFriendsList() {
-        return this.friendList;
+    @FXML
+    protected void onDisconnectAction() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
+        this.awaitBackgroundTasksAndShutdown();
+        messageZone.setVisible(false);
+        messageList.getChildren().clear();
+        sceneController.showScene(SceneController.ViewType.Login);
     }
 
+    @FXML
+    protected void onQuitAction() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, 0);
+        this.awaitBackgroundTasksAndShutdown();
+        Platform.exit();
+    }
+
+    /**
+     * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
+     * @throws InterruptedException in case something was still running when it stops to wait
+     */
+    private void awaitBackgroundTasksAndShutdown()  {
+        try {
+            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS);
+            this.scheduledExecutorService.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

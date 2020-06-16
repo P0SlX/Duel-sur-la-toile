@@ -164,4 +164,10 @@ public class OngoingGamesController extends Controller implements Initializable 
     public void setFourInARowController(FourInARowController fourInARowController) {
         this.fourInARowController = fourInARowController;
     }
+
+    @FXML
+    protected void onDisconnectAction() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
+        sceneController.showScene(SceneController.ViewType.Login);
+    }
 }
