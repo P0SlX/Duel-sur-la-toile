@@ -50,7 +50,7 @@ public class FourInARowController extends Controller implements Initializable {
     @FXML
     private VBox messageList;
 
-    private FourInARowCircle[][] grid;
+    private Circle[][] grid;
 
     private FourInARow game;
 
@@ -58,7 +58,7 @@ public class FourInARowController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.grid = new FourInARowCircle[6][7];
+        this.grid = new Circle[6][7];
     }
 
     public void initController(FourInARow currentGame) throws IOException, SQLException {
