@@ -175,7 +175,7 @@ public class DatabaseConnection {
      * @throws FileNotFoundException
      */
     public void updatePlayer(Player p) throws SQLException, FileNotFoundException {
-        if (p.getAvatar().equals("")) {
+        if (p.getPlayerAvatar().getWidth()==0 || p.getAvatar().equals("")) {
             p.setAvatar("img/avatarDefault.png");
         }
         File playerAvatarFile = new File(p.getAvatar());
@@ -196,6 +196,7 @@ public class DatabaseConnection {
      * @param p Player, the player whose we want to put information on the database
      * @throws FileNotFoundException Player not found
      * @throws SQLException
+     * @throws FileNotFoundException
      */
     public void createPlayer(Player p) throws FileNotFoundException, SQLException {
         File playerAvatarFile = new File(p.getAvatar());
@@ -382,6 +383,16 @@ public class DatabaseConnection {
         ResultSet rs = ps.executeQuery();
         processFetchedGames(gameList, rs);
         return gameList;
+    }
+
+    public ArrayList<Game> getGameListPlayer(Player p) throws SQLException, IOException {
+        ArrayList<Game> gameListPlayer = new ArrayList<>();
+        PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER where (pseudo=? or adversaire=?) and (state=-1 or state=-2) order by gameID desc");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        this.processFetchedGames(gameListPlayer,rs);
+        return gameListPlayer;
     }
 
     /**
@@ -673,24 +684,89 @@ public class DatabaseConnection {
     /********** Player Statistics **********/
 
     /**
-     * @return int, the number of game played
-     * @throws SQLException
-     */
-    private int getPlayedGames() throws SQLException{
-        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where currentPlayer = ?");
-        ResultSet pg = ps.executeQuery();
-        return pg.getInt(1);
-    }
-
-    /**
      * @return int, the number of game won by a player
      * @throws SQLException
      */
-    private int getWinnedGames() throws SQLException{
+    private int getVictories(Player p) throws SQLException {
         PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where winner = ?");
-        ResultSet wg = ps.executeQuery();
-        return wg.getInt(1);
+        ps.setString(1, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next())
+            return rs.getInt(1);
+        return 0;
     }
+
+    private int getDefeat(Player p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select COUNT(*) from PARTIE where looser=?");
+        ps.setString(1, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next())
+            return rs.getInt(1);
+        return 0;
+    }
+
+    private int getActiveGames(Player p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select COUNT(*) from JOUER natural join PARTIE where (pseudo=? or adversaire=?) and state=0");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next())
+            return rs.getInt(1);
+        return 0;
+    }
+
+    private int getConsecutiveWins(Player p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select * from JOUER natural join PARTIE where state=-1 and (pseudo=? or adversaire=?) order by gameID");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        int cpt = 0;
+        int maxValue = 0;
+        while (rs.next()) {
+            if (rs.getString("winner").equals(p.getPseudo())) {
+                cpt++;
+            } else {
+                maxValue = Math.max(cpt, maxValue);
+                cpt = 0;
+            }
+        }
+        return maxValue;
+    }
+
+    /**
+     * @return int, the number of game played
+     * @throws SQLException
+     */
+    private int getPlayedGames(Player p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE natural join JOUER where pseudo=? or adversaire=?");
+        ps.setString(1, p.getPseudo());
+        ps.setString(2, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next())
+            return rs.getInt(1);
+        return 0;
+    }
+
+    private int getAbandonedGames(Player p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("select COUNT(*) from PARTIE where currentPlayer=? and state=-2");
+        ps.setString(1, p.getPseudo());
+        ResultSet rs = ps.executeQuery();
+        if (rs.next())
+            return rs.getInt(1);
+        return 0;
+    }
+
+    public PlayerStatistics getPlayerStatistics(Player p) throws SQLException {
+        return new PlayerStatistics(
+                this.getVictories(p),
+                this.getDefeat(p),
+                this.getActiveGames(p),
+                this.getConsecutiveWins(p),
+                this.getPlayedGames(p),
+                this.getAbandonedGames(p)
+        );
+    }
+
 
 //    private int getActiveGames() throws SQLException{
 //        PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM PARTIE where winner = ?");

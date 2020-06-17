@@ -13,8 +13,8 @@
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
-            <MenuItem mnemonicParsing="false" text="Log out" onAction="#onLogoutAction"/>
-                  <MenuItem mnemonicParsing="false" text="Quit" onAction="#onQuitAction"/>
+            <MenuItem fx:id="disconnect" mnemonicParsing="false" onAction="#onLogoutAction" text="Log out" />
+                  <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Player" />
@@ -53,39 +53,49 @@
                   <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
                </children>
             </AnchorPane>
-            <VBox prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <VBox fx:id="friendList" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="380.0" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="349.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="25.0">
          <children>
             <VBox prefHeight="807.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="36.0" layoutY="14.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="15.0">
+            <Label fx:id="pseudoLeft" layoutX="36.0" layoutY="14.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="38.0" layoutY="79.0" styleClass="ratio-gros" text="Ratio: 9000" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="80.0">
+            <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="79.0" styleClass="ratio-gros" text="Ratio: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="60.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Separator layoutX="36.0" layoutY="56.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="36.0" layoutY="125.0" styleClass="ratio-gros" text="Victories: 187" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="120.0">
+            <Separator layoutX="36.0" layoutY="56.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+            <Label fx:id="victories" alignment="CENTER_RIGHT" layoutX="36.0" layoutY="125.0" styleClass="ratio-gros" text="Victories: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="40.0" layoutY="172.0" styleClass="ratio-gros" text="Defeats: 19" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0">
+            <Label fx:id="defeat" alignment="CENTER_RIGHT" layoutX="40.0" layoutY="172.0" styleClass="ratio-gros" text="Defeats: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="38.0" layoutY="214.0" styleClass="ratio-gros" text="Current games: 2" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="200.0">
+            <Label fx:id="activeGames" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="214.0" styleClass="ratio-gros" text="Active games: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="180.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="38.0" layoutY="257.0" styleClass="ratio-gros" text="Consecutive wins: 4" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="240.0">
+            <Label fx:id="consecWin" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="257.0" styleClass="ratio-gros" text="Consecutive wins: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="220.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="playedGames" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="250.0" styleClass="ratio-gros" text="Played games: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="260.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="abandGames" alignment="CENTER_RIGHT" layoutX="50.0" layoutY="330.0" styleClass="ratio-gros" text="Abandoned games: " AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="300.0">
                <font>
                   <Font size="16.0" />
                </font>
@@ -99,7 +109,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <VBox prefHeight="569.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+            <VBox fx:id="history" prefHeight="569.0" prefWidth="870.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                <children>
                   <AnchorPane prefHeight="100.0" prefWidth="870.0">
                      <children>

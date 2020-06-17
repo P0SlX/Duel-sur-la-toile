@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css"
+<AnchorPane prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPanelController">
 <children>
     <MenuBar maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -104,12 +96,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="470.0" styleClass="ratio-gros" text="Average turn played: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="400.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="510.0" styleClass="ratio-gros" text="Abandoned games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="450.0">
+            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="510.0" styleClass="ratio-gros" text="Abandoned games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="400.0">
                <font>
                   <Font size="16.0" />
                </font>

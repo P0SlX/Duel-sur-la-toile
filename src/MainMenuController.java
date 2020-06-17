@@ -66,6 +66,7 @@ public class MainMenuController extends Controller implements Initializable {
 
     private OngoingGamesController ongoingGamesController;
 
+    private PlayerAccountController playerAccountController;
     private InvitationController invitationController;
 
     private ScheduledExecutorService scheduledExecutorService;
@@ -105,7 +106,7 @@ public class MainMenuController extends Controller implements Initializable {
 
         loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
-        this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
+        this.ratio.setText("Ratio: " + databaseConnection.getPlayerStatistics(player).getRatio()); // TODO: When player statistics will be done
 
         if(loggedPlayer.isAdmin())
             initMainViewAsAdmin();
@@ -188,9 +189,17 @@ public class MainMenuController extends Controller implements Initializable {
         Platform.exit();
     }
 
+    public void setPlayerAccountController(PlayerAccountController playerAccountController) {
+        this.playerAccountController = playerAccountController;
+    }
+
     @FXML
-    public void onPlayerAccountAction() {
+    public void onPlayerAccountAction() throws IOException, SQLException {
         awaitBackgroundTasksAndShutdown();
+        messageZone.setVisible(false);
+        messageList.getChildren().clear();
+        playerAccountController.setMainMenuController(this);
+        playerAccountController.initPlayerAccountController(loggedPlayer);
         sceneController.showScene(SceneController.ViewType.PlayerAccount);
     }
 

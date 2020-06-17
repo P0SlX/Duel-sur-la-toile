@@ -174,4 +174,9 @@ public class InvitationController extends Controller implements Initializable {
         } else
             showAlert("No such player found !", String.format("Player : %s does not exists", this.friendRequestPlayerName.getText()));
     }
+
+    @FXML
+    public void onProfilPlayerAction() {
+        sceneController.showScene(SceneController.ViewType.PlayerAccount);
+    }
 }

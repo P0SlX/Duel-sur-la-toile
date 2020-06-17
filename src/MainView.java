@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -15,6 +16,7 @@ public class MainView extends Application {
     private DatabaseConnection databaseConnection;
     private OngoingGamesController ongoingGamesController;
     private FourInARowController fourInARowController;
+    private PlayerAccountController playerAccountController;
     private InvitationController invitationController;
 
     private MainMenuController mainMenuController;
@@ -31,16 +33,23 @@ public class MainView extends Application {
             if(controller instanceof LoginController) {
                 LoginController loginController = (LoginController)controller;
                 loginController.setMainMenuController(mainMenuController);
+
             } else if(controller instanceof MainMenuController) {
-                this.mainMenuController = (MainMenuController)controller;
+                this.mainMenuController = (MainMenuController) controller;
                 this.ongoingGamesController.setMainMenuController(mainMenuController);
                 this.mainMenuController.setInvitationController(this.invitationController);
+
+            } else if (controller instanceof PlayerAccountController) {
+                this.playerAccountController = (PlayerAccountController) controller;
+
             } else if(controller instanceof OngoingGamesController) {
                 this.ongoingGamesController = (OngoingGamesController) controller;
                 this.ongoingGamesController.setFourInARowController(this.fourInARowController);
-            } else if(controller instanceof FourInARowController) {
+
+            } else if(controller instanceof FourInARowController)
                 this.fourInARowController = (FourInARowController) controller;
-            } else if(controller instanceof InvitationController)
+
+            else if(controller instanceof InvitationController)
                 this.invitationController = (InvitationController)controller;
 
             return root;
@@ -85,6 +94,7 @@ public class MainView extends Application {
             Pane adminPanel      = new Pane(loadRootWithController("UI/Admin.fxml"));
 
             this.mainMenuController.setOngoingGamesController(this.ongoingGamesController);
+            this.mainMenuController.setPlayerAccountController(this.playerAccountController);
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);
@@ -105,11 +115,13 @@ public class MainView extends Application {
             e.printStackTrace();
         }
     }
+
     @Override
     public void stop() throws SQLException, FileNotFoundException {
         if (Controller.getLoggedPlayer() != null){
             Controller.getLoggedPlayer().setEtat(0);
             databaseConnection.updatePlayer(Controller.getLoggedPlayer());
         }
+        Platform.exit();
     }
 }

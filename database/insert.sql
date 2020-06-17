@@ -77,11 +77,6 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
-    "L'ananas",
-    "p0slx"
-);
-
-insert into ETREAMIS values (
     "p0slx",
     "Coco"
 );
@@ -195,6 +190,112 @@ insert into PARTIE values (
 );
 
 insert into PARTIE values (
+    421,
+    "FourInARow",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
+    "Coco",
+    -1,
+    CURDATE(),
+    CURDATE(),
+    7,
+    "Coco",
+    "p0slx"
+);
+
+insert into PARTIE values (
+    422,
+    "FourInARow",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
+    "Coco",
+    -1,
+    CURDATE(),
+    CURDATE(),
+    7,
+    "Coco",
+    "p0slx"
+);
+
+insert into PARTIE values (
+    423,
+    "FourInARow",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
+    "p0slx",
+    -1,
+    CURDATE(),
+    CURDATE(),
+    7,
+    "p0slx",
+    "Coco"
+);
+
+insert into PARTIE values (
+    424,
+    "FourInARow",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
+    "p0slx",
+    -2,
+    CURDATE(),
+    CURDATE(),
+    7,
+    "Coco",
+    "p0slx"
+);
+
+insert into PARTIE values (
+    425,
+    "FourInARow",
+    "[
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, B, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+[ *, *, *, *, *, *, *, ],\n
+]",
+    "p0slx",
+    -1,
+    CURDATE(),
+    CURDATE(),
+    7,
+    "p0slx",
+    "Coco"
+);
+
+
+insert into PARTIE values (
     69,
     "FourInARow",
     "[
@@ -207,7 +308,7 @@ insert into PARTIE values (
 [ *, *, *, *, *, *, *, ],\n
 ]",
     "Coco",
-    1,
+    -1,
     CURDATE(),
     CURDATE(),
     18,
@@ -218,15 +319,50 @@ insert into PARTIE values (
 insert into JOUER values (
     "p0slx",
     "Coco",
-    420,
-    16
+    420,    -- id
+    16      -- score
+);
+
+insert into JOUER values (
+    "p0slx",
+    "Coco",
+    421,    -- id
+    16      -- score
+);
+
+insert into JOUER values (
+    "p0slx",
+    "Coco",
+    422,    -- id
+    16      -- score
+);
+
+insert into JOUER values (
+    "p0slx",
+    "Coco",
+    423,    -- id
+    16      -- score
+);
+
+insert into JOUER values (
+    "p0slx",
+    "Coco",
+    424,    -- id
+    16      -- score
+);
+
+insert into JOUER values (
+    "Coco",
+    "p0slx",
+    425,    -- id
+    16      -- score
 );
 
 insert into JOUER values (
     "Coco",
     "L'ananas",
-    69,
-    420
+    69,     -- id
+    420     -- score
 );
 
 
