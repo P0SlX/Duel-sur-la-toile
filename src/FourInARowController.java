@@ -66,7 +66,9 @@ public class FourInARowController extends Controller implements Initializable {
         this.game = currentGame;
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
                 currentGame.getPlayer2() : currentGame.getPlayer1();
+
         this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        this.currentPlayerLabel.setText(String.format("%s, it's your turn to play !", loggedPlayer.getPseudo()));
 
         pseudo.setText(loggedPlayer.getPseudo());
         // TODO: Ratio
@@ -221,13 +223,26 @@ public class FourInARowController extends Controller implements Initializable {
         game.playerPlayTurn(column);
         updateGrid(game.getPlate());
         game.switchCurrentPlayer();
+        game.checkWin();
 
         try {
+            databaseConnection.updateFourInARowPlate(game);
+
+            if(game.getWinner() != null) {
+                showAlert("Congratulation", "You won the game !!");
+                databaseConnection.updateGameStatus(game, Game.ENDED);
+                databaseConnection.setGameWinnerAndLooser(loggedPlayer, game.getCurrentPlayer(), game);
+                awaitBackgroundTasksAndShutdown();
+                sceneController.showScene(SceneController.ViewType.OngoingGames);
+            }
+
             databaseConnection.updateCurrentGamePlayer(game);
         } catch (SQLException exception) {
-            showAlert("Something wrong happened", "Unable to set new current player !");
+            showAlert("Something wrong happened", "Unable to update the database !");
             exception.printStackTrace();
         }
+
+        this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
     }
 
     private void updateGrid(char[][] grid) {

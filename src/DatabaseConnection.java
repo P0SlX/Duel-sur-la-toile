@@ -498,6 +498,15 @@ public class DatabaseConnection {
         ps.executeQuery();
     }
 
+    public void setGameWinnerAndLooser(Player winner, Player looser, Game game) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update PARTIE set winner=?, looser=? where gameID=?");
+        ps.setString(1, winner.getPseudo());
+        ps.setString(2, looser.getPseudo());
+        ps.setInt(3, game.getGameID());
+
+        ps.executeQuery();
+    }
+
     public void addNewFriend(Player player, Player newFriend) throws SQLException {
         PreparedStatement ps = c.prepareStatement("insert into ETREAMIS values(?, ?)");
         ps.setString(1, player.getPseudo());
