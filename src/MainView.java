@@ -53,6 +53,8 @@ public class MainView extends Application {
 
             else if(controller instanceof InvitationController)
                 this.invitationController = (InvitationController)controller;
+            else if(controller instanceof AdminPanelController)
+                ((AdminPanelController)controller).setMainMenuController(this.mainMenuController);
 
             return root;
         } catch (Exception e) {
