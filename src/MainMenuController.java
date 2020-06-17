@@ -75,6 +75,8 @@ public class MainMenuController extends Controller implements Initializable {
 
     private ScheduledExecutorService scheduledExecutorService;
 
+    private AdminPanelController adminPanelController;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -246,11 +248,19 @@ public class MainMenuController extends Controller implements Initializable {
         menuItem.setMnemonicParsing(false);
         menuItem.setOnAction(actionEvent -> {
             awaitBackgroundTasksAndShutdown();
+            messageZone.setVisible(false);
+            messageList.getChildren().clear();
+            //adminPanelController.setMainMenuController(this);
             sceneController.showScene(SceneController.ViewType.AdminPanel);
         });
 
         this.profileMenu.getItems().add(menuItem);
     }
+
+    public void setAdminPanelController(AdminPanelController adminPanelController) {
+        this.adminPanelController = adminPanelController;
+    }
+
 }
 
 

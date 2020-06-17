@@ -1,4 +1,5 @@
 import com.sun.javafx.scene.layout.region.LayeredBackgroundPositionConverter;
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,6 +72,8 @@ public class AdminPanelController extends Controller implements Initializable {
 
     private PlayerStatistics playerStatistics;
 
+    private MainMenuController mainMenuController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -111,8 +114,15 @@ public class AdminPanelController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onBackAction() {
+    public void onBackAction() throws IOException, SQLException {
+        this.mainMenuController.initMainControllerWithPlayer(loggedPlayer);
+        sceneController.showScene(SceneController.ViewType.MainMenu);
     }
+
+    public void setMainMenuController(MainMenuController mainMenuController) {
+        this.mainMenuController = mainMenuController;
+    }
+
 
     @FXML
     public void onSearchBarAction(KeyEvent event) throws IOException, SQLException {
@@ -161,5 +171,10 @@ public class AdminPanelController extends Controller implements Initializable {
         this.consecWin.setText("Consecutive wins: " + ps.getConsecutiveWins());
         this.playedGames.setText("Played games: " + ps.getPlayedGames());
         this.abandGames.setText("Abandoned games: " + ps.getAbandonedGames());
+    }
+
+    @FXML
+    public void onDisconnectAction() throws SQLException {
+        databaseConnection.setStatus(loggedPlayer, Player.DISCONNECTED);
     }
 }

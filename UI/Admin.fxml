@@ -13,13 +13,13 @@
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
           <items>
-            <MenuItem mnemonicParsing="false" text="Log out" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#onDisconnectAction" text="Log out" />
+                  <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" onAction="#onPlayerAction" text="Player">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Profil" />
+                  <MenuItem mnemonicParsing="false" onAction="#onPlayerAction" text="Profil" />
                </items></Menu>
       </menus>
          <opaqueInsets>

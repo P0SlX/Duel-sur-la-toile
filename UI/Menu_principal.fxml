@@ -66,7 +66,7 @@
                </cursor></Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+      <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
          <children>
             <ImageView fx:id="avatarMessage" fitHeight="50.0" fitWidth="50.0" layoutX="190.0" layoutY="10.0">
                <image>
