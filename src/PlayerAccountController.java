@@ -136,22 +136,22 @@ public class PlayerAccountController extends Controller implements Initializable
             AnchorPane.setLeftAnchor(separator, 10.0);
             AnchorPane.setTopAnchor(separator, 0.0);
 
-            Label player2 = new Label();
-            player2.setText(p.getPseudo());
-            player2.setStyle("-fx-font-size: 16pt; -fx-text-fill: rgb(248, 51, 51);");
-            AnchorPane.setTopAnchor(player2,33.0);
-            AnchorPane.setLeftAnchor(player2,500.0);
-            AnchorPane.setRightAnchor(player2,130.0);
-            AnchorPane.setBottomAnchor(player2, 33.0);
-
             Label player1 = new Label();
-            player1.setText(listGame.get(i).getPlayer2().getPseudo());
+            player1.setText(listGame.get(i).getPlayer1().getPseudo());
             player1.setStyle("-fx-font-size: 16pt; -fx-text-fill: rgb(114, 199, 64);");
             player1.setAlignment(Pos.CENTER_RIGHT);
             AnchorPane.setTopAnchor(player1,33.0);
             AnchorPane.setLeftAnchor(player1,130.0);
             AnchorPane.setRightAnchor(player1,500.0);
             AnchorPane.setBottomAnchor(player1, 33.0);
+
+            Label player2 = new Label();
+            player2.setText(listGame.get(i).getPlayer2().getPseudo());
+            player2.setStyle("-fx-font-size: 16pt; -fx-text-fill: rgb(248, 51, 51);");
+            AnchorPane.setTopAnchor(player2,33.0);
+            AnchorPane.setLeftAnchor(player2,500.0);
+            AnchorPane.setRightAnchor(player2,130.0);
+            AnchorPane.setBottomAnchor(player2, 33.0);
 
             Label vs = new Label();
             vs.setText("VS");
@@ -162,7 +162,7 @@ public class PlayerAccountController extends Controller implements Initializable
             AnchorPane.setRightAnchor(vs,361.0);
             AnchorPane.setBottomAnchor(vs, 33.0);
 
-            ImageView player1avatar = new ImageView(p.getPlayerAvatar());
+            ImageView player1avatar = new ImageView(listGame.get(i).getPlayer1().getPlayerAvatar());
             player1avatar.setFitHeight(80);
             player1avatar.setFitWidth(80);
             this.setAvatar(player1avatar, listGame.get(i).getPlayer1(), 40);
@@ -170,7 +170,7 @@ public class PlayerAccountController extends Controller implements Initializable
             AnchorPane.setLeftAnchor(player1avatar,40.0);
             AnchorPane.setBottomAnchor(player1avatar, 10.0);
 
-            ImageView player2avatar = new ImageView(p.getPlayerAvatar());
+            ImageView player2avatar = new ImageView(listGame.get(i).getPlayer2().getPlayerAvatar());
             player2avatar.setFitHeight(80);
             player2avatar.setFitWidth(80);
             this.setAvatar(player2avatar, listGame.get(i).getPlayer2(), 40);

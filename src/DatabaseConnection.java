@@ -387,7 +387,7 @@ public class DatabaseConnection {
 
     public ArrayList<Game> getGameListPlayer(Player p) throws SQLException, IOException {
         ArrayList<Game> gameListPlayer = new ArrayList<>();
-        PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER where (pseudo=? or adversaire=?) and (state=-1 or state=-2)");
+        PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER where (pseudo=? or adversaire=?) and (state=-1 or state=-2) order by gameID desc");
         ps.setString(1, p.getPseudo());
         ps.setString(2, p.getPseudo());
         ResultSet rs = ps.executeQuery();

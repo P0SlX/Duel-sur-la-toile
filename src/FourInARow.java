@@ -427,4 +427,17 @@ public class FourInARow implements Game {
 
         return res;
     }
+
+    @Override
+    public String toString() {
+        return "FourInARow{" +
+                "player1=" + player1.getPseudo() +
+                ", player2=" + player2.getPseudo() +
+                ", currentPlayer=" + currentPlayer.getPseudo() +
+                ", gameID=" + gameID +
+                ", state=" + state +
+                ", winner=" + winner +
+                ", looser=" + looser +
+                '}';
+    }
 }

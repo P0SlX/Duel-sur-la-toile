@@ -105,7 +105,7 @@ public class MainMenuController extends Controller implements Initializable {
 
         loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
-        this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
+        this.ratio.setText("Ratio: " + databaseConnection.getPlayerStatistics(player).getRatio()); // TODO: When player statistics will be done
 
         avatar.setImage(loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();

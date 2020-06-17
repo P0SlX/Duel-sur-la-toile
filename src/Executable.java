@@ -13,10 +13,9 @@ public class Executable {
         p0slx.setAvatar("img/arouf_vogue.png");
         c.updatePlayer(p0slx);
         System.out.println(p0slx.getAvatar());
-        System.out.println(c.getAllPlayers());
-        Player p = c.getPlayer("Coco");
-        String res = p.toString();
-        System.out.println(res);
+        for (Game g : c.getGameList()) {
+            System.out.println(g);
+        }
         //System.out.println("game list  " + c.getGameList());
         //ArrayList<Game> gameList = c.getGameList();
         //System.out.println("getActiveGames  " + c.getActivesGames(p0slx));
