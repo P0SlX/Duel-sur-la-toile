@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -71,7 +72,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"), actionEvent -> System.out.println("Not implemented"));
 
         this.pseudo.setText(loggedPlayer.getPseudo());
-        this.ratio.setText("Ratio: " + databaseConnection.getPlayerStatistics(loggedPlayer).getRatio());
+        this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
 
         avatar.setImage(this.loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();
@@ -101,25 +102,27 @@ public class OngoingGamesController extends Controller implements Initializable 
 
         for(Game g : games) {
             HBox gameContainer = new HBox();
-            gameContainer.prefHeight(100.0);
-            gameContainer.prefWidth(200.0);
+            gameContainer.setPrefHeight(50.0);
+            gameContainer.setPrefWidth(200.0);
             gameContainer.setSpacing(50);
 
             String opponentName = this.loggedPlayer.getPseudo().equals(g.getPlayer1().getPseudo()) ?
                     g.getPlayer2().getPseudo() : g.getPlayer1().getPseudo();
 
             Label opponent = new Label("Against : " + opponentName);
-            opponent.prefHeight(77.0);
-            opponent.prefWidth(223.0);
+            opponent.setPrefHeight(40.0);
+            opponent.setPrefWidth(223.0);
             opponent.setWrapText(true);
             opponent.setFont(new Font(17));
             opponent.setTextFill(Color.WHITE);
+            opponent.setAlignment(Pos.CENTER_LEFT);
 
-            Label startedOn = new Label("Started on : " + g.getStartTime().toString());
-            startedOn.prefHeight(80.0);
-            startedOn.prefWidth(217.0);
+            Label startedOn = new Label("Started on : " + g.getStartTime());
+            startedOn.setPrefHeight(40.0);
+            startedOn.setPrefWidth(217.0);
             startedOn.setFont(new Font(17));
             startedOn.setTextFill(Color.WHITE);
+            startedOn.setAlignment(Pos.CENTER);
 
             Label yourTurn = new Label();
             if(g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo())) {
@@ -130,9 +133,10 @@ public class OngoingGamesController extends Controller implements Initializable 
                 yourTurn.setTextFill(Color.web("#b8612a"));
             }
 
-            yourTurn.setPrefHeight(20.0);
+            yourTurn.setPrefHeight(40.0);
             yourTurn.setPrefWidth(138.0);
             yourTurn.setFont(new Font(20));
+            yourTurn.setAlignment(Pos.CENTER);
 
             Button play = new Button("Play !");
             // Temp
@@ -148,12 +152,12 @@ public class OngoingGamesController extends Controller implements Initializable 
 
             play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
             play.setMnemonicParsing(false);
-            play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px;");
+            play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px; -fx-cursor: hand;");
             play.setTextFill(Color.WHITE);
             play.setFont(new Font(21));
+            play.setPrefWidth(100.0);
 
             Separator separator = new Separator();
-            separator.setPadding(new Insets(10, 10, 0, 0));
 
             gameContainer.getChildren().addAll(opponent, startedOn, yourTurn, play);
             this.activeGames.getChildren().add(gameContainer);

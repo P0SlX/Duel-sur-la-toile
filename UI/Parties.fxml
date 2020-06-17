@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OngoingGamesController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OngoingGamesController">
 <children>
     <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <menus>
@@ -47,7 +39,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="77.0" prefWidth="223.0" text="Against : xxxx xxxx" textFill="WHITE" wrapText="true">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="77.0" prefWidth="223.0" text="Against : xxxx xxxx" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
@@ -98,12 +90,15 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="682.0" prefWidth="615.0">
                <children>
-                  <Label contentDisplay="CENTER" prefHeight="106.0" prefWidth="267.0" text="Compete against players from all over the world!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Label contentDisplay="CENTER" prefHeight="95.0" prefWidth="267.0" text="Compete against players from all over the world!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="271.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 20px;" text="Launch a new Four in a Row Game !" textFill="#1b2a3c" wrapText="true" />
+                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="271.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 20px; -fx-font-size: 14pt; -fx-text-alignment: CENTER; -fx-text-fill: white;" text="Launch a new Four in a Row Game !" textFill="#1b2a3c" wrapText="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
             </VBox>
          </children>
@@ -114,6 +109,9 @@
                <image>
                   <Image url="@assets/home.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </graphic>
       </Button>
@@ -147,5 +145,6 @@
             <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
+      <AnchorPane layoutX="977.0" layoutY="-35.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10px;" AnchorPane.bottomAnchor="285.0" AnchorPane.leftAnchor="925.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="360.0" />
 </children>
 </AnchorPane>

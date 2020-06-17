@@ -110,7 +110,7 @@ public class MainMenuController extends Controller implements Initializable {
 
         loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
-        this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(player).getRatio()));
+        this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
 
         if(loggedPlayer.isAdmin())
             initMainViewAsAdmin();
