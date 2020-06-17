@@ -138,8 +138,9 @@ public class PlayerAccountController extends Controller implements Initializable
     private void displayHistory(Player p) throws IOException, SQLException {
         this.history.getChildren().clear();
         ArrayList<Game> listGame = databaseConnection.getGameListPlayer(p);
+        int listItemCount = Math.min(listGame.size(), 4);
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < listItemCount; i++){
             AnchorPane anchorPane = new AnchorPane();
             Separator separator = new Separator();
             AnchorPane.setRightAnchor(separator, 10.0);
