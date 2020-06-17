@@ -109,6 +109,7 @@ public class MainView extends Application {
 
             this.mainMenuController.setOngoingGamesController(this.ongoingGamesController);
             this.mainMenuController.setPlayerAccountController(this.playerAccountController);
+            Controller.setInvitationController(this.invitationController);
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);

@@ -207,10 +207,6 @@ public class PlayerAccountController extends Controller implements Initializable
         this.mainMenuController = mainMenuController;
     }
 
-    public void setInvitationController(InvitationController invitationController) {
-        this.invitationController = invitationController;
-    }
-
     @FXML
     public void onBackAction() throws IOException, SQLException {
         this.mainMenuController.initMainControllerWithPlayer(this.loggedPlayer);

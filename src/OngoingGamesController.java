@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -177,5 +178,11 @@ public class OngoingGamesController extends Controller implements Initializable 
     protected void onDisconnectAction() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, 0); // Set disconnected
         sceneController.showScene(SceneController.ViewType.Login);
+    }
+
+    @FXML
+    public void onInvitationsAction() {
+        invitationController.initInvitationController();
+        sceneController.showScene(SceneController.ViewType.Invitations);
     }
 }

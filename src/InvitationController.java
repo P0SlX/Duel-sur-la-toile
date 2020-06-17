@@ -196,4 +196,9 @@ public class InvitationController extends Controller implements Initializable {
     public void setPlayerAccountController(PlayerAccountController playerAccountController) {
         this.playerAccountController = playerAccountController;
     }
+
+    @FXML
+    public void onInvitationsAction() {
+        showAlert("Are you kidding ?", "You're already on the panel !!");
+    }
 }

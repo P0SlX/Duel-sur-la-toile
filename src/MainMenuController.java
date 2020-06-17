@@ -71,8 +71,6 @@ public class MainMenuController extends Controller implements Initializable {
 
     private PlayerAccountController playerAccountController;
 
-    private InvitationController invitationController;
-
     private ScheduledExecutorService scheduledExecutorService;
 
     private AdminPanelController adminPanelController;
@@ -221,14 +219,8 @@ public class MainMenuController extends Controller implements Initializable {
     @FXML
     public void onInvitationsAction() {
         awaitBackgroundTasksAndShutdown();
-        this.invitationController.setMainMenuController(this);
-        this.invitationController.setPlayerAccountController(this.playerAccountController);
-        this.invitationController.initInvitationController();
+        invitationController.initInvitationController();
         this.sceneController.showScene(SceneController.ViewType.Invitations);
-    }
-
-    public void setInvitationController(InvitationController invitationController) {
-        this.invitationController = invitationController;
     }
 
     /**

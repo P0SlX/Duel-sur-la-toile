@@ -306,4 +306,11 @@ public class FourInARowController extends Controller implements Initializable {
             sceneController.showScene(SceneController.ViewType.OngoingGames);
         }
     }
+
+    @FXML
+    public void onInvitationsAction() {
+        awaitBackgroundTasksAndShutdown();
+        invitationController.initInvitationController();
+        sceneController.showScene(SceneController.ViewType.Invitations);
+    }
 }
