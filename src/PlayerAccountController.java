@@ -97,7 +97,17 @@ public class PlayerAccountController extends Controller implements Initializable
         ArrayList<Player> friends = databaseConnection.getFriends(loggedPlayer);
 
         for(Player p : friends)
-            Controller.addFriend(p, friendList, actionEvent -> {});
+            Controller.addFriend(p, friendList, actionEvent -> {},
+                    actionEvent -> {
+                        try {
+                            databaseConnection.createInv(loggedPlayer, p, true); // game invitation
+                            showAlert("Invitation successfully sent",
+                                    String.format("Invitation sent to %s.", p.getPseudo()));
+                        } catch(SQLException exception) {
+                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            exception.printStackTrace();
+                        }
+                    });
 
         this.displayPlayerStat(player);
 

@@ -48,7 +48,8 @@ public class MainView extends Application {
 
             } else if(controller instanceof FourInARowController)
                 this.fourInARowController = (FourInARowController) controller;
-            } else if(controller instanceof InvitationController)
+
+            else if(controller instanceof InvitationController)
                 this.invitationController = (InvitationController)controller;
 
             return root;
