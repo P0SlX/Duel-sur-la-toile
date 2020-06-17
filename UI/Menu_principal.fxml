@@ -60,7 +60,10 @@
                </children>
             </AnchorPane>
             <VBox fx:id="friendList" layoutY="103.0" prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <Button mnemonicParsing="false" onAction="#onInvitationsAction" prefWidth="108.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" text="Invitations" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <Button mnemonicParsing="false" onAction="#onInvitationsAction" prefWidth="108.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" text="Invitations" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="messageZone" layoutX="10.0" layoutY="286.0" prefHeight="500.0" prefWidth="250.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 5px;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
@@ -74,8 +77,14 @@
             <VBox fx:id="messageList" layoutY="82.0" maxHeight="370.0" prefWidth="250.0">
                <children>
                </children>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
             </VBox>
-            <TextField fx:id="textMessage" layoutX="5.0" layoutY="509.0" onKeyPressed="#onTextMessageKeyPressed" prefHeight="34.0" prefWidth="240.0" promptText="Message" AnchorPane.bottomAnchor="10.0" />
+            <TextField fx:id="textMessage" layoutX="5.0" layoutY="509.0" onKeyPressed="#onTextMessageKeyPressed" prefHeight="34.0" prefWidth="240.0" promptText="Message" AnchorPane.bottomAnchor="10.0">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
          </children>
       </AnchorPane>
       <GridPane layoutX="500.0" layoutY="181.0" prefHeight="576.0" prefWidth="776.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">

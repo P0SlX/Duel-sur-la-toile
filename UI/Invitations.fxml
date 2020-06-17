@@ -81,8 +81,14 @@
                     <image>
                         <Image url="@assets/home.png" />
                     </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </ImageView>
             </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
         <AnchorPane layoutX="1344.0" layoutY="50.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
             <children>
@@ -118,12 +124,21 @@
          <font>
             <Font size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button layoutX="1055.0" layoutY="768.0" mnemonicParsing="false" onAction="#onSendFriendRequestAction" prefHeight="33.0" prefWidth="225.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 30px;" text="Send a friend request" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <TextField fx:id="friendRequestPlayerName" layoutX="800.0" layoutY="768.0" promptText="Enter a player pseudo" />
+      <TextField fx:id="friendRequestPlayerName" layoutX="800.0" layoutY="768.0" promptText="Enter a player pseudo">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
     </children>
 </AnchorPane>

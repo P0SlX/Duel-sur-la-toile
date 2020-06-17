@@ -82,9 +82,11 @@ public class MainMenuController extends Controller implements Initializable {
 
     @FXML
     public void onFourInARowAction() throws IOException, SQLException {
+        awaitBackgroundTasksAndShutdown();
         this.ongoingGamesController.initOnGoingGameView();
         messageList.getChildren().clear();
         messageZone.setVisible(false);
+        this.fourInARow.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         sceneController.showScene(SceneController.ViewType.OngoingGames);
     }
 
