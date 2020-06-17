@@ -11,6 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.StrokeType;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,52 +59,10 @@ public class FourInARowController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.grid = new FourInARowCircle[6][7];
-
-        for(int i = 0; i < 6; i++) {
-            for(int j = 0; j < 7; j++) {
-                grid[i][j] = new FourInARowCircle(i, j);
-                fourInARowGrid.add(grid[i][j], j, i);
-
-                //grid[i][j].setOnAction(event -> {
-                //    FourInARowCircle[][] fourInARowCircles = (FourInARowCircle[][])event.getSource();
-                //    try {
-                //        if(game.playerPlayTurn(loggedPlayer,
-                //                fourInARowButton.getCoords().getFirst(), fourInARowButton.getCoords().getSecond())) {
-                //            databaseConnection.updateFourInARowPlate(game);
-
-                //            if(game.getPlayer1().equals(loggedPlayer)) {
-                //                fourInARowButton.setText("R");
-                //                game.setCurrentPlayer(game.getPlayer2());
-                //            } else {
-                //                fourInARowButton.setText("B");
-                //                game.setCurrentPlayer(game.getPlayer1());
-                //            }
-
-                //            updateCurrentPlayerLabelAndDB();
-
-                //            if(game.checkWin()) {
-                //                if(game.getWinner().equals(loggedPlayer))
-                //                    showAlert("You win the game !", "You're the winner congratulation !");
-                //                else
-                //                    showAlert("You lose the game !", "You lose the game, better luck next time !");
-
-                //                databaseConnection.updateGameStatus(game, Game.ENDED);
-
-                //                sceneController.showScene(SceneController.ViewType.OngoingGames);
-                //            }
-                //        } else
-                //            showAlert("You can't do that", "This case isn't empty !\nPlease play somewhere else !");
-                //    } catch (SQLException throwables) {
-                //        showAlert("Something went wrong with the database :(", "Check your internet connection and try again");
-                //        throwables.printStackTrace();
-                //    }
-                //});
-            }
-        }
     }
 
     public void initController(FourInARow currentGame) throws IOException, SQLException {
-        char[][] content = currentGame.getPlate();
+        updateGrid(currentGame.getPlate());
         this.game = currentGame;
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
                 currentGame.getPlayer2() : currentGame.getPlayer1();
@@ -124,59 +85,25 @@ public class FourInARowController extends Controller implements Initializable {
             showAlert("Something wrong just happened :(", "Couldn't load your opponent messages :(");
         }
 
-        //updateCurrentPlayerLabelAndDB();
+        Runnable fetchMessages = () -> {
+            try {
+                Player friend = databaseConnection.getPlayer(senderPseudo.getText());
+                if (friend != null) {
+                    Platform.runLater(() -> {
+                        try {
+                            loadMessage(friend, this.messageList, this.messageZone);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    });
+                } else
+                    Platform.runLater(() -> senderPseudo.setText("Nobody"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
 
-        //for(int i = 0; i < 7; i++) {
-        //    for(int j = 0; j < 7; j++)
-        //        setButton(i, j, content[i][j]);
-        //}
-
-        //Runnable scheduledTask = () -> {
-        //    try {
-        //        game.setPlate(databaseConnection.getFourInARowPlate(game));
-        //        char[][] updatedContent = game.getPlate();
-
-        //        // We can't update javafx stuff outside its thread
-        //        // we have to ask javafx to do it
-        //        Platform.runLater(() -> {
-        //            for(int i = 0; i < 7; i++) {
-        //                for(int j = 0; j < 7; j++) {
-        //                    if(setButton(i, j, updatedContent[i][j])
-        //                            && (!game.getCurrentPlayer().equals(loggedPlayer))) {
-        //                        currentGame.switchCurrentPlayer();
-        //                        updateCurrentPlayerLabelAndDB();
-        //                    }
-        //                }
-        //            }
-        //        });
-
-        //        System.out.println("Updated game grid");
-        //    } catch (SQLException throwables) {
-        //        throwables.printStackTrace();
-        //    }
-        //};
-
-        //this.scheduledExecutorService.scheduleAtFixedRate(scheduledTask, 1, 1, TimeUnit.SECONDS);
-
-        //Runnable fetchMessages = () -> {
-        //    try {
-        //        Player friend = databaseConnection.getPlayer(senderPseudo.getText());
-        //        if (friend != null) {
-        //            Platform.runLater(() -> {
-        //                try {
-        //                    loadMessage(friend, this.messageList, this.messageZone);
-        //                } catch (SQLException throwables) {
-        //                    throwables.printStackTrace();
-        //                }
-        //            });
-        //        } else
-        //            Platform.runLater(() -> senderPseudo.setText("Nobody"));
-        //    } catch (Exception e) {
-        //        e.printStackTrace();
-        //    }
-        //};
-
-        //this.scheduledExecutorService.scheduleAtFixedRate(fetchMessages, 500, 500, TimeUnit.MILLISECONDS);
+        this.scheduledExecutorService.scheduleAtFixedRate(fetchMessages, 500, 500, TimeUnit.MILLISECONDS);
 
     }
 
@@ -244,12 +171,11 @@ public class FourInARowController extends Controller implements Initializable {
     }
 
     /**
-     * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
-     * @throws InterruptedException in case something was still running when it stops to wait
+     * Wait 500 seconds for the backgrounds task still running and destroy the thread pool.
      */
     private void awaitBackgroundTasksAndShutdown()  {
         try {
-            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS); // 2 seconds
+            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS);
             this.scheduledExecutorService.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -257,26 +183,78 @@ public class FourInARowController extends Controller implements Initializable {
     }
 
     private void updateCurrentPlayerLabelAndDB() {
-        if(loggedPlayer.equals(game.getCurrentPlayer())) {
-            currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
-            for(int i = 0; i < 7; i++) {
-                for(int j = 0; j < 7; j++)
-                    grid[i][j].setVisible(true);
-            }
-        } else {
-            currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+        //if(loggedPlayer.equals(game.getCurrentPlayer())) {
+        //    currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
+        //    for(int i = 0; i < 7; i++) {
+        //        for(int j = 0; j < 7; j++)
+        //            grid[i][j].setVisible(true);
+        //    }
+        //} else {
+        //    currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
 
-            for(int i = 0; i < 7; i++) {
-                for(int j = 0; j < 7; j++)
-                    grid[i][j].setVisible(false);
-            }
-        }
+        //    for(int i = 0; i < 7; i++) {
+        //        for(int j = 0; j < 7; j++)
+        //            grid[i][j].setVisible(false);
+        //    }
+        //}
 
         try {
             databaseConnection.updateCurrentGamePlayer(game);
         } catch (SQLException throwables) {
             showAlert("Something wrong just happenned", "Unable to update the database, please check your Internet connection.");
             throwables.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onColumn1Action() {
+    }
+
+    @FXML
+    public void onColumn2Action() {
+    }
+
+    @FXML
+    public void onColumn3Action() {
+    }
+
+    @FXML
+    public void onColumn4Action() {
+    }
+
+    @FXML
+    public void onColumn5Action() {
+    }
+
+    @FXML
+    public void onColumn6Action() {
+    }
+
+    @FXML
+    public void onColumn7Action() {
+    }
+
+    private void updateGrid(char[][] grid) {
+        // Clear the grid
+        this.fourInARowGrid.getChildren().clear();
+        this.fourInARowGrid.setGridLinesVisible(true);
+
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
+                if(grid[i][j] != '*') {
+                    Circle circle = new Circle(50.0);
+
+                    if(grid[i][j] == 'R')
+                        circle.setFill(Color.web("#c50000"));
+                    else
+                        circle.setFill(Color.web("#f4ad05"));
+
+                    circle.setStroke(Color.BLACK);
+                    circle.setStrokeType(StrokeType.INSIDE);
+
+                    this.fourInARowGrid.add(circle, j, i);
+                }
+            }
         }
     }
 }

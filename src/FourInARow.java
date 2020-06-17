@@ -311,7 +311,7 @@ public class FourInARow implements Game {
     }
 
     /**
-     * @param p The player that is playing
+     * Play a turn in the specified column
      * @param column the column selected
      * @return a boolean : is it possible to play here ?
      */
@@ -322,10 +322,20 @@ public class FourInARow implements Game {
             return fall('B', column);
     }
 
+    /**
+     * @param line the line number
+     * @return true if the line is in the plate
+     */
     private boolean lineExists(int line) {
         return line >= 0 && line < 6;
     }
 
+    /**
+     * Compute the right element position with a specified column
+     * @param type the player character must be R or B
+     * @param column the selected column
+     * @return true if it is possible to insert something in the specified column
+     */
     private boolean fall(char type, int column) {
         int line = 0;
 
