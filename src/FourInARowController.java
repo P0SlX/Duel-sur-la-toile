@@ -182,56 +182,52 @@ public class FourInARowController extends Controller implements Initializable {
         }
     }
 
-    private void updateCurrentPlayerLabelAndDB() {
-        //if(loggedPlayer.equals(game.getCurrentPlayer())) {
-        //    currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
-        //    for(int i = 0; i < 7; i++) {
-        //        for(int j = 0; j < 7; j++)
-        //            grid[i][j].setVisible(true);
-        //    }
-        //} else {
-        //    currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
-
-        //    for(int i = 0; i < 7; i++) {
-        //        for(int j = 0; j < 7; j++)
-        //            grid[i][j].setVisible(false);
-        //    }
-        //}
-
-        try {
-            databaseConnection.updateCurrentGamePlayer(game);
-        } catch (SQLException throwables) {
-            showAlert("Something wrong just happenned", "Unable to update the database, please check your Internet connection.");
-            throwables.printStackTrace();
-        }
-    }
-
     @FXML
     public void onColumn1Action() {
+        doPlayerTurn(0);
     }
 
     @FXML
     public void onColumn2Action() {
+        doPlayerTurn(1);
     }
 
     @FXML
     public void onColumn3Action() {
+        doPlayerTurn(2);
     }
 
     @FXML
     public void onColumn4Action() {
+        doPlayerTurn(3);
     }
 
     @FXML
     public void onColumn5Action() {
+        doPlayerTurn(4);
     }
 
     @FXML
     public void onColumn6Action() {
+        doPlayerTurn(5);
     }
 
     @FXML
     public void onColumn7Action() {
+        doPlayerTurn(6);
+    }
+
+    private void doPlayerTurn(int column) {
+        game.playerPlayTurn(column);
+        updateGrid(game.getPlate());
+        game.switchCurrentPlayer();
+
+        try {
+            databaseConnection.updateCurrentGamePlayer(game);
+        } catch (SQLException exception) {
+            showAlert("Something wrong happened", "Unable to set new current player !");
+            exception.printStackTrace();
+        }
     }
 
     private void updateGrid(char[][] grid) {
