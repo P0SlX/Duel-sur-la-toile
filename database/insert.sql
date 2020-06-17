@@ -97,16 +97,6 @@ insert into ETREAMIS values (
 );
 
 insert into ETREAMIS values (
-    "L'ananas",
-    "p0slx"
-);
-
-insert into ETREAMIS values (
-    "p0slx",
-    "L'ananas"
-);
-
-insert into ETREAMIS values (
     "Le chef",
     "L'ananas"
 );
@@ -436,14 +426,21 @@ insert into INVITATION values (
     1,
     CURDATE(),
     0,
-    False
+    false
 );
 
 insert into INVITATION values (
     2,
     CURDATE(),
     1,
-    False
+    true
+);
+
+insert into INVITATION values (
+    3,
+    CURDATE(),
+    0,
+    true
 );
 
 insert into INVITER values (
@@ -456,4 +453,10 @@ insert into INVITER values (
     "p0slx",
     "Coco",
     2
+);
+
+insert into INVITER values (
+    "p0slx",
+    "Coco",
+    3
 );

@@ -353,8 +353,8 @@ public class DatabaseConnection {
                     this.getPlayer(rs.getString("adversaire")),
                     this.getPlayer(rs.getString("currentPlayer")),
                     rs.getString("plate"),
-                    rs.getDate("startTime"),
-                    rs.getDate("finishTime"),
+                    rs.getDate("startTime").toString(),
+                    rs.getDate("finishTime").toString(),
                     rs.getInt("elementPlaced"),
                     rs.getInt("gameID"),
                     rs.getInt("state"),
@@ -428,14 +428,20 @@ public class DatabaseConnection {
      * create a new Game of the game g betwen two players, p1 and p2
      * @param p1 Player, first player in the game
      * @param p2 Player, second player in the game
-     * @param g Game, game which will be played by the two players
      * @throws SQLException
      */
-    public void addNewGame(Player p1, Player p2, Game g) throws SQLException {
+    public void addNewGame(Player p1, Player p2) throws SQLException {
+        char[][] plate = new char[7][7];
+        for(int i = 0; i < 7; i++) {
+            for(int j = 0; j < 7; j++)
+                plate[i][j] = '*';
+        }
+        FourInARow g = new FourInARow(p1, p2, p1, createJSONFromPlate(plate), "FourInARow");
+
         PreparedStatement ps = c.prepareStatement("insert into PARTIE values (?,?,?,?, 0, CURDATE(), CURDATE(), 0, null, null)");
         ps.setInt(1, this.getMaxIDGame() + 1);
         ps.setString(2, g.getGameName());
-        ps.setString(3, g instanceof FourInARow ? createJSONFromPlate(((FourInARow)g).getPlate()) : "Unknown");
+        ps.setString(3, createJSONFromPlate(g.getPlate()));
         ps.setString(4, p1.getPseudo());
         ps.executeUpdate();
         PreparedStatement ps2 = c.prepareStatement("insert into JOUER values (?,?,?,0)");
@@ -492,6 +498,18 @@ public class DatabaseConnection {
         ps.executeQuery();
     }
 
+    public void addNewFriend(Player player, Player newFriend) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("insert into ETREAMIS values(?, ?)");
+        ps.setString(1, player.getPseudo());
+        ps.setString(2, newFriend.getPseudo());
+        ps.executeQuery();
+
+        ps = c.prepareStatement("insert into ETREAMIS values(?, ?)");
+        ps.setString(1, newFriend.getPseudo());
+        ps.setString(2, player.getPseudo());
+        ps.executeQuery();
+    }
+
     /********** INVITATIONS **********/
 
     /**
@@ -542,14 +560,14 @@ public class DatabaseConnection {
     }
 
     /**
-     * @param expediteur Player, the sender of the invitation
-     * @param destinataire Player, the receiver of the invitation
+     * @param sender Player, the sender of the invitation
+     * @param receiver Player, the receiver of the invitation
      * @param type boolean, the type of the invitation
      *             - true = Invitation to play
      *             - false = invitation to be friends
      * @throws SQLException
      */
-    public void createInv(Player expediteur, Player destinataire, boolean type) throws SQLException {
+    public void createInv(Player sender, Player receiver, boolean type) throws SQLException {
         PreparedStatement ps = c.prepareStatement("insert into INVITATION values (?, CURDATE(), ?, ?)");
         int gameId = this.getMaxIdInv() + 1;
         ps.setInt(1, gameId);
@@ -557,11 +575,46 @@ public class DatabaseConnection {
         ps.setBoolean(3, type);
         ps.executeUpdate();
         PreparedStatement ps2 = c.prepareStatement("insert into INVITER values (?, ?, ?)");
-        ps2.setString(1, expediteur.getPseudo());
-        ps2.setString(2, destinataire.getPseudo());
+        ps2.setString(1, sender.getPseudo());
+        ps2.setString(2, receiver.getPseudo());
         ps2.setInt(3, gameId);
         ps2.executeUpdate();
+    }
 
+    public ArrayList<? extends Invitation> getPlayerInvitations(Player player) throws SQLException, IOException {
+        ArrayList<Invitation> invitations = new ArrayList<>();
+
+        PreparedStatement ps = c.prepareStatement("select *" +
+                "from INVITATION natural join INVITER where destinataireInvit=? and etatinv=0");
+
+        ps.setString(1, player.getPseudo());
+        ResultSet resultSet = ps.executeQuery();
+
+        while(resultSet.next()) {
+            if(resultSet.getBoolean("type")) {
+                invitations.add(
+                        new GameInvitation(
+                                getPlayer(resultSet.getString("expediteurInvit")),
+                                player,
+                                resultSet.getDate("dateInv"),
+                                resultSet.getInt("etatinv"),
+                                resultSet.getInt("idinv")
+                        )
+                );
+            } else {
+                invitations.add(
+                        new FriendInvitation(
+                                getPlayer(resultSet.getString("expediteurInvit")),
+                                player,
+                                resultSet.getDate("dateInv"),
+                                resultSet.getInt("etatinv"),
+                                resultSet.getInt("idinv")
+                        )
+                );
+            }
+        }
+
+        return invitations;
     }
 
     /**

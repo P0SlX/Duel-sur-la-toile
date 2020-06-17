@@ -17,6 +17,7 @@ public class MainView extends Application {
     private OngoingGamesController ongoingGamesController;
     private FourInARowController fourInARowController;
     private PlayerAccountController playerAccountController;
+    private InvitationController invitationController;
 
     private MainMenuController mainMenuController;
 
@@ -36,6 +37,7 @@ public class MainView extends Application {
             } else if(controller instanceof MainMenuController) {
                 this.mainMenuController = (MainMenuController) controller;
                 this.ongoingGamesController.setMainMenuController(mainMenuController);
+                this.mainMenuController.setInvitationController(this.invitationController);
 
             } else if (controller instanceof PlayerAccountController) {
                 this.playerAccountController = (PlayerAccountController) controller;
@@ -46,6 +48,8 @@ public class MainView extends Application {
 
             } else if(controller instanceof FourInARowController)
                 this.fourInARowController = (FourInARowController) controller;
+            } else if(controller instanceof InvitationController)
+                this.invitationController = (InvitationController)controller;
 
             return root;
         } catch (Exception e) {
@@ -81,10 +85,11 @@ public class MainView extends Application {
 
             Pane fourInARowScene = new Pane(loadRootWithController("UI/Puissance4_ingame.fxml"));
             Pane ongoingGames    = new Pane(loadRootWithController("UI/Parties.fxml"));
+            Pane invitation      = new Pane(loadRootWithController("UI/Invitations.fxml"));
             Pane mainMenuScene   = new Pane(loadRootWithController("UI/Menu_principal.fxml"));
             Pane loginScene      = new Pane(loadRootWithController("UI/Connexion.fxml"));
             Pane registerScene   = new Pane(loadRootWithController("UI/Inscription.fxml"));
-            Pane playerAccount    = new Pane(loadRootWithController("UI/Profil_joueur.fxml"));
+            Pane playerAccount   = new Pane(loadRootWithController("UI/Profil_joueur.fxml"));
 
             this.mainMenuController.setOngoingGamesController(this.ongoingGamesController);
             this.mainMenuController.setPlayerAccountController(this.playerAccountController);
@@ -94,6 +99,8 @@ public class MainView extends Application {
             sceneController.addScene(SceneController.ViewType.MainMenu, mainMenuScene);
             sceneController.addScene(SceneController.ViewType.FourInARowGame, fourInARowScene);
             sceneController.addScene(SceneController.ViewType.OngoingGames, ongoingGames);
+            sceneController.addScene(SceneController.ViewType.Invitations, invitation);
+            //sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
             sceneController.addScene(SceneController.ViewType.PlayerAccount, playerAccount);
 
             sceneController.showScene(SceneController.ViewType.Login);

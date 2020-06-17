@@ -38,7 +38,8 @@ public abstract class Controller {
         databaseConnection = database;
     }
 
-    public static void addFriend(Player friend, VBox friendList, EventHandler<ActionEvent> messageButtonEventHandler) {
+    public static void addFriend(Player friend, VBox friendList, EventHandler<ActionEvent> messageButtonEventHandler,
+                                 EventHandler<ActionEvent> inviteButtonEventHandler) {
         Button invite = new Button("Invite");
         Button message = new Button("Message");
 
@@ -95,6 +96,7 @@ public abstract class Controller {
         circle.setCenterY(30);
 
         message.setOnAction(messageButtonEventHandler);
+        invite.setOnAction(inviteButtonEventHandler);
 
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().addAll(avatar, friendPseudo, friendRatio, invite, message);

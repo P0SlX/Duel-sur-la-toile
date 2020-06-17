@@ -1,16 +1,13 @@
 import com.gluonhq.charm.glisten.control.TextField;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Ellipse;
 
@@ -67,6 +64,7 @@ public class MainMenuController extends Controller implements Initializable {
     private OngoingGamesController ongoingGamesController;
 
     private PlayerAccountController playerAccountController;
+    private InvitationController invitationController;
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -118,16 +116,27 @@ public class MainMenuController extends Controller implements Initializable {
         ArrayList<Player> friends = databaseConnection.getFriends(loggedPlayer);
 
         for(Player p : friends)
-            Controller.addFriend(p, friendList, actionEvent -> {
-                messageZone.setVisible(true);
+            Controller.addFriend(
+                    p, friendList, actionEvent -> {
+                    messageZone.setVisible(true);
 
-                senderPseudo.setText(p.getPseudo());
-                try {
-                    loadMessage(loggedPlayer, messageList, messageZone);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                    showAlert("Something wrong just happened !", "Unable to fetch message from database !");
-                }
+                    senderPseudo.setText(p.getPseudo());
+                    try {
+                        loadMessage(loggedPlayer, messageList, messageZone);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                        showAlert("Something wrong just happened !", "Unable to fetch messages from database !");
+                    }
+                },
+                actionEvent -> {
+                        try {
+                            databaseConnection.createInv(loggedPlayer, p, true); // game invitation
+                            showAlert("Invitation successfully sent",
+                                    String.format("Invitation sent to %s.", p.getPseudo()));
+                        } catch(SQLException exception) {
+                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            exception.printStackTrace();
+                        }
             });
 
         Runnable scheduledTask = () -> {
@@ -176,7 +185,6 @@ public class MainMenuController extends Controller implements Initializable {
 
     /**
      * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
-     * @throws InterruptedException in case something was still running when it stops to wait
      */
     private void awaitBackgroundTasksAndShutdown()  {
         try {
@@ -200,6 +208,18 @@ public class MainMenuController extends Controller implements Initializable {
         playerAccountController.initPlayerAccountController(loggedPlayer);
         sceneController.showScene(SceneController.ViewType.PlayerAccount);
     }
+
+    @FXML
+    public void onInvitationsAction() {
+        awaitBackgroundTasksAndShutdown();
+        this.invitationController.initInvitationController();
+        this.sceneController.showScene(SceneController.ViewType.Invitations);
+    }
+
+    public void setInvitationController(InvitationController invitationController) {
+        this.invitationController = invitationController;
+    }
+
 }
 
 

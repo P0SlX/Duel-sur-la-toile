@@ -68,7 +68,7 @@ public class OngoingGamesController extends Controller implements Initializable 
         ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
 
         for(Player p : friends)
-            Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"));
+            Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"), actionEvent -> System.out.println("Not implemented"));
 
         this.pseudo.setText(loggedPlayer.getPseudo());
         this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
