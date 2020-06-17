@@ -62,14 +62,14 @@ public class Player {
     }
 
     /**
-     * @return String le pseudo d'un joueur
+     * @return String the pseudo of a player
      */
     public String getPseudo() {
         return this.pseudo;
     }
 
     /**
-     * Allow to chnage the pseudo of a player
+     * Allow to change the pseudo of a player
      * @param pseudo String, the new pseudo
      */
     public void setPseudo(String pseudo) {

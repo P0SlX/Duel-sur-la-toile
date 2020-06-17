@@ -24,7 +24,7 @@ public class SceneController {
          * @param type ViewType, the view type...
          * @param scene Pane, the new scene
          */
-        views.put(type, scene);
+        this.views.put(type, scene);
     }
 
     public void showScene(ViewType type) {
@@ -32,7 +32,7 @@ public class SceneController {
          * Show a scene on the mainScene (contained in this.views)
          * @param type ViewType, the type of the scene
          */
-        mainScene.setRoot(views.get(type));
+        this.mainScene.setRoot(this.views.get(type));
     }
 
     public Pane getScene(ViewType type) {
@@ -41,7 +41,7 @@ public class SceneController {
          * @param type ViewType, the type of the scene
          * @return Pane, the seeked scene
          */
-        return views.get(type);
+        return this.views.get(type);
     }
 
     public HashMap<ViewType, Pane> getViews() {
@@ -49,6 +49,6 @@ public class SceneController {
          * get all the scenes
          * @return HashMap<ViewType, Pane>, simply this.views
          */
-        return views;
+        return this.views;
     }
 }
