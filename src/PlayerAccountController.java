@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -76,8 +77,6 @@ public class PlayerAccountController extends Controller implements Initializable
     private PlayerStatistics ps;
 
     private Player loggedPlayer;
-
-    private InvitationController invitationController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { }
@@ -211,5 +210,11 @@ public class PlayerAccountController extends Controller implements Initializable
     public void onBackAction() throws IOException, SQLException {
         this.mainMenuController.initMainControllerWithPlayer(this.loggedPlayer);
         sceneController.showScene(SceneController.ViewType.MainMenu);
+    }
+
+    @FXML
+    public void onInvitationsAction() {
+        invitationController.initInvitationController();
+        this.sceneController.showScene(SceneController.ViewType.Invitations);
     }
 }

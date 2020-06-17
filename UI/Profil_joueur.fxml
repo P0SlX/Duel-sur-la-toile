@@ -68,7 +68,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="79.0" styleClass="ratio-gros" text="Ratio: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="75.0">
+            <Label fx:id="ratio2" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="79.0" styleClass="ratio-gros" text="Ratio: x" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="75.0">
                <font>
                   <Font size="16.0" />
                </font>
