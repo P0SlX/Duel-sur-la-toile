@@ -55,10 +55,6 @@
 }
 
 
-//.label:hover {
-//    -fx-text-fill: rgb(70, 70, 70);
-//}
-
 .pseudo {
     -fx-font-size: 13pt;
     -fx-font-family: "Segoe UI Light";
@@ -184,7 +180,6 @@
     -fx-padding: 1 0 0 0;
 }
 
-// Top bar en haut
 .menu-bar {
     -fx-background-color: rgba(0, 0, 0, 0.2);
 }

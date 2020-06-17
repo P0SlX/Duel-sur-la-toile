@@ -1,3 +1,4 @@
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +29,10 @@ public class InvitationController extends Controller implements Initializable {
 
     @FXML
     public TextField friendRequestPlayerName;
+
+    private PlayerAccountController playerAccountController;
+
+    private MainMenuController mainMenuController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -171,7 +176,23 @@ public class InvitationController extends Controller implements Initializable {
             databaseConnection.createInv(loggedPlayer, p, Invitation.INVFRIEND);
             showAlert("Friend request sucessfuly sent",
                     String.format("A friend request has been sent to %s.", p.getPseudo()));
-        } else
-            showAlert("No such player found !", String.format("Player : %s does not exists", this.friendRequestPlayerName.getText()));
+        } else {
+            showAlert("No such player found !", String.format("Player : %s does not exists",
+                    this.friendRequestPlayerName.getText()));
+        }
+    }
+
+    public void onProfilPlayerAction() throws IOException, SQLException {
+        playerAccountController.setMainMenuController(mainMenuController);
+        playerAccountController.initPlayerAccountController(loggedPlayer);
+        sceneController.showScene(SceneController.ViewType.PlayerAccount);
+    }
+
+    public void setMainMenuController(MainMenuController mainMenuController) {
+        this.mainMenuController = mainMenuController;
+    }
+
+    public void setPlayerAccountController(PlayerAccountController playerAccountController) {
+        this.playerAccountController = playerAccountController;
     }
 }

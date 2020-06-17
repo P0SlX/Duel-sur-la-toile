@@ -140,8 +140,13 @@ public class FourInARowController extends Controller implements Initializable {
                 // we have to ask javafx to do it
                 Platform.runLater(() -> {
                     for(int i = 0; i < 7; i++) {
-                        for(int j = 0; j < 7; j++)
-                            setButton(i, j, updatedContent[i][j]);
+                        for(int j = 0; j < 7; j++) {
+                            if(setButton(i, j, updatedContent[i][j])
+                                    && (!game.getCurrentPlayer().equals(loggedPlayer))) {
+                                currentGame.switchCurrentPlayer();
+                                updateCurrentPlayerLabelAndDB();
+                            }
+                        }
                     }
                 });
 
@@ -164,11 +169,8 @@ public class FourInARowController extends Controller implements Initializable {
                             throwables.printStackTrace();
                         }
                     });
-                } else {
-                    Platform.runLater(() -> {
-                        senderPseudo.setText("Nobody");
-                    });
-                }
+                } else
+                    Platform.runLater(() -> senderPseudo.setText("Nobody"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -178,13 +180,20 @@ public class FourInARowController extends Controller implements Initializable {
 
     }
 
-    private void setButton(int i, int j, char type) {
+    private boolean setButton(int i, int j, char type) {
         // TODO: Colored buttons and proper style
-        switch(type) {
-            case 'B' -> grid[i][j].setText("B");
-            case 'R' -> grid[i][j].setText("R");
-            default -> grid[i][j].setText("*");
+
+        if(!grid[i][j].getText().equals(Character.toString(type))) {
+            switch (type) {
+                case 'R' -> grid[i][j].setText("R");
+                case 'B' -> grid[i][j].setText("B");
+                default  -> grid[i][j].setText("*");
+            }
+
+            return true;
         }
+
+        return false;
     }
 
     public FourInARow getGame() {
@@ -221,10 +230,6 @@ public class FourInARowController extends Controller implements Initializable {
                 }
             }
         });
-    }
-
-    @FXML
-    public void onPlayerProfilAction(ActionEvent actionEvent) {
     }
 
     @FXML

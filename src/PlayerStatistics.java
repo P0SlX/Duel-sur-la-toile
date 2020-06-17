@@ -1,26 +1,54 @@
-public class PlayerStatistics {
+public class PlayerStatistics{
 
-    private int playedGames;
-    private int wonGames;
-    private double turnPlayedPerGamesAverage;
+    private double ratio;
+    private int victories;
+    private int defeats;
     private int activeGames;
+    private int consecutiveWins;
+    private int playedGames;
     private int abandonedGames;
 
-    /**
-     * builder of PlayerStatistic
-     * @param playedGames int, the number of games played by a player
-     * @param wonGames int, the number of games won by a player
-     * @param turnPlayedPerGamesAverage, double, the average number of turns played by game
+    /** Builder of PlayerStatistics
+     * @param victories int, number of games won by a player
+     * @param defeats int, number of games lose by a player
      * @param activeGames int, number of games in_progress
+     * @param consecutiveWins int, number of consecutive win by a player
+     * @param playedGames int, number of games played by a player
      * @param abandonedGames int, number of games abandoned
      */
-    public PlayerStatistics(int playedGames, int wonGames, double turnPlayedPerGamesAverage, int activeGames, int abandonedGames){
-        this.playedGames=playedGames;
-        this.wonGames=wonGames;
-        this.turnPlayedPerGamesAverage=turnPlayedPerGamesAverage;
-        this.activeGames=activeGames;
-        this.abandonedGames=abandonedGames;
+    public PlayerStatistics(int victories, int defeats, int activeGames, int consecutiveWins, int playedGames, int abandonedGames) {
+        if (defeats == 0) {
+            this.ratio = victories;
+        } else {
+            this.ratio = Math.round((victories/defeats) * 100.0) / 100.0;
+        }
+        this.victories = victories;
+        this.defeats = defeats;
+        this.activeGames = activeGames;
+        this.consecutiveWins = consecutiveWins;
+        this.playedGames = playedGames;
+        this.abandonedGames = abandonedGames;
+    }
 
+    /**
+     * @return double, ratio between wins and defeat
+     */
+    public double getRatio() {
+        return ratio;
+    }
+
+    /**
+     * @return int, number of games lose by a player
+     */
+    public int getDefeats() {
+        return defeats;
+    }
+
+    /**
+     * @return int, number of consecutive win by a player
+     */
+    public int getConsecutiveWins() {
+        return consecutiveWins;
     }
 
     /**
@@ -33,15 +61,8 @@ public class PlayerStatistics {
     /**
      * @return int, the number of games won
      */
-    public int getWonGames() {
-        return this.wonGames;
-    }
-
-    /**
-     * @return double, the average number of turns per game
-     */
-    public double getTurnPlayedPerGamesAverage() {
-        return this.turnPlayedPerGamesAverage;
+    public int getVictories() {
+        return this.victories;
     }
 
     /**

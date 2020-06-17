@@ -29,10 +29,11 @@
             <MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Player">
+        <Menu mnemonicParsing="false" text="Player" fx:id="profileMenu">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#onPlayerAccountAction" text="Profil" />
-               </items></Menu>
+               </items>
+        </Menu>
       </menus>
          <opaqueInsets>
             <Insets />

@@ -29,6 +29,9 @@ public class MainMenuController extends Controller implements Initializable {
     private final String BUTTON = "-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
 
     @FXML
+    public Menu profileMenu;
+
+    @FXML
     private MenuItem disconnect;
 
     @FXML
@@ -62,6 +65,8 @@ public class MainMenuController extends Controller implements Initializable {
     private TextField textMessage;
 
     private OngoingGamesController ongoingGamesController;
+
+    private PlayerAccountController playerAccountController;
 
     private InvitationController invitationController;
 
@@ -102,7 +107,10 @@ public class MainMenuController extends Controller implements Initializable {
 
         loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
-        this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
+        this.ratio.setText("Ratio: " + databaseConnection.getPlayerStatistics(player).getRatio()); // TODO: When player statistics will be done
+
+        if(loggedPlayer.isAdmin())
+            initMainViewAsAdmin();
 
         avatar.setImage(loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();
@@ -182,6 +190,33 @@ public class MainMenuController extends Controller implements Initializable {
         Platform.exit();
     }
 
+    public void setPlayerAccountController(PlayerAccountController playerAccountController) {
+        this.playerAccountController = playerAccountController;
+    }
+
+    @FXML
+    public void onPlayerAccountAction() throws IOException, SQLException {
+        awaitBackgroundTasksAndShutdown();
+        messageZone.setVisible(false);
+        messageList.getChildren().clear();
+        playerAccountController.setMainMenuController(this);
+        playerAccountController.initPlayerAccountController(loggedPlayer);
+        sceneController.showScene(SceneController.ViewType.PlayerAccount);
+    }
+
+    @FXML
+    public void onInvitationsAction() {
+        awaitBackgroundTasksAndShutdown();
+        this.invitationController.setMainMenuController(this);
+        this.invitationController.setPlayerAccountController(this.playerAccountController);
+        this.invitationController.initInvitationController();
+        this.sceneController.showScene(SceneController.ViewType.Invitations);
+    }
+
+    public void setInvitationController(InvitationController invitationController) {
+        this.invitationController = invitationController;
+    }
+
     /**
      * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
      */
@@ -194,23 +229,16 @@ public class MainMenuController extends Controller implements Initializable {
         }
     }
 
-    @FXML
-    public void onPlayerAccountAction() {
-        awaitBackgroundTasksAndShutdown();
-        sceneController.showScene(SceneController.ViewType.PlayerAccount);
-    }
+    private void initMainViewAsAdmin() {
+        MenuItem menuItem = new MenuItem("Admin Panel");
+        menuItem.setMnemonicParsing(false);
+        menuItem.setOnAction(actionEvent -> {
+            awaitBackgroundTasksAndShutdown();
+            sceneController.showScene(SceneController.ViewType.AdminPanel);
+        });
 
-    @FXML
-    public void onInvitationsAction() {
-        awaitBackgroundTasksAndShutdown();
-        this.invitationController.initInvitationController();
-        this.sceneController.showScene(SceneController.ViewType.Invitations);
+        this.profileMenu.getItems().add(menuItem);
     }
-
-    public void setInvitationController(InvitationController invitationController) {
-        this.invitationController = invitationController;
-    }
-
 }
 
 
