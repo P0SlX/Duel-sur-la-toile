@@ -67,7 +67,7 @@ public class FourInARowController extends Controller implements Initializable {
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
                 currentGame.getPlayer2() : currentGame.getPlayer1();
 
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(2); // A thread for each task running
         this.currentPlayerLabel.setText(String.format("%s, it's your turn to play !", loggedPlayer.getPseudo()));
 
         pseudo.setText(loggedPlayer.getPseudo());
@@ -105,8 +105,26 @@ public class FourInARowController extends Controller implements Initializable {
             }
         };
 
-        this.scheduledExecutorService.scheduleAtFixedRate(fetchMessages, 500, 500, TimeUnit.MILLISECONDS);
+        Runnable updateGrid = () -> {
+            try {
+                game.setPlate(databaseConnection.getFourInARowPlate(game));
+                game.setCurrentPlayer(databaseConnection.getGameCurrentPlayer(game));
 
+                game.checkWin();
+
+                // This call back is only to update the javafx display since
+                // it is not possible to access javafx components outside its thread
+                Platform.runLater(() -> {
+                    updateGrid(game.getPlate());
+                    updateCurrentPlayerLabel();
+                });
+            } catch (SQLException | IOException exception) {
+                exception.printStackTrace();
+            }
+        };
+
+        this.scheduledExecutorService.scheduleAtFixedRate(fetchMessages, 500, 500, TimeUnit.MILLISECONDS);
+        this.scheduledExecutorService.scheduleAtFixedRate(updateGrid, 500, 500, TimeUnit.MILLISECONDS);
     }
 
 
@@ -173,7 +191,7 @@ public class FourInARowController extends Controller implements Initializable {
     }
 
     /**
-     * Wait 500 seconds for the backgrounds task still running and destroy the thread pool.
+     * Wait half a second for the backgrounds tasks still running and destroy the thread pool.
      */
     private void awaitBackgroundTasksAndShutdown()  {
         try {
@@ -266,6 +284,23 @@ public class FourInARowController extends Controller implements Initializable {
                     this.fourInARowGrid.add(circle, j, i);
                 }
             }
+        }
+    }
+
+    private void updateCurrentPlayerLabel() {
+        if(loggedPlayer.equals(game.getCurrentPlayer()))
+            this.currentPlayerLabel.setText(String.format("%s, it's your turn", loggedPlayer.getPseudo()));
+        else
+            this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+
+        if(game.getWinner() != null) {
+            if(game.getWinner().equals(loggedPlayer))
+                showAlert("Congratulation", "You won the game !!");
+            else
+                showAlert("Better luck next time :(", "You loose :(\nKeep training you will get better !");
+
+            awaitBackgroundTasksAndShutdown();
+            sceneController.showScene(SceneController.ViewType.OngoingGames);
         }
     }
 }
