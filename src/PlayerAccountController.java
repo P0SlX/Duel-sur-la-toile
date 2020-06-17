@@ -77,6 +77,8 @@ public class PlayerAccountController extends Controller implements Initializable
 
     private Player loggedPlayer;
 
+    private InvitationController invitationController;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { }
 
@@ -203,6 +205,10 @@ public class PlayerAccountController extends Controller implements Initializable
 
     public void setMainMenuController(MainMenuController mainMenuController) {
         this.mainMenuController = mainMenuController;
+    }
+
+    public void setInvitationController(InvitationController invitationController) {
+        this.invitationController = invitationController;
     }
 
     @FXML
