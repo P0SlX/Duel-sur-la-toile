@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FourInARowTest {
@@ -11,13 +14,11 @@ class FourInARowTest {
             { '*', '*', '*', 'R', '*', '*', '*' },
             { '*', '*', '*', 'R', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
-            { '*', '*', '*', '*', '*', '*', '*' },
     };
 
     private final char[][] WIN2 = {
             { '*', '*', '*', '*', '*', '*', '*' },
             { 'B', 'B', 'B', 'B', '*', '*', '*' },
-            { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
@@ -31,7 +32,6 @@ class FourInARowTest {
             { '*', '*', '*', 'R', '*', '*', '*' },
             { '*', '*', '*', '*', 'R', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
-            { '*', '*', '*', '*', '*', '*', '*' },
     };
 
     private final char[][] WIN4 = {
@@ -41,11 +41,9 @@ class FourInARowTest {
             { '*', '*', '*', 'B', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
-            { '*', '*', '*', '*', '*', '*', '*' },
     };
 
     private final char[][] LOOSE1 = {
-            { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
@@ -61,7 +59,6 @@ class FourInARowTest {
             { '*', '*', '*', '*', '*', 'B', '*' },
             { '*', '*', '*', '*', '*', '*', '*' },
             { '*', '*', '*', '*', '*', 'B', '*' },
-            { '*', '*', '*', '*', '*', '*', '*' },
     };
 
     private final char[][] LOOSE3 = {
@@ -71,7 +68,42 @@ class FourInARowTest {
             { '*', '*', 'R', '*', 'B', '*', '*' },
             { '*', '*', 'R', '*', '*', 'R', '*' },
             { '*', 'R', 'R', 'R', '*', '*', '*' },
+    };
+
+    private final char[][] TURN1 = {
             { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { 'R', '*', '*', '*', '*', '*', '*' },
+    };
+
+    private final char[][] TURN2 = {
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { 'R', '*', 'R', '*', '*', '*', '*' },
+    };
+
+    private final char[][] TURN3 = {
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', 'R', '*', '*', '*', '*' },
+            { 'R', '*', 'R', '*', '*', '*', '*' },
+    };
+
+    private final char[][] TURN4 = {
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', '*', '*', '*', '*', '*' },
+            { '*', '*', 'R', '*', '*', '*', '*' },
+            { '*', '*', 'R', '*', '*', '*', '*' },
+            { 'R', '*', 'R', '*', '*', '*', '*' },
     };
 
     /**
@@ -83,9 +115,46 @@ class FourInARowTest {
         assertTrue(new FourInARow(WIN2).checkWin());
         assertTrue(new FourInARow(WIN3).checkWin());
         assertTrue(new FourInARow(WIN3).checkWin());
+        assertTrue(new FourInARow(WIN4).checkWin());
 
         assertFalse(new FourInARow(LOOSE1).checkWin());
         assertFalse(new FourInARow(LOOSE2).checkWin());
         assertFalse(new FourInARow(LOOSE3).checkWin());
+    }
+
+    @Test
+    void playerPlayTurn() {
+        FourInARow fourInARow = new FourInARow(LOOSE1);
+
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        databaseConnection.connexion();
+        Player p;
+
+        try {
+            p = databaseConnection.getPlayer("Coco");
+            assertNotNull(p);
+
+            fourInARow.playerPlayTurn(0);
+
+            char[][] gameContent = fourInARow.getPlate();
+
+            assertArrayEquals(TURN1, gameContent);
+
+            fourInARow.playerPlayTurn(2);
+            gameContent = fourInARow.getPlate();
+            assertArrayEquals(TURN2, gameContent);
+
+            fourInARow.playerPlayTurn(2);
+            gameContent = fourInARow.getPlate();
+            assertArrayEquals(TURN3, gameContent);
+
+            fourInARow.playerPlayTurn(2);
+            gameContent = fourInARow.getPlate();
+            assertArrayEquals(TURN4, gameContent);
+
+        } catch (SQLException | IOException exception) {
+            exception.printStackTrace();
+            fail();
+        }
     }
 }
