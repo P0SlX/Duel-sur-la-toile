@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPanelController">
+<AnchorPane prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminPanelController">
 <children>
     <MenuBar maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <menus>
@@ -27,83 +26,53 @@
             <Cursor fx:constant="HAND" />
          </cursor>
     </MenuBar>
-      <AnchorPane layoutX="1324.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-         <children>
-            <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" layoutX="198.0" layoutY="19.0" AnchorPane.rightAnchor="5.0">
-                     <image>
-                        <Image url="@assets/logo.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="pseudo" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="48.0" prefHeight="21.0" prefWidth="127.0" styleClass="pseudo" text="Unknown" AnchorPane.leftAnchor="70.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="115.0" layoutY="33.0" prefHeight="15.0" prefWidth="127.0" styleClass="niveau" text="Ratio: " AnchorPane.leftAnchor="70.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="51.0" fitWidth="54.0" preserveRatio="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="23.0">
-                     <image>
-                        <Image url="@assets/logo.png" />
-                     </image>
-                  </ImageView>
-                  <Separator opacity="0.5" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            <VBox prefHeight="705.0" prefWidth="272.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="626.0" layoutY="234.0" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="349.0" style="-fx-background-color: rgba(255,255,255,0.15);" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="150.0">
+      <AnchorPane layoutX="264.0" layoutY="150.0" minHeight="0.0" minWidth="0.0" prefHeight="378.0" prefWidth="349.0" style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 10px;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="264.0" AnchorPane.topAnchor="150.0">
          <children>
             <VBox prefHeight="807.0" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="506.0" layoutY="14.0" prefHeight="21.0" prefWidth="60.0" styleClass="pseudo-stat" text="Arza" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
+            <Label fx:id="pseudo" alignment="CENTER" contentDisplay="CENTER" layoutX="506.0" layoutY="14.0" prefHeight="48.0" prefWidth="1072.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 10px;" styleClass="pseudo-stat" text="Arza" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
             <Separator layoutX="36.0" layoutY="56.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="100.0" styleClass="ratio-gros" text="Ratio: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="100.0">
+            <Label fx:id="ratio" alignment="CENTER_RIGHT" layoutX="572.0" layoutY="100.0" styleClass="ratio-gros" text="Ratio: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="100.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="136.0" styleClass="ratio-gros" text="Victories: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="150.0">
+            <Label fx:id="victories" alignment="CENTER_RIGHT" layoutX="572.0" layoutY="136.0" styleClass="ratio-gros" text="Victories: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="150.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="176.0" styleClass="ratio-gros" text="Defeats: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="200.0">
+            <Label fx:id="defeat" alignment="CENTER_RIGHT" layoutX="572.0" layoutY="176.0" styleClass="ratio-gros" text="Defeats: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="200.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="572.0" layoutY="216.0" styleClass="ratio-gros" text="Active games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="250.0">
+            <Label fx:id="activeGames" alignment="CENTER_RIGHT" layoutX="572.0" layoutY="216.0" styleClass="ratio-gros" text="Active games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="250.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="390.0" styleClass="ratio-gros" text="Consecutive wins: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="300.0">
+            <Label fx:id="consecWin" alignment="CENTER_RIGHT" layoutX="547.0" layoutY="390.0" styleClass="ratio-gros" text="Consecutive wins: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="300.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="430.0" styleClass="ratio-gros" text="Played games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="350.0">
+            <Label fx:id="playedGames" alignment="CENTER_RIGHT" layoutX="547.0" layoutY="430.0" styleClass="ratio-gros" text="Played games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="350.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="547.0" layoutY="510.0" styleClass="ratio-gros" text="Abandoned games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="400.0">
+            <Label fx:id="abandGames" alignment="CENTER_RIGHT" layoutX="547.0" layoutY="510.0" styleClass="ratio-gros" text="Abandoned games: x" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="400.0">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="emailTextBox" layoutX="159.0" layoutY="196.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="200.0" />
-            <TextField fx:id="passwordTextBox" layoutX="159.0" layoutY="246.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="250.0" />
-            <TextField fx:id="stateTextBox" layoutX="159.0" layoutY="296.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="300.0" />
+            <TextField fx:id="email" layoutX="159.0" layoutY="196.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="200.0" />
+            <TextField fx:id="password" layoutX="159.0" layoutY="246.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="250.0" />
+            <TextField fx:id="state" layoutX="159.0" layoutY="296.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="300.0" />
             <Label alignment="CENTER_RIGHT" layoutX="463.0" layoutY="196.0" styleClass="ratio-gros" text="Email" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="200.0">
                <font>
                   <Font size="16.0" />
@@ -130,18 +99,18 @@
                </font>
             </Label>
             <Separator layoutX="527.0" layoutY="65.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="19.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="61.0" />
-            <Button fx:id="deactivatedButton" layoutX="181.0" layoutY="342.0" mnemonicParsing="false" onAction="#onDeactivatedButtonAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="True" />
+            <Button fx:id="desacButton" layoutX="181.0" layoutY="342.0" mnemonicParsing="false" onAction="#onDeactivatedButtonAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="True" />
             <Button fx:id="adminButton" layoutX="181.0" layoutY="392.0" mnemonicParsing="false" onAction="#onAdminButtonAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="False" />
-            <Button fx:id="adminButton1" layoutX="181.0" layoutY="482.0" mnemonicParsing="false" onAction="#onAdminButtonAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #FF4444; -fx-border-color: #FF4444; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Update player" AnchorPane.rightAnchor="715.0" />
-            <ImageView fx:id="avatar1" fitHeight="100.0" fitWidth="100.0" layoutX="222.0" layoutY="75.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="85.0">
+            <Button fx:id="updateButton" layoutX="181.0" layoutY="482.0" mnemonicParsing="false" onAction="#onUpdateButton" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #FF4444; -fx-border-color: #FF4444; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Update player" AnchorPane.rightAnchor="715.0" />
+            <ImageView fx:id="avatar" fitHeight="100.0" fitWidth="100.0" layoutX="222.0" layoutY="75.0" AnchorPane.rightAnchor="750.0" AnchorPane.topAnchor="85.0">
                <image>
                   <Image url="@assets/logo.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="backButton" layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" onAction="#onBackAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="290.0" />
-      <TextField layoutX="254.0" layoutY="59.0" prefHeight="31.0" prefWidth="929.0" promptText="Player" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="400.0">
+      <Button fx:id="backButton" layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" onAction="#onBackAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="100.0" />
+      <TextField fx:id="searchBar" layoutX="264.0" layoutY="59.0" onKeyPressed="#onSearchBarAction" prefHeight="31.0" prefWidth="929.0" promptText="Player" AnchorPane.leftAnchor="264.0" AnchorPane.rightAnchor="264.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>

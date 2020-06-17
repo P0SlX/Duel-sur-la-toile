@@ -71,7 +71,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"), actionEvent -> System.out.println("Not implemented"));
 
         this.pseudo.setText(loggedPlayer.getPseudo());
-        this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
+        this.ratio.setText("Ratio: " + databaseConnection.getPlayerStatistics(loggedPlayer).getRatio());
 
         avatar.setImage(this.loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();

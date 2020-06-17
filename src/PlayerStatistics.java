@@ -20,7 +20,7 @@ public class PlayerStatistics{
         if (defeats == 0) {
             this.ratio = victories;
         } else {
-            this.ratio = Math.round((victories/defeats) * 100.0) / 100.0;
+            this.ratio = (double)victories/(double)defeats;
         }
         this.victories = victories;
         this.defeats = defeats;

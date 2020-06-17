@@ -39,13 +39,13 @@ public abstract class Controller {
     }
 
     public static void addFriend(Player friend, VBox friendList, EventHandler<ActionEvent> messageButtonEventHandler,
-                                 EventHandler<ActionEvent> inviteButtonEventHandler) {
+                                 EventHandler<ActionEvent> inviteButtonEventHandler) throws SQLException {
         Button invite = new Button("Invite");
         Button message = new Button("Message");
 
         ImageView avatar = new ImageView(friend.getPlayerAvatar());
         Label friendPseudo = new Label(friend.getPseudo());
-        Label friendRatio = new Label("Ratio : Unknown"); // TODO: When player statictics will be done
+        Label friendRatio = new Label("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(friend).getRatio()));
 
         // Design properties
         friendPseudo.setLayoutX(90.0);
