@@ -29,6 +29,9 @@ public class MainMenuController extends Controller implements Initializable {
     private final String BUTTON = "-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
 
     @FXML
+    public Menu profileMenu;
+
+    @FXML
     private MenuItem disconnect;
 
     @FXML
@@ -103,6 +106,9 @@ public class MainMenuController extends Controller implements Initializable {
         loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
         this.ratio.setText("Ratio : 9000"); // TODO: When player statistics will be done
+
+        if(loggedPlayer.isAdmin())
+            initMainViewAsAdmin();
 
         avatar.setImage(loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();
@@ -182,18 +188,6 @@ public class MainMenuController extends Controller implements Initializable {
         Platform.exit();
     }
 
-    /**
-     * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
-     */
-    private void awaitBackgroundTasksAndShutdown()  {
-        try {
-            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS);
-            this.scheduledExecutorService.shutdown();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     @FXML
     public void onPlayerAccountAction() {
         awaitBackgroundTasksAndShutdown();
@@ -211,6 +205,28 @@ public class MainMenuController extends Controller implements Initializable {
         this.invitationController = invitationController;
     }
 
+    /**
+     * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
+     */
+    private void awaitBackgroundTasksAndShutdown()  {
+        try {
+            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS);
+            this.scheduledExecutorService.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initMainViewAsAdmin() {
+        MenuItem menuItem = new MenuItem("Admin Panel");
+        menuItem.setMnemonicParsing(false);
+        menuItem.setOnAction(actionEvent -> {
+            awaitBackgroundTasksAndShutdown();
+            sceneController.showScene(SceneController.ViewType.AdminPanel);
+        });
+
+        this.profileMenu.getItems().add(menuItem);
+    }
 }
 
 

@@ -169,11 +169,8 @@ public class FourInARowController extends Controller implements Initializable {
                             throwables.printStackTrace();
                         }
                     });
-                } else {
-                    Platform.runLater(() -> {
-                        senderPseudo.setText("Nobody");
-                    });
-                }
+                } else
+                    Platform.runLater(() -> senderPseudo.setText("Nobody"));
             } catch (Exception e) {
                 e.printStackTrace();
             }

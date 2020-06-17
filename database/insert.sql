@@ -46,7 +46,7 @@ insert into JOUEUR values (
     'img/avatarDefault.png',
     0,
     false,
-    True
+    true
 );
 
 insert into JOUEUR values (
