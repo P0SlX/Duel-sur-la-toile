@@ -2,10 +2,12 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -83,6 +85,16 @@ public class MainView extends Application {
             Scene scene = new Scene(new Pane());
             this.sceneController = new SceneController(scene);
             this.databaseConnection.connexion();
+
+
+            // If avatar not set, set the default one
+            for (Player p : this.databaseConnection.getAllPlayers()) {
+                if (p.getPlayerAvatar().getWidth() == 0) {
+                    p.setPlayerAvatar(new Image(new FileInputStream("img/avatarDefault.png")));
+                    p.setAvatar("img/avatarDefault.png");
+                    this.databaseConnection.updatePlayer(p);
+                }
+            }
 
             Pane fourInARowScene = new Pane(loadRootWithController("UI/Puissance4_ingame.fxml"));
             Pane ongoingGames    = new Pane(loadRootWithController("UI/Parties.fxml"));

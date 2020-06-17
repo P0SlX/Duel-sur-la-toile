@@ -32,6 +32,9 @@ public class MainMenuController extends Controller implements Initializable {
     public Menu profileMenu;
 
     @FXML
+    public ImageView avatarMessage;
+
+    @FXML
     private MenuItem disconnect;
 
     @FXML
@@ -128,6 +131,13 @@ public class MainMenuController extends Controller implements Initializable {
                     messageZone.setVisible(true);
 
                     senderPseudo.setText(p.getPseudo());
+                    avatarMessage.setImage(p.getPlayerAvatar());
+                    Ellipse circle2 = new Ellipse();
+                    circle2.setRadiusX(25);
+                    circle2.setRadiusY(25);
+                    avatarMessage.setClip(circle2);
+                    circle2.setCenterX(25);
+                    circle2.setCenterY(25);
                     try {
                         loadMessage(loggedPlayer, messageList, messageZone);
                     } catch (SQLException throwables) {
