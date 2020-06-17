@@ -2,7 +2,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import util.Pair;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 public class FourInARow implements Game {
@@ -71,6 +70,7 @@ public class FourInARow implements Game {
         this.winner = null;
         this.looser = null;
     }
+
     /**
      * This constructor is for the test class.
      * It shouldn't be used in any other way, all the attributes are initialized to null
@@ -79,9 +79,9 @@ public class FourInARow implements Game {
     public FourInARow(char[][] plate) {
         this.plate = plate;
 
-        this.player1 = null;
-        this.player2 = null;
-        this.currentPlayer = null;
+        this.player1 = new Player("", "", "", "", 0, false, false);
+        this.player2 = new Player("", "", "", "", 0, false, false);
+        this.currentPlayer = new Player("", "", "", "", 0, false, false);
         this.startTime = null;
         this.finishTime = null;
         this.elementPlacedCount = 0;
@@ -311,44 +311,43 @@ public class FourInARow implements Game {
     }
 
     /**
-     * @param p The player that is playing
-     * @param x the x coordinate of the selected case
-     * @param y the y coordinate of the selected case
+     * Play a turn in the specified column
+     * @param column the column selected
      * @return a boolean : is it possible to play here ?
-     * @throws SQLException if something went wrong with the database
      */
-    public boolean playerPlayTurn(Player p, int x, int y) throws SQLException {
-        if(inPlate(x, y)) {
-            if(player1.equals(p)) {
-                if(plate[x][y] == '*') {
-                    char PLAYER1 = 'R';
-                    plate[x][y] = PLAYER1;
+    public boolean playerPlayTurn(int column) {
+        if(currentPlayer.equals(this.player1))
+            return fall('R', column);
+        else
+            return fall('B', column);
+    }
 
-                    if(checkWin()) {
-                        this.winner = player1;
-                        this.looser = player2;
-                    }
+    /**
+     * @param line the line number
+     * @return true if the line is in the plate
+     */
+    private boolean lineExists(int line) {
+        return line >= 0 && line < 6;
+    }
 
-                    databaseConnection.updateFourInARowPlate(this);
-                    return true;
-                }
-            } else if(player2.equals(p)) {
-                if(plate[x][y] == '*') {
-                    char PLAYER2 = 'B';
-                    plate[x][y] = PLAYER2;
+    /**
+     * Compute the right element position with a specified column
+     * @param type the player character must be R or B
+     * @param column the selected column
+     * @return true if it is possible to insert something in the specified column
+     */
+    private boolean fall(char type, int column) {
+        int line = 0;
 
-                    if(checkWin()) {
-                        this.winner = this.player2;
-                        this.looser = this.player1;
-                    }
+        while(lineExists(line) && this.plate[line][column] == '*')
+            line++;
 
-                    databaseConnection.updateFourInARowPlate(this);
-                    return true;
-                }
-            }
-        }
+        if(lineExists(line) && line != 0)
+            this.plate[line - 1][column] = type;
+        else if(line >= 6)
+            this.plate[5][column] = type;
 
-        return false;
+        return line != 0;
     }
 
     /**
@@ -356,7 +355,7 @@ public class FourInARow implements Game {
      * @return a boolean : true if someone won the game
      */
     public boolean checkWin() {
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < 6; i++) {
             for(int j = 0; j < 7; j++) {
                 if(plate[i][j] != '*' && checkPosition(i, j))
                     return true;
@@ -373,7 +372,7 @@ public class FourInARow implements Game {
      * @return a boolean, true if it is in the plate
      */
     private boolean inPlate(int x, int y) {
-        return x >= 0 && x < 7 && y >= 0 && y < 7;
+        return x >= 0 && x < 6 && y >= 0 && y < 7;
     }
 
     /**
@@ -433,12 +432,12 @@ public class FourInARow implements Game {
      * @return a char[][] which holds the game plate
      */
     private char[][] jsonToPlate(String jsonCode) {
-        char[][] res = new char[7][7];
+        char[][] res = new char[6][7];
 
         try {
             JSONArray jsonArray = new JSONArray(jsonCode);
 
-            for(int i = 0; i < 7; i++) {
+            for(int i = 0; i < 6; i++) {
                 JSONArray line = (JSONArray)jsonArray.get(i);
 
                 for(int j = 0; j < 7; j++)

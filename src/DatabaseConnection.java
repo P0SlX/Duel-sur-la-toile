@@ -486,6 +486,14 @@ public class DatabaseConnection {
         ps.executeQuery();
     }
 
+    public Player getGameCurrentPlayer(Game game) throws SQLException, IOException {
+        PreparedStatement ps = c.prepareStatement("select currentPlayer from PARTIE where gameID=?");
+        ps.setInt(1, game.getGameID());
+        ResultSet resultSet = ps.executeQuery();
+        resultSet.next();
+        return getPlayer(resultSet.getString("currentPlayer"));
+    }
+
     /**
      * Update game current game player in database
      * @param game the concerned game
@@ -495,6 +503,15 @@ public class DatabaseConnection {
         PreparedStatement ps = c.prepareStatement("update PARTIE set currentPlayer=? where gameID=?");
         ps.setString(1, game.getCurrentPlayer().getPseudo());
         ps.setInt(2, game.getGameID());
+        ps.executeQuery();
+    }
+
+    public void setGameWinnerAndLooser(Player winner, Player looser, Game game) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("update PARTIE set winner=?, looser=? where gameID=?");
+        ps.setString(1, winner.getPseudo());
+        ps.setString(2, looser.getPseudo());
+        ps.setInt(3, game.getGameID());
+
         ps.executeQuery();
     }
 

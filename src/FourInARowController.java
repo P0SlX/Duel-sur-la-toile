@@ -12,6 +12,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.StrokeType;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +53,7 @@ public class FourInARowController extends Controller implements Initializable {
     @FXML
     private VBox messageList;
 
-    private FourInARowButton[][] grid;
+    private Circle[][] grid;
 
     private FourInARow game;
 
@@ -58,57 +61,17 @@ public class FourInARowController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.grid = new FourInARowButton[7][7];
-
-        for(int i = 0; i < 7; i++) {
-            for(int j = 0; j < 7; j++) {
-                grid[i][j] = new FourInARowButton(i, j);
-                fourInARowGrid.add(grid[i][j], j, i);
-
-                grid[i][j].setOnAction(event -> {
-                    FourInARowButton fourInARowButton = (FourInARowButton)event.getSource();
-                    try {
-                        if(game.playerPlayTurn(loggedPlayer,
-                                fourInARowButton.getCoords().getFirst(), fourInARowButton.getCoords().getSecond())) {
-                            databaseConnection.updateFourInARowPlate(game);
-
-                            if(game.getPlayer1().equals(loggedPlayer)) {
-                                fourInARowButton.setText("R");
-                                game.setCurrentPlayer(game.getPlayer2());
-                            } else {
-                                fourInARowButton.setText("B");
-                                game.setCurrentPlayer(game.getPlayer1());
-                            }
-
-                            updateCurrentPlayerLabelAndDB();
-
-                            if(game.checkWin()) {
-                                if(game.getWinner().equals(loggedPlayer))
-                                    showAlert("You win the game !", "You're the winner congratulation !");
-                                else
-                                    showAlert("You lose the game !", "You lose the game, better luck next time !");
-
-                                databaseConnection.updateGameStatus(game, Game.ENDED);
-
-                                sceneController.showScene(SceneController.ViewType.OngoingGames);
-                            }
-                        } else
-                            showAlert("You can't do that", "This case isn't empty !\nPlease play somewhere else !");
-                    } catch (SQLException throwables) {
-                        showAlert("Something went wrong with the database :(", "Check your internet connection and try again");
-                        throwables.printStackTrace();
-                    }
-                });
-            }
-        }
+        this.grid = new Circle[6][7];
     }
 
     public void initController(FourInARow currentGame) throws IOException, SQLException {
-        char[][] content = currentGame.getPlate();
+        updateGrid(currentGame.getPlate());
         this.game = currentGame;
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
                 currentGame.getPlayer2() : currentGame.getPlayer1();
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
+
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(2); // A thread for each task running
+        this.currentPlayerLabel.setText(String.format("%s, it's your turn to play !", loggedPlayer.getPseudo()));
 
         pseudo.setText(loggedPlayer.getPseudo());
         // TODO: Ratio
@@ -126,40 +89,6 @@ public class FourInARowController extends Controller implements Initializable {
             throwables.printStackTrace();
             showAlert("Something wrong just happened :(", "Couldn't load your opponent messages :(");
         }
-
-        updateCurrentPlayerLabelAndDB();
-
-        for(int i = 0; i < 7; i++) {
-            for(int j = 0; j < 7; j++)
-                setButton(i, j, content[i][j]);
-        }
-
-        Runnable scheduledTask = () -> {
-            try {
-                game.setPlate(databaseConnection.getFourInARowPlate(game));
-                char[][] updatedContent = game.getPlate();
-
-                // We can't update javafx stuff outside its thread
-                // we have to ask javafx to do it
-                Platform.runLater(() -> {
-                    for(int i = 0; i < 7; i++) {
-                        for(int j = 0; j < 7; j++) {
-                            if(setButton(i, j, updatedContent[i][j])
-                                    && (!game.getCurrentPlayer().equals(loggedPlayer))) {
-                                currentGame.switchCurrentPlayer();
-                                updateCurrentPlayerLabelAndDB();
-                            }
-                        }
-                    }
-                });
-
-                System.out.println("Updated game grid");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        };
-
-        this.scheduledExecutorService.scheduleAtFixedRate(scheduledTask, 1, 1, TimeUnit.SECONDS);
 
         Runnable fetchMessages = () -> {
             try {
@@ -179,25 +108,28 @@ public class FourInARowController extends Controller implements Initializable {
             }
         };
 
-        this.scheduledExecutorService.scheduleAtFixedRate(fetchMessages, 500, 500, TimeUnit.MILLISECONDS);
+        Runnable updateGrid = () -> {
+            try {
+                game.setPlate(databaseConnection.getFourInARowPlate(game));
+                game.setCurrentPlayer(databaseConnection.getGameCurrentPlayer(game));
 
-    }
+                game.checkWin();
 
-    private boolean setButton(int i, int j, char type) {
-        // TODO: Colored buttons and proper style
-
-        if(!grid[i][j].getText().equals(Character.toString(type))) {
-            switch (type) {
-                case 'R' -> grid[i][j].setText("R");
-                case 'B' -> grid[i][j].setText("B");
-                default  -> grid[i][j].setText("*");
+                // This call back is only to update the javafx display since
+                // it is not possible to access javafx components outside its thread
+                Platform.runLater(() -> {
+                    updateGrid(game.getPlate());
+                    updateCurrentPlayerLabel();
+                });
+            } catch (SQLException | IOException exception) {
+                exception.printStackTrace();
             }
+        };
 
-            return true;
-        }
-
-        return false;
+        this.scheduledExecutorService.scheduleAtFixedRate(fetchMessages, 500, 500, TimeUnit.MILLISECONDS);
+        this.scheduledExecutorService.scheduleAtFixedRate(updateGrid, 500, 500, TimeUnit.MILLISECONDS);
     }
+
 
     public FourInARow getGame() {
         return game;
@@ -262,39 +194,116 @@ public class FourInARowController extends Controller implements Initializable {
     }
 
     /**
-     * Wait 2 seconds for the backgrounds task still running and destroy the thread pool.
-     * @throws InterruptedException in case something was still running when it stops to wait
+     * Wait half a second for the backgrounds tasks still running and destroy the thread pool.
      */
     private void awaitBackgroundTasksAndShutdown()  {
         try {
-            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS); // 2 seconds
+            this.scheduledExecutorService.awaitTermination(500, TimeUnit.MILLISECONDS);
             this.scheduledExecutorService.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private void updateCurrentPlayerLabelAndDB() {
-        if(loggedPlayer.equals(game.getCurrentPlayer())) {
-            currentPlayerLabel.setText(String.format("%s, it's your turn to play", loggedPlayer.getPseudo()));
-            for(int i = 0; i < 7; i++) {
-                for(int j = 0; j < 7; j++)
-                    grid[i][j].setVisible(true);
-            }
-        } else {
-            currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+    @FXML
+    public void onColumn1Action() {
+        doPlayerTurn(0);
+    }
 
-            for(int i = 0; i < 7; i++) {
-                for(int j = 0; j < 7; j++)
-                    grid[i][j].setVisible(false);
-            }
-        }
+    @FXML
+    public void onColumn2Action() {
+        doPlayerTurn(1);
+    }
+
+    @FXML
+    public void onColumn3Action() {
+        doPlayerTurn(2);
+    }
+
+    @FXML
+    public void onColumn4Action() {
+        doPlayerTurn(3);
+    }
+
+    @FXML
+    public void onColumn5Action() {
+        doPlayerTurn(4);
+    }
+
+    @FXML
+    public void onColumn6Action() {
+        doPlayerTurn(5);
+    }
+
+    @FXML
+    public void onColumn7Action() {
+        doPlayerTurn(6);
+    }
+
+    private void doPlayerTurn(int column) {
+        game.playerPlayTurn(column);
+        updateGrid(game.getPlate());
+        game.switchCurrentPlayer();
+        game.checkWin();
 
         try {
+            databaseConnection.updateFourInARowPlate(game);
+
+            if(game.getWinner() != null) {
+                showAlert("Congratulation", "You won the game !!");
+                databaseConnection.updateGameStatus(game, Game.ENDED);
+                databaseConnection.setGameWinnerAndLooser(loggedPlayer, game.getCurrentPlayer(), game);
+                awaitBackgroundTasksAndShutdown();
+                sceneController.showScene(SceneController.ViewType.OngoingGames);
+            }
+
             databaseConnection.updateCurrentGamePlayer(game);
-        } catch (SQLException throwables) {
-            showAlert("Something wrong just happenned", "Unable to update the database, please check your Internet connection.");
-            throwables.printStackTrace();
+        } catch (SQLException exception) {
+            showAlert("Something wrong happened", "Unable to update the database !");
+            exception.printStackTrace();
+        }
+
+        this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+    }
+
+    private void updateGrid(char[][] grid) {
+        // Clear the grid
+        this.fourInARowGrid.getChildren().clear();
+        this.fourInARowGrid.setGridLinesVisible(true);
+
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[i].length; j++) {
+                if(grid[i][j] != '*') {
+                    Circle circle = new Circle(50.0);
+
+                    if(grid[i][j] == 'R')
+                        circle.setFill(Color.web("#c50000"));
+                    else
+                        circle.setFill(Color.web("#f4ad05"));
+
+                    circle.setStroke(Color.BLACK);
+                    circle.setStrokeType(StrokeType.INSIDE);
+
+                    this.fourInARowGrid.add(circle, j, i);
+                }
+            }
+        }
+    }
+
+    private void updateCurrentPlayerLabel() {
+        if(loggedPlayer.equals(game.getCurrentPlayer()))
+            this.currentPlayerLabel.setText(String.format("%s, it's your turn", loggedPlayer.getPseudo()));
+        else
+            this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+
+        if(game.getWinner() != null) {
+            if(game.getWinner().equals(loggedPlayer))
+                showAlert("Congratulation", "You won the game !!");
+            else
+                showAlert("Better luck next time :(", "You loose :(\nKeep training you will get better !");
+
+            awaitBackgroundTasksAndShutdown();
+            sceneController.showScene(SceneController.ViewType.OngoingGames);
         }
     }
 }
