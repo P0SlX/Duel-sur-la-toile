@@ -25,4 +25,5 @@ public interface Game {
     void setWinner(Player winner);
     void setScore(int score);
     void setState(int state);
+    void switchCurrentPlayer();
 }

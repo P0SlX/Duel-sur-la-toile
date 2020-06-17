@@ -302,6 +302,14 @@ public class FourInARow implements Game {
         this.state = state;
     }
 
+    @Override
+    public void switchCurrentPlayer() {
+        if(currentPlayer.equals(player1))
+            currentPlayer = player2;
+        else
+            currentPlayer = player1;
+    }
+
     /**
      * @param p The player that is playing
      * @param x the x coordinate of the selected case
