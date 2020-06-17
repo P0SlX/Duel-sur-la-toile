@@ -176,8 +176,10 @@ public class InvitationController extends Controller implements Initializable {
             databaseConnection.createInv(loggedPlayer, p, Invitation.INVFRIEND);
             showAlert("Friend request sucessfuly sent",
                     String.format("A friend request has been sent to %s.", p.getPseudo()));
-        } else
-            showAlert("No such player found !", String.format("Player : %s does not exists", this.friendRequestPlayerName.getText()));
+        } else {
+            showAlert("No such player found !", String.format("Player : %s does not exists",
+                    this.friendRequestPlayerName.getText()));
+        }
     }
 
     public void onProfilPlayerAction() throws IOException, SQLException {
