@@ -75,7 +75,7 @@
                <children>
                </children>
             </VBox>
-            <TextField fx:id="textMessage" floatText="Message" layoutX="5.0" layoutY="509.0" onKeyPressed="#onTextMessageKeyPressed" prefHeight="34.0" prefWidth="240.0" AnchorPane.bottomAnchor="10.0" />
+            <TextField fx:id="textMessage" layoutX="5.0" layoutY="509.0" onKeyPressed="#onTextMessageKeyPressed" prefHeight="34.0" prefWidth="240.0" promptText="Message" AnchorPane.bottomAnchor="10.0" />
          </children>
       </AnchorPane>
       <GridPane layoutX="500.0" layoutY="181.0" prefHeight="576.0" prefWidth="776.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="100.0">
@@ -93,7 +93,7 @@
             <AnchorPane>
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="93.0" layoutY="198.0" styleClass="label-jeux" text="4 in a Row" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
-                  <Button fx:id="fourInARow" layoutX="56.0" layoutY="14.0" mnemonicParsing="false" onAction="#onFourInARowAction" styleClass="transparence" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                  <Button fx:id="fourInARow" defaultButton="true" layoutX="56.0" layoutY="14.0" mnemonicParsing="false" onAction="#onFourInARowAction" styleClass="transparence" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                      <graphic>
                         <ImageView fitHeight="160.0" fitWidth="199.0" preserveRatio="true">
                            <image>
@@ -101,6 +101,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </AnchorPane>
