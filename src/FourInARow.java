@@ -317,36 +317,7 @@ public class FourInARow implements Game {
      * @return a boolean : is it possible to play here ?
      * @throws SQLException if something went wrong with the database
      */
-    public boolean playerPlayTurn(Player p, int x, int y) throws SQLException {
-        if(inPlate(x, y)) {
-            if(player1.equals(p)) {
-                if(plate[x][y] == '*') {
-                    char PLAYER1 = 'R';
-                    plate[x][y] = PLAYER1;
-
-                    if(checkWin()) {
-                        this.winner = player1;
-                        this.looser = player2;
-                    }
-
-                    databaseConnection.updateFourInARowPlate(this);
-                    return true;
-                }
-            } else if(player2.equals(p)) {
-                if(plate[x][y] == '*') {
-                    char PLAYER2 = 'B';
-                    plate[x][y] = PLAYER2;
-
-                    if(checkWin()) {
-                        this.winner = this.player2;
-                        this.looser = this.player1;
-                    }
-
-                    databaseConnection.updateFourInARowPlate(this);
-                    return true;
-                }
-            }
-        }
+    public boolean playerPlayTurn(Player p, int column) throws SQLException {
 
         return false;
     }

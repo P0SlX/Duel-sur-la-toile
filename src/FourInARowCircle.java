@@ -1,16 +1,16 @@
-import javafx.scene.control.Button;
+import javafx.scene.shape.Circle;
 import util.Pair;
 
-public class FourInARowButton extends Button {
+public class FourInARowCircle extends Circle {
 
     private Pair<Integer, Integer> coords;
 
-    public FourInARowButton(int x, int y) {
+    public FourInARowCircle(int x, int y) {
         super();
         this.coords = new Pair<>(x, y);
     }
 
-    public FourInARowButton() {
+    public FourInARowCircle() {
         super();
     }
 
