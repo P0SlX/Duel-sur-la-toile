@@ -233,10 +233,6 @@ public class FourInARowController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onPlayerProfilAction(ActionEvent actionEvent) {
-    }
-
-    @FXML
     public void onTextMessageKeyPressed(KeyEvent keyEvent) throws SQLException, IOException {
         if(keyEvent.getCode().equals(KeyCode.ENTER)) {
             Player receiver = databaseConnection.getPlayer(senderPseudo.getText());
