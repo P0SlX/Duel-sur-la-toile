@@ -1,4 +1,4 @@
-# Projet second Semestre Groupe 1A12B - IUT d'Orléans - Année 2019-2020
+# Projet second Semestre Groupe 1A12A - IUT d'Orléans - Année 2019-2020
 
 Ce que c'est
 ------
