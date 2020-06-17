@@ -422,12 +422,12 @@ public class FourInARow implements Game {
      * @return a char[][] which holds the game plate
      */
     private char[][] jsonToPlate(String jsonCode) {
-        char[][] res = new char[7][7];
+        char[][] res = new char[6][7];
 
         try {
             JSONArray jsonArray = new JSONArray(jsonCode);
 
-            for(int i = 0; i < 7; i++) {
+            for(int i = 0; i < 6; i++) {
                 JSONArray line = (JSONArray)jsonArray.get(i);
 
                 for(int j = 0; j < 7; j++)

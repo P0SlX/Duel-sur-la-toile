@@ -57,7 +57,7 @@ public class FourInARowController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.grid = new FourInARowCircle[6][7];
 
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < 6; i++) {
             for(int j = 0; j < 7; j++) {
                 grid[i][j] = new FourInARowCircle(i, j);
                 fourInARowGrid.add(grid[i][j], j, i);
