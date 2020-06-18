@@ -1,6 +1,7 @@
-# Projet second Semestre Groupe 1A12B - IUT Orléans - Année 2019-2020
+# Projet second Semestre Groupe 1A12A - IUT d'Orléans - Année 2019-2020
 
-## Ce que c'est
+Ce que c'est
+------
 
 Le but de ce projet est de créer une interface de duel en ligne. Pour l'exemple il y'a actuellement
 un jeu de puissance 4 implémenté.
@@ -14,7 +15,8 @@ de communiquer avec son adversaire en temps réel pendant une partie.
 Un système d'invitations pour lancer des parties avec ses amis est présent. C'est d'ailleurs le seul
 moyen de lancer une partie pour le moment tant qu'un système de matchmaking n'est pas implémenté.
 
-## D'un point de vue technique
+D'un point de vue technique
+------
 
 ### Compilation
 
@@ -35,10 +37,11 @@ Voici une liste des librairies et outils utilisés pour la réalisation de ce pr
 ### Analyse du projet
 
 Tout les documents, concernants l'analyse du projet comme l'analyse UML de cas d'utilisation ou encore
-le MCD de la base de données sont disponibles dans le dossier diagrammes à la racine du projet.
+le MCD de la base de données sont disponibles dans le dossier diagrammes à la racine du projet
 au format `pdf` et `png`.
 
-## Ce qu'il reste a faire
+Ce qu'il reste a faire
+------
 
 Pour des raisons de contraintes de temps, certaines parties du projet n'ont pas pu être dévelloppé à
 temps :
@@ -46,7 +49,8 @@ temps :
     - Un "matchmaking" pour le lancement d'une partie contre un adversaire aléatoire.
     - La possibilité d'observer une partie en cours pour les autres joueurs
 
-## L'équipe du projet
+L'équipe du projet
+------
 
 Voici les membres de l'équipe ayant participé a la réalisation de ce projet :
 
@@ -55,7 +59,8 @@ Voici les membres de l'équipe ayant participé a la réalisation de ce projet :
     - Florian Savouré
     - Jordan Thibout
     - Théo Jehenne-Cousty
-    - ~~Yassine Thaibout~~ (a quitté le groupe)
+    - Yassine Thaibout (a quitté le groupe)
 
 Professeure référente du groupe :
+
     - Mme Adobet
