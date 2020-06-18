@@ -107,7 +107,7 @@ public class PlayerAccountController extends Controller implements Initializable
                             showAlert("Invitation successfully sent",
                                     String.format("Invitation sent to %s.", p.getPseudo()));
                         } catch(SQLException exception) {
-                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            showAlert("Couldn't send invitation", "Check your internet connection and try again.");
                             exception.printStackTrace();
                         }
                     });
