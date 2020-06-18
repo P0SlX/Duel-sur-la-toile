@@ -1,7 +1,7 @@
 public class Message{
 
-    private String content;
-    private String date;
+    private final String content;
+    private final String date;
     private String senderPseudo;
     private String receiverPseudo;
     private int id;
@@ -22,7 +22,7 @@ public class Message{
      */
     public Message(String content) {
         this.content = content;
-        this.date = new String();
+        this.date = "";
     }
 
     /**

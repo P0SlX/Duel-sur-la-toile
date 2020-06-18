@@ -45,6 +45,8 @@ public class InvitationController extends Controller implements Initializable {
 
     private MainMenuController mainMenuController;
 
+    private FourInARowController fourInARowController;
+
     private boolean clicked = false;
 
     @Override
@@ -156,7 +158,9 @@ public class InvitationController extends Controller implements Initializable {
                     inv.accept();
 
                     if(inv instanceof GameInvitation) {
-                        databaseConnection.addNewGame(inv.getReceiver(), inv.getSender());
+                        int id = databaseConnection.addNewGame(inv.getReceiver(), inv.getSender());
+                        fourInARowController.initController(databaseConnection.getFourInARowGame(id));
+                        this.sceneController.showScene(SceneController.ViewType.FourInARowGame);
                     } else {
                         databaseConnection.addNewFriend(loggedPlayer, inv.getSender());
                     }
@@ -248,5 +252,9 @@ public class InvitationController extends Controller implements Initializable {
             showAlert("Are you kidding ?", "You're already on the panel !!");
             this.clicked = true;
         }
+    }
+
+    public void setFourInARowController(FourInARowController fourInARowController) {
+        this.fourInARowController = fourInARowController;
     }
 }

@@ -12,7 +12,7 @@ public class FourInARow implements Game {
     private char[][] plate;
     private String startTime;
     private String finishTime;
-    private int elementPlacedCount;
+    private final int elementPlacedCount;
     private int gameID;
     private int state;
     private int score;
