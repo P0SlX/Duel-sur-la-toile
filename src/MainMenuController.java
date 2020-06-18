@@ -114,8 +114,7 @@ public class MainMenuController extends Controller implements Initializable {
         this.pseudo.setText(player.getPseudo());
         this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
 
-        if(loggedPlayer.isAdmin())
-            initMainViewAsAdmin();
+        initMainViewMenu();
 
         avatar.setImage(loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();
@@ -231,7 +230,7 @@ public class MainMenuController extends Controller implements Initializable {
         }
     }
 
-    private void initMainViewAsAdmin() {
+    private void initMainViewMenu() {
         this.profileMenu.getItems().clear();
 
         MenuItem menuItem = new MenuItem("Admin Panel");
@@ -252,7 +251,10 @@ public class MainMenuController extends Controller implements Initializable {
             }
         });
 
-        this.profileMenu.getItems().addAll(profilItem, menuItem);
+        if(loggedPlayer.isAdmin())
+            this.profileMenu.getItems().addAll(profilItem, menuItem);
+        else
+            this.profileMenu.getItems().add(profilItem);
     }
 
     public void setAdminPanelController(AdminPanelController adminPanelController) {
