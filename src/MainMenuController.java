@@ -244,7 +244,6 @@ public class MainMenuController extends Controller implements Initializable {
             awaitBackgroundTasksAndShutdown();
             messageZone.setVisible(false);
             messageList.getChildren().clear();
-            adminPanelController.setMainMenuController(this);
             sceneController.showScene(SceneController.ViewType.AdminPanel);
         });
 

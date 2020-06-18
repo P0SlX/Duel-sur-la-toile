@@ -20,6 +20,7 @@ public class MainView extends Application {
     private FourInARowController fourInARowController;
     private PlayerAccountController playerAccountController;
     private InvitationController invitationController;
+    private AdminPanelController adminPanelController;
 
     private MainMenuController mainMenuController;
 
@@ -39,7 +40,6 @@ public class MainView extends Application {
             } else if(controller instanceof MainMenuController) {
                 this.mainMenuController = (MainMenuController) controller;
                 this.ongoingGamesController.setMainMenuController(mainMenuController);
-                this.mainMenuController.setInvitationController(this.invitationController);
 
             } else if (controller instanceof PlayerAccountController) {
                 this.playerAccountController = (PlayerAccountController) controller;
@@ -53,8 +53,10 @@ public class MainView extends Application {
 
             else if(controller instanceof InvitationController)
                 this.invitationController = (InvitationController)controller;
-            else if(controller instanceof AdminPanelController)
-                ((AdminPanelController)controller).setMainMenuController(this.mainMenuController);
+            else if(controller instanceof AdminPanelController) {
+                this.adminPanelController = (AdminPanelController)controller;
+                this.adminPanelController.setMainMenuController(this.mainMenuController);
+            }
 
             return root;
         } catch (Exception e) {
@@ -109,6 +111,7 @@ public class MainView extends Application {
 
             this.mainMenuController.setOngoingGamesController(this.ongoingGamesController);
             this.mainMenuController.setPlayerAccountController(this.playerAccountController);
+            this.mainMenuController.setAdminPanelController(this.adminPanelController);
             Controller.setInvitationController(this.invitationController);
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
