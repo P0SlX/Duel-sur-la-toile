@@ -22,7 +22,7 @@ public abstract class Controller {
             "-fx-text-fill: white;" +
             "-fx-opacity: 1;";
 
-    protected static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0;";
+    protected static final String BUTTON = "-fx-background-color: #1e90ff; -fx-border-color: #1E90FF; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white; -fx-padding: 0; -fx-cursor: hand;";
 
     protected static DatabaseConnection databaseConnection;
 

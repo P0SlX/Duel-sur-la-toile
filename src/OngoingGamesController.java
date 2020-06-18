@@ -64,13 +64,23 @@ public class OngoingGamesController extends Controller implements Initializable 
     }
 
     public void initOnGoingGameView() throws IOException, SQLException {
-
         this.loggedPlayer = getLoggedPlayer();
         this.friendList.getChildren().clear();
+
         ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
 
         for(Player p : friends)
-            Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"), actionEvent -> System.out.println("Not implemented"));
+            Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"),
+                    actionEvent -> {
+                        try {
+                            databaseConnection.createInv(loggedPlayer, p, true); // game invitation
+                            showAlert("Invitation successfully sent",
+                                    String.format("Invitation sent to %s.", p.getPseudo()));
+                        } catch(SQLException exception) {
+                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            exception.printStackTrace();
+                        }
+                    });
 
         this.pseudo.setText(loggedPlayer.getPseudo());
         this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
