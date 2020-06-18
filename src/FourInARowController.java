@@ -241,29 +241,31 @@ public class FourInARowController extends Controller implements Initializable {
     }
 
     private void doPlayerTurn(int column) {
-        game.playerPlayTurn(column);
-        updateGrid(game.getPlate());
-        game.switchCurrentPlayer();
-        game.checkWin();
+        if (game.playerPlayTurn(column)) {
+            updateGrid(game.getPlate());
+            game.switchCurrentPlayer();
+            game.checkWin();
 
-        try {
-            databaseConnection.updateFourInARowPlate(game);
+            try {
+                databaseConnection.updateFourInARowPlate(game);
 
-            if(game.getWinner() != null) {
-                showAlert("Congratulation", "You won the game !!");
-                databaseConnection.updateGameStatus(game, Game.ENDED);
-                databaseConnection.setGameWinnerAndLooser(loggedPlayer, game.getCurrentPlayer(), game);
-                awaitBackgroundTasksAndShutdown();
-                sceneController.showScene(SceneController.ViewType.OngoingGames);
+                if (game.getWinner() != null) {
+                    showAlert("Congratulation", "You won the game !!");
+                    databaseConnection.updateGameStatus(game, Game.ENDED);
+                    databaseConnection.setGameWinnerAndLooser(loggedPlayer, game.getCurrentPlayer(), game);
+                    awaitBackgroundTasksAndShutdown();
+                    sceneController.showScene(SceneController.ViewType.OngoingGames);
+                }
+
+                databaseConnection.updateCurrentGamePlayer(game);
+            } catch (SQLException exception) {
+                showAlert("Something wrong happened", "Unable to update the database !");
+                exception.printStackTrace();
             }
 
-            databaseConnection.updateCurrentGamePlayer(game);
-        } catch (SQLException exception) {
-            showAlert("Something wrong happened", "Unable to update the database !");
-            exception.printStackTrace();
-        }
-
-        this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+            this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
+        } else
+            showAlert("You can't play here", "Please choose an other column ...");
     }
 
     private void updateGrid(char[][] grid) {
