@@ -217,7 +217,7 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onInvitationsAction() {
+    public void onInvitationsAction() throws IOException, SQLException {
         awaitBackgroundTasksAndShutdown();
         invitationController.initInvitationController();
         this.sceneController.showScene(SceneController.ViewType.Invitations);

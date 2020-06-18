@@ -7,9 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
 
 import java.io.IOException;
@@ -29,6 +31,15 @@ public class InvitationController extends Controller implements Initializable {
 
     @FXML
     public TextField friendRequestPlayerName;
+
+    @FXML
+    public VBox friendList;
+
+    @FXML
+    public ImageView avatar;
+
+    @FXML
+    public Label ratio;
 
     private PlayerAccountController playerAccountController;
 
@@ -50,8 +61,20 @@ public class InvitationController extends Controller implements Initializable {
         sceneController.showScene(SceneController.ViewType.MainMenu);
     }
 
-    public void initInvitationController() {
+    public void initInvitationController() throws IOException, SQLException {
         this.pseudo.setText(loggedPlayer.getPseudo());
+        this.friendList.getChildren().clear();
+        this.avatar.setImage(loggedPlayer.getPlayerAvatar());
+        Ellipse circle = new Ellipse();
+        circle.setRadiusX(30);
+        circle.setRadiusY(30);
+        avatar.setClip(circle);
+        circle.setCenterX(30);
+        circle.setCenterY(30);
+        this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
+
+        // TODO Panel admin disponible when isAdmin
+
         ArrayList<? extends Invitation> invitations;
 
         try {
@@ -60,6 +83,21 @@ public class InvitationController extends Controller implements Initializable {
             throwables.printStackTrace();
             invitations = new ArrayList<>();
         }
+
+        ArrayList<Player> friends = databaseConnection.getFriends(databaseConnection.getPlayer(pseudo.getText()));
+
+        for(Player p : friends)
+            Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"),
+                    actionEvent -> {
+                        try {
+                            databaseConnection.createInv(loggedPlayer, p, true); // game invitation
+                            showAlert("Invitation successfully sent",
+                                    String.format("Invitation sent to %s.", p.getPseudo()));
+                        } catch(SQLException exception) {
+                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            exception.printStackTrace();
+                        }
+                    });
 
         loadInvitations(invitations);
     }

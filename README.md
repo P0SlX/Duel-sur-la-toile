@@ -5,7 +5,7 @@
 Le but de ce projet est de créer une interface de duel en ligne. Pour l'exemple il y'a actuellement
 un jeu de puissance 4 implémenté.
 Il est tout de même possible d'ajouter d'autres jeux.
-L'interface a été pensé pour être la plus simpliste possible, afin d'obtenir une prise en main rapide.
+L'interface a été pensée pour être la plus simpliste possible, afin d'obtenir une prise en main rapide.
 
 ### Interactions
 

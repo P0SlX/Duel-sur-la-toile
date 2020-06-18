@@ -212,7 +212,7 @@ public class PlayerAccountController extends Controller implements Initializable
     }
 
     @FXML
-    public void onInvitationsAction() {
+    public void onInvitationsAction() throws IOException, SQLException {
         invitationController.initInvitationController();
         this.sceneController.showScene(SceneController.ViewType.Invitations);
     }
