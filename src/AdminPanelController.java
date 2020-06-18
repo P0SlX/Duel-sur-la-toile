@@ -178,5 +178,6 @@ public class AdminPanelController extends Controller implements Initializable {
     @FXML
     public void onDisconnectAction() throws SQLException {
         databaseConnection.setStatus(loggedPlayer, Player.DISCONNECTED);
+        sceneController.showScene(SceneController.ViewType.Login);
     }
 }
