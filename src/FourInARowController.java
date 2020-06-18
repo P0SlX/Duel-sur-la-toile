@@ -73,6 +73,8 @@ public class FourInARowController extends Controller implements Initializable {
 
     private ScheduledExecutorService scheduledExecutorService;
 
+    private boolean gameEndShown = false;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.grid = new Circle[6][7];
@@ -89,6 +91,7 @@ public class FourInARowController extends Controller implements Initializable {
 
 
     public void initController(FourInARow currentGame) throws IOException, SQLException {
+        gameEndShown = false;
         updateGrid(currentGame.getPlate());
         this.game = currentGame;
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
@@ -155,7 +158,7 @@ public class FourInARowController extends Controller implements Initializable {
                 // it is not possible to access javafx components outside its thread
                 Platform.runLater(() -> {
                     updateGrid(game.getPlate());
-                    updateCurrentPlayerLabel();
+                    if(!gameEndShown) updateCurrentPlayerLabel();
                 });
             } catch (SQLException | IOException exception) {
                 exception.printStackTrace();
@@ -340,6 +343,7 @@ public class FourInARowController extends Controller implements Initializable {
             else
                 showAlert("Better luck next time :(", "You loose :(\nKeep training you will get better !");
 
+            gameEndShown = true;
             awaitBackgroundTasksAndShutdown();
             sceneController.showScene(SceneController.ViewType.OngoingGames);
         }
