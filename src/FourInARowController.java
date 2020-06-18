@@ -98,7 +98,19 @@ public class FourInARowController extends Controller implements Initializable {
         this.currentPlayerLabel.setText(String.format("%s, it's your turn to play !", loggedPlayer.getPseudo()));
 
         this.pseudo.setText(loggedPlayer.getPseudo());
+        this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
 
+        // loggedPlayer's avatar
+        this.avatar.setImage(loggedPlayer.getPlayerAvatar());
+        this.roundAvatar(this.avatar, 30);
+        this.avatar111.setImage(loggedPlayer.getPlayerAvatar());
+        this.roundAvatar(this.avatar111, 30);
+
+        // Enemy's avatar
+        this.avatar11.setImage(enemy.getPlayerAvatar());
+        this.roundAvatar(this.avatar11, 30);
+        this.avatar1.setImage(enemy.getPlayerAvatar());
+        this.roundAvatar(this.avatar1, 25);
 
         senderPseudo.setText(enemy.getPseudo());
         this.friendList.getChildren().clear();
