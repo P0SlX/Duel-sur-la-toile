@@ -361,7 +361,6 @@ public class FourInARow implements Game {
                     return true;
             }
         }
-
         return false;
     }
 

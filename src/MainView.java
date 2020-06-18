@@ -134,8 +134,7 @@ public class MainView extends Application {
     @Override
     public void stop() throws SQLException, FileNotFoundException {
         if (Controller.getLoggedPlayer() != null){
-            Controller.getLoggedPlayer().setEtat(0);
-            databaseConnection.updatePlayer(Controller.getLoggedPlayer());
+            databaseConnection.setStatus(Controller.getLoggedPlayer(), 0);
         }
         Platform.exit();
     }
