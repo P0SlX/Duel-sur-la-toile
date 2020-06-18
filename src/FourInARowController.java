@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.StrokeType;
 
 import java.io.IOException;
@@ -26,8 +27,18 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FourInARowController extends Controller implements Initializable {
+
+    @FXML
+    public ImageView avatar;
+
     @FXML
     public ImageView avatar1;
+
+    @FXML
+    public ImageView avatar11;
+
+    @FXML
+    public ImageView avatar111;
 
     @FXML
     private GridPane fourInARowGrid;
@@ -40,6 +51,9 @@ public class FourInARowController extends Controller implements Initializable {
 
     @FXML
     private Label senderPseudo;
+
+    @FXML
+    private Label ratio;
 
     @FXML
     private VBox friendList;
@@ -64,20 +78,30 @@ public class FourInARowController extends Controller implements Initializable {
         this.grid = new Circle[6][7];
     }
 
+    private void roundAvatar(ImageView im, int radius) {
+        Ellipse circle = new Ellipse();
+        circle.setRadiusX(radius);
+        circle.setRadiusY(radius);
+        im.setClip(circle);
+        circle.setCenterX(radius);
+        circle.setCenterY(radius);
+    }
+
+
     public void initController(FourInARow currentGame) throws IOException, SQLException {
         updateGrid(currentGame.getPlate());
         this.game = currentGame;
         Player enemy = currentGame.getPlayer1().equals(loggedPlayer) ?
                 currentGame.getPlayer2() : currentGame.getPlayer1();
 
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(2); // A thread for each task running
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(1); // A thread for each task running
         this.currentPlayerLabel.setText(String.format("%s, it's your turn to play !", loggedPlayer.getPseudo()));
 
-        pseudo.setText(loggedPlayer.getPseudo());
-        // TODO: Ratio
+        this.pseudo.setText(loggedPlayer.getPseudo());
+
 
         senderPseudo.setText(enemy.getPseudo());
-
+        this.friendList.getChildren().clear();
         ArrayList<Player> friends = databaseConnection.getFriends(databaseConnection.getPlayer(pseudo.getText()));
 
         for(Player p : friends)
