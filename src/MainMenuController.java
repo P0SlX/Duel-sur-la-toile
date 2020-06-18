@@ -244,22 +244,20 @@ public class MainMenuController extends Controller implements Initializable {
             awaitBackgroundTasksAndShutdown();
             messageZone.setVisible(false);
             messageList.getChildren().clear();
-            //adminPanelController.setMainMenuController(this);
+            adminPanelController.setMainMenuController(this);
             sceneController.showScene(SceneController.ViewType.AdminPanel);
         });
 
-        MenuItem profileItem = new MenuItem("Profile");
-        menuItem.setOnAction(actionEvent -> {
+        MenuItem profilItem = new MenuItem("Profil");
+        profilItem.setOnAction(actionEvent -> {
             try {
                 this.onPlayerAccountAction();
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace();
-            } catch (SQLException exception) {
-                exception.printStackTrace();
             }
         });
 
-        this.profileMenu.getItems().addAll(profileItem, menuItem);
+        this.profileMenu.getItems().addAll(profilItem, menuItem);
     }
 
     public void setAdminPanelController(AdminPanelController adminPanelController) {
