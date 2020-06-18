@@ -69,8 +69,6 @@ public class MainMenuController extends Controller implements Initializable {
 
     private OngoingGamesController ongoingGamesController;
 
-    private PlayerAccountController playerAccountController;
-
     private ScheduledExecutorService scheduledExecutorService;
 
     private AdminPanelController adminPanelController;
