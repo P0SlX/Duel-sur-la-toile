@@ -236,6 +236,8 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
     private void initMainViewAsAdmin() {
+        this.profileMenu.getItems().clear();
+
         MenuItem menuItem = new MenuItem("Admin Panel");
         menuItem.setMnemonicParsing(false);
         menuItem.setOnAction(actionEvent -> {
@@ -246,7 +248,18 @@ public class MainMenuController extends Controller implements Initializable {
             sceneController.showScene(SceneController.ViewType.AdminPanel);
         });
 
-        this.profileMenu.getItems().add(menuItem);
+        MenuItem profileItem = new MenuItem("Profile");
+        menuItem.setOnAction(actionEvent -> {
+            try {
+                this.onPlayerAccountAction();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        });
+
+        this.profileMenu.getItems().addAll(profileItem, menuItem);
     }
 
     public void setAdminPanelController(AdminPanelController adminPanelController) {
