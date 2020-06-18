@@ -234,10 +234,6 @@ public class InvitationController extends Controller implements Initializable {
         this.mainMenuController = mainMenuController;
     }
 
-    public void setPlayerAccountController(PlayerAccountController playerAccountController) {
-        this.playerAccountController = playerAccountController;
-    }
-
     @FXML
     public void onInvitationsAction() {
         if (this.clicked) {

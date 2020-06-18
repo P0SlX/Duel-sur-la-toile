@@ -110,9 +110,11 @@ public class MainView extends Application {
             Pane adminPanel      = new Pane(loadRootWithController("UI/Admin.fxml"));
 
             this.mainMenuController.setOngoingGamesController(this.ongoingGamesController);
-            this.mainMenuController.setPlayerAccountController(this.playerAccountController);
             this.mainMenuController.setAdminPanelController(this.adminPanelController);
+            this.adminPanelController.setMainMenuController(this.mainMenuController);
+            this.playerAccountController.setMainMenuController(this.mainMenuController);
             Controller.setInvitationController(this.invitationController);
+            Controller.setPlayerAccountController(this.playerAccountController);
 
             sceneController.addScene(SceneController.ViewType.Login, loginScene);
             sceneController.addScene(SceneController.ViewType.Register, registerScene);

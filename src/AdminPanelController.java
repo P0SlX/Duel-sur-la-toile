@@ -87,7 +87,9 @@ public class AdminPanelController extends Controller implements Initializable {
     }
 
     @FXML
-    public void onPlayerAction() {
+    public void onPlayerAction() throws IOException, SQLException {
+        playerAccountController.initPlayerAccountController(loggedPlayer);
+        sceneController.showScene(SceneController.ViewType.PlayerAccount);
     }
 
     @FXML

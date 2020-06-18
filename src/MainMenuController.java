@@ -202,10 +202,6 @@ public class MainMenuController extends Controller implements Initializable {
         Platform.exit();
     }
 
-    public void setPlayerAccountController(PlayerAccountController playerAccountController) {
-        this.playerAccountController = playerAccountController;
-    }
-
     @FXML
     public void onPlayerAccountAction() throws IOException, SQLException {
         awaitBackgroundTasksAndShutdown();
@@ -264,5 +260,4 @@ public class MainMenuController extends Controller implements Initializable {
     }
 
 }
-
 

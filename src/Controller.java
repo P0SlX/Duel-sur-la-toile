@@ -30,6 +30,8 @@ public abstract class Controller {
 
     protected static InvitationController invitationController;
 
+    protected static PlayerAccountController playerAccountController;
+
     protected SceneController sceneController;
 
     public void setSceneController(SceneController sceneController) {
@@ -188,6 +190,10 @@ public abstract class Controller {
 
     protected static Player getLoggedPlayer() {
         return loggedPlayer;
+    }
+
+    protected static void setPlayerAccountController(PlayerAccountController player) {
+        playerAccountController = player;
     }
 
 }
