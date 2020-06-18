@@ -87,7 +87,7 @@ public class PlayerAccountController extends Controller implements Initializable
 
         this.loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
-        this.ratio.setText("Ratio: " + ps.getRatio());
+        this.ratio.setText("Ratio: " + ps.getRatio() );
 
         avatar.setImage(loggedPlayer.getPlayerAvatar());
         this.setAvatar(avatar, loggedPlayer, 30);
@@ -104,7 +104,7 @@ public class PlayerAccountController extends Controller implements Initializable
                             showAlert("Invitation successfully sent",
                                     String.format("Invitation sent to %s.", p.getPseudo()));
                         } catch(SQLException exception) {
-                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            showAlert("Couldn't send invitation", "Check your internet connection and try again.");
                             exception.printStackTrace();
                         }
                     });
