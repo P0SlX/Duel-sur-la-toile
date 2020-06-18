@@ -320,6 +320,16 @@ public class DatabaseConnection {
         return listGameHistory;
     }
 
+    public FourInARow getFourInARowGame(int gameID) throws SQLException, IOException {
+        PreparedStatement ps = c.prepareStatement("select * from PARTIE natural join JOUER where gameID=?");
+        ps.setInt(1, gameID);
+
+        ResultSet resultSet = ps.executeQuery();
+        resultSet.next();
+
+        return createFourInARowGameFromResultSet(resultSet);
+    }
+
     /**
      * recover all the party whatever the game
      * @param p Player whose we want the games
@@ -363,6 +373,7 @@ public class DatabaseConnection {
             );
             listGameHistory.add(g);
         }
+
     }
     /***************************/
 
@@ -426,9 +437,10 @@ public class DatabaseConnection {
      * create a new Game of the game g betwen two players, p1 and p2
      * @param p1 Player, first player in the game
      * @param p2 Player, second player in the game
+     * @return the new game id
      * @throws SQLException
      */
-    public void addNewGame(Player p1, Player p2) throws SQLException {
+    public int addNewGame(Player p1, Player p2) throws SQLException {
         char[][] plate = new char[7][7];
         for(int i = 0; i < 7; i++) {
             for(int j = 0; j < 7; j++)
@@ -447,6 +459,8 @@ public class DatabaseConnection {
         ps2.setString(2, p2.getPseudo());
         ps2.setInt(3, this.getMaxIDGame() + 1);
         ps2.executeUpdate();
+
+        return this.getMaxIDGame();
     }
 
     /**
@@ -648,6 +662,22 @@ public class DatabaseConnection {
     }
     /***************************/
 
+    private FourInARow createFourInARowGameFromResultSet(ResultSet resultSet) throws SQLException, IOException {
+        return new FourInARow(
+                this.getPlayer(resultSet.getString("pseudo")),
+                this.getPlayer(resultSet.getString("adversaire")),
+                this.getPlayer(resultSet.getString("currentPlayer")),
+                resultSet.getString("plate"),
+                resultSet.getDate("startTime").toString(),
+                resultSet.getDate("finishTime").toString(),
+                resultSet.getInt("elementPlaced"),
+                resultSet.getInt("gameID"),
+                resultSet.getInt("state"),
+                resultSet.getInt("score"),
+                resultSet.getString("nomJeu"),
+                this.getPlayer(resultSet.getString("winner")),
+                this.getPlayer(resultSet.getString("looser")));
+    }
     /**
      * Method to load an image from an InputStream (use for avatars)
      * @param inputStream, the InputStream of the image

@@ -45,8 +45,6 @@ public class OngoingGamesController extends Controller implements Initializable 
     @FXML
     public VBox activeGames;
 
-    private Player loggedPlayer;
-
     private FourInARowController fourInARowController;
 
     @Override
@@ -55,7 +53,7 @@ public class OngoingGamesController extends Controller implements Initializable 
 
     @FXML
     private void onBackHomeAction() throws IOException, SQLException {
-        this.mainMenuController.initMainControllerWithPlayer(this.loggedPlayer);
+        this.mainMenuController.initMainControllerWithPlayer(loggedPlayer);
         sceneController.showScene(SceneController.ViewType.MainMenu);
     }
 
@@ -67,7 +65,7 @@ public class OngoingGamesController extends Controller implements Initializable 
         this.loggedPlayer = getLoggedPlayer();
         this.friendList.getChildren().clear();
 
-        ArrayList<Player> friends = databaseConnection.getFriends(this.loggedPlayer);
+        ArrayList<Player> friends = databaseConnection.getFriends(loggedPlayer);
 
         for(Player p : friends)
             Controller.addFriend(p, this.friendList, actionEvent -> System.out.println("Can't do that yet !"),
@@ -77,7 +75,7 @@ public class OngoingGamesController extends Controller implements Initializable 
                             showAlert("Invitation successfully sent",
                                     String.format("Invitation sent to %s.", p.getPseudo()));
                         } catch(SQLException exception) {
-                            showAlert("Could'nt send invitation", "Check your internet connection and try again.");
+                            showAlert("Couldnt send invitation", "Check your internet connection and try again.");
                             exception.printStackTrace();
                         }
                     });
@@ -85,7 +83,7 @@ public class OngoingGamesController extends Controller implements Initializable 
         this.pseudo.setText(loggedPlayer.getPseudo());
         this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
 
-        avatar.setImage(this.loggedPlayer.getPlayerAvatar());
+        avatar.setImage(loggedPlayer.getPlayerAvatar());
         Ellipse circle = new Ellipse();
         circle.setRadiusX(30);
         circle.setRadiusY(30);
@@ -96,7 +94,7 @@ public class OngoingGamesController extends Controller implements Initializable 
         this.activeGames.getChildren().clear();
 
 
-        ArrayList<Game> games = databaseConnection.getActivesGames(this.loggedPlayer, GameType.FourInARow);
+        ArrayList<Game> games = databaseConnection.getActivesGames(loggedPlayer, GameType.FourInARow);
 
         // In case the player has not active game show a message
         if(games == null) {
@@ -117,7 +115,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             gameContainer.setPrefWidth(200.0);
             gameContainer.setSpacing(50);
 
-            String opponentName = this.loggedPlayer.getPseudo().equals(g.getPlayer1().getPseudo()) ?
+            String opponentName = loggedPlayer.getPseudo().equals(g.getPlayer1().getPseudo()) ?
                     g.getPlayer2().getPseudo() : g.getPlayer1().getPseudo();
 
             Label opponent = new Label("Against : " + opponentName);
@@ -136,7 +134,7 @@ public class OngoingGamesController extends Controller implements Initializable 
             startedOn.setAlignment(Pos.CENTER);
 
             Label yourTurn = new Label();
-            if(g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo())) {
+            if(g.getCurrentPlayer().getPseudo().equals(loggedPlayer.getPseudo())) {
                 yourTurn.setText("Your turn");
                 yourTurn.setTextFill(Color.web("#3cb929"));
             } else {
@@ -161,7 +159,7 @@ public class OngoingGamesController extends Controller implements Initializable 
                 sceneController.showScene(SceneController.ViewType.FourInARowGame);
             });
 
-            play.setDisable(!g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo()));
+            play.setDisable(!g.getCurrentPlayer().getPseudo().equals(loggedPlayer.getPseudo()));
             play.setMnemonicParsing(false);
             play.setStyle("-fx-background-color: #3F7FBF; -fx-border-radius: 30px; -fx-cursor: hand;");
             play.setTextFill(Color.WHITE);

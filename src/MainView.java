@@ -113,6 +113,7 @@ public class MainView extends Application {
             this.mainMenuController.setAdminPanelController(this.adminPanelController);
             this.adminPanelController.setMainMenuController(this.mainMenuController);
             this.playerAccountController.setMainMenuController(this.mainMenuController);
+            this.invitationController.setFourInARowController(this.fourInARowController);
             Controller.setInvitationController(this.invitationController);
             Controller.setPlayerAccountController(this.playerAccountController);
 
