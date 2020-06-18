@@ -1,12 +1,12 @@
 public class PlayerStatistics{
 
-    private double ratio;
-    private int victories;
-    private int defeats;
-    private int activeGames;
-    private int consecutiveWins;
-    private int playedGames;
-    private int abandonedGames;
+    private final double ratio;
+    private final int victories;
+    private final int defeats;
+    private final int activeGames;
+    private final int consecutiveWins;
+    private final int playedGames;
+    private final int abandonedGames;
 
     /** Builder of PlayerStatistics
      * @param victories int, number of games won by a player

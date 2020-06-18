@@ -2,11 +2,11 @@ import java.sql.Date;
 
 public class GameInvitation implements Invitation {
 
-    private Player emitter;
-    private Player receiver;
-    private java.sql.Date emissionDate;
+    private final Player emitter;
+    private final Player receiver;
+    private final java.sql.Date emissionDate;
     private int etatInv;
-    private int id;
+    private final int id;
 
     public GameInvitation(Player emitter, Player receiver, Date emissionDate, int etatInv, int id) {
         this.emitter = emitter;

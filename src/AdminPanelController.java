@@ -125,7 +125,6 @@ public class AdminPanelController extends Controller implements Initializable {
         this.mainMenuController = mainMenuController;
     }
 
-
     @FXML
     public void onSearchBarAction(KeyEvent event) throws IOException, SQLException {
         if(event.getCode().equals(KeyCode.ENTER)) {

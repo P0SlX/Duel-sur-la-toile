@@ -5,13 +5,13 @@ public interface Invitation {
     boolean INVGAME = true;
     boolean INVFRIEND = false;
 
-    public Player getSender();
-    public Player getReceiver();
-    public java.sql.Date getEmissionDate();
-    public int getEtatInv();
-    public int getId();
+    Player getSender();
+    Player getReceiver();
+    java.sql.Date getEmissionDate();
+    int getEtatInv();
+    int getId();
 
-    public void accept();
-    public void decline();
+    void accept();
+    void decline();
 
 }
