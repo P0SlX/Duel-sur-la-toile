@@ -10,7 +10,7 @@ L'interface a été pensé pour être la plus simpliste possible, afin d'obtenir
 
 ### Interactions
 
-Il est possible de communiquer au travers de l'application avec de court message. Il est aussi possible
+Il est possible de communiquer au travers de l'application avec de courts messages. Il est aussi possible
 de communiquer avec son adversaire en temps réel pendant une partie.
 Un système d'invitations pour lancer des parties avec ses amis est présent. C'est d'ailleurs le seul
 moyen de lancer une partie pour le moment tant qu'un système de matchmaking n'est pas implémenté.
@@ -20,7 +20,7 @@ D'un point de vue technique
 
 ### Compilation
 
-Un compilateur pour java14 est necessaire pour compiler le projet.
+Un compilateur pour java14 est nécessaire pour compiler le projet.
 
 ### Librairies et outils utilisés
 
@@ -36,14 +36,14 @@ Voici une liste des librairies et outils utilisés pour la réalisation de ce pr
 
 ### Analyse du projet
 
-Tout les documents, concernants l'analyse du projet comme l'analyse UML de cas d'utilisation ou encore
+Tous les documents, concernant l'analyse du projet comme l'analyse UML de cas d'utilisation ou encore
 le MCD de la base de données sont disponibles dans le dossier diagrammes à la racine du projet
 au format `pdf` et `png`.
 
 Ce qu'il reste a faire
 ------
 
-Pour des raisons de contraintes de temps, certaines parties du projet n'ont pas pu être dévelloppé à
+Pour des raisons de contraintes de temps, certaines parties du projet n'ont pas pu être développées à
 temps :
 
     - Un "matchmaking" pour le lancement d'une partie contre un adversaire aléatoire.
@@ -52,7 +52,7 @@ temps :
 L'équipe du projet
 ------
 
-Voici les membres de l'équipe ayant participé a la réalisation de ce projet :
+Voici les membres de l'équipe ayant participé à la réalisation de ce projet :
 
     - Anatole Boisserie
     - Corentin Machu
