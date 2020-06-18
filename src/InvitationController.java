@@ -74,6 +74,7 @@ public class InvitationController extends Controller implements Initializable {
         circle.setCenterX(30);
         circle.setCenterY(30);
         this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
+        this.clicked = false;
 
         // TODO Panel admin disponible when isAdmin
 
@@ -240,7 +241,8 @@ public class InvitationController extends Controller implements Initializable {
     @FXML
     public void onInvitationsAction() {
         if (this.clicked) {
-            showAlert("Noice ! You found an easter egg", "Developpers :\n" +
+            showAlert("Noice ! You found an easter egg",
+                    "Made with love by: \n" +
                     "  - Anatole Boisserie\n" +
                     "  - Corentin Machu\n" +
                     "  - Florian Savouré\n" +
