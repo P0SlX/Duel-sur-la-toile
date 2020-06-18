@@ -1,7 +1,7 @@
 public interface Game {
-    public static final int CANCELED    = -2;
-    public static final int ENDED       = -1;
-    public static final int IN_PROGRESS = 0;
+    int CANCELED    = -2;
+    int ENDED       = -1;
+    int IN_PROGRESS = 0;
 
     String getStartTime();
     String getFinishTime();

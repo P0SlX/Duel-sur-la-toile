@@ -8,10 +8,10 @@ public class SceneController {
     public enum ViewType {
         Login, Register, MainMenu, PlayerAccount,
         FourInARowGame, OngoingGames, Invitations, AdminPanel
-    };
+    }
 
-    private HashMap<ViewType, Pane> views;
-    private Scene mainScene;
+    private final HashMap<ViewType, Pane> views;
+    private final Scene mainScene;
 
     public SceneController(Scene mainScene) {
         this.views = new HashMap<>();

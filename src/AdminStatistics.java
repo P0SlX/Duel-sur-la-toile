@@ -1,7 +1,7 @@
 public class AdminStatistics {
-    private double gamesLaunchedPerHour;
-    private double getGamesLaunchedPerDay;
-    private double gamesLaunchedPerMonth;
+    private final double gamesLaunchedPerHour;
+    private final double getGamesLaunchedPerDay;
+    private final double gamesLaunchedPerMonth;
 
     /**
      * Builder of adminStatistics

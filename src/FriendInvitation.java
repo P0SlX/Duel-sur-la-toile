@@ -1,10 +1,10 @@
 public class FriendInvitation implements Invitation {
 
-    private Player emitter;
-    private Player receiver;
-    private java.sql.Date emissionDate;
+    private final Player emitter;
+    private final Player receiver;
+    private final java.sql.Date emissionDate;
     private int etatInv;
-    private int id;
+    private final int id;
 
     public FriendInvitation(Player emitter, Player receiver, java.sql.Date emissionDate, int etatInv, int id) {
         this.emitter = emitter;
