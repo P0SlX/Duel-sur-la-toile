@@ -65,6 +65,9 @@ public class PlayerAccountController extends Controller implements Initializable
     public Label pseudoLeft;
 
     @FXML
+    public Label ratio2;
+
+    @FXML
     public VBox history;
 
     /**
@@ -87,7 +90,7 @@ public class PlayerAccountController extends Controller implements Initializable
 
         this.loggedPlayer = Controller.getLoggedPlayer();
         this.pseudo.setText(player.getPseudo());
-        this.ratio.setText("Ratio: " + ps.getRatio());
+        this.ratio.setText("Ratio: " + String.format("%.3g%n",databaseConnection.getPlayerStatistics(loggedPlayer).getRatio()));
 
         avatar.setImage(loggedPlayer.getPlayerAvatar());
         this.setAvatar(avatar, loggedPlayer, 30);
@@ -126,7 +129,7 @@ public class PlayerAccountController extends Controller implements Initializable
     private void displayPlayerStat(Player p) throws SQLException {
         this.pseudoLeft.setText(p.getPseudo());
 
-        this.ratio.setText("Ratio: " + this.ps.getRatio());
+        this.ratio2.setText("Ratio: " + String.format("%.3g%n",this.ps.getRatio()));
         this.victories.setText("Victories: " + this.ps.getVictories());
         this.defeat.setText("Defeat: " + this.ps.getDefeats());
         this.activeGames.setText("Active Games: " + this.ps.getActiveGames());
