@@ -26,7 +26,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
     </MenuBar>
-      <AnchorPane layoutX="1324.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+      <AnchorPane layoutX="1344.0" layoutY="50.0" minHeight="0.0" minWidth="0.0" prefHeight="815.0" prefWidth="272.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
             <AnchorPane prefHeight="96.0" prefWidth="272.0" AnchorPane.topAnchor="0.0">
                <children>

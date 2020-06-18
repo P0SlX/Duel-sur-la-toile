@@ -350,8 +350,12 @@ public class FourInARowController extends Controller implements Initializable {
             this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
 
         if(game.getWinner() != null) {
-            if(game.getWinner().equals(loggedPlayer))
-                showAlert("Congratulation", "You won the game !!");
+            if(game.getWinner().equals(loggedPlayer)) {
+                Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                al.setTitle("Congratulation");
+                al.setContentText("You won the game !!");
+                al.show();
+            }
             else
                 showAlert("Better luck next time :(", "You loose :(\nKeep training you will get better !");
 

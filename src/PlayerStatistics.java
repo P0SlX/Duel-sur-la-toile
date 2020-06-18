@@ -13,10 +13,9 @@ public class PlayerStatistics{
      * @param defeats int, number of games lose by a player
      * @param activeGames int, number of games in_progress
      * @param consecutiveWins int, number of consecutive win by a player
-     * @param playedGames int, number of games played by a player
      * @param abandonedGames int, number of games abandoned
      */
-    public PlayerStatistics(int victories, int defeats, int activeGames, int consecutiveWins, int playedGames, int abandonedGames) {
+    public PlayerStatistics(int victories, int defeats, int activeGames, int consecutiveWins, int abandonedGames) {
         if (defeats == 0) {
             this.ratio = victories;
         } else {
@@ -26,7 +25,7 @@ public class PlayerStatistics{
         this.defeats = defeats;
         this.activeGames = activeGames;
         this.consecutiveWins = consecutiveWins;
-        this.playedGames = playedGames;
+        this.playedGames = victories + defeats + abandonedGames;
         this.abandonedGames = abandonedGames;
     }
 
@@ -34,21 +33,21 @@ public class PlayerStatistics{
      * @return double, ratio between wins and defeat
      */
     public double getRatio() {
-        return ratio;
+        return this.ratio;
     }
 
     /**
      * @return int, number of games lose by a player
      */
     public int getDefeats() {
-        return defeats;
+        return this.defeats;
     }
 
     /**
      * @return int, number of consecutive win by a player
      */
     public int getConsecutiveWins() {
-        return consecutiveWins;
+        return this.consecutiveWins;
     }
 
     /**

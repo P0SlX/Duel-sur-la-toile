@@ -807,7 +807,6 @@ public class DatabaseConnection {
                 this.getDefeat(p),
                 this.getActiveGames(p),
                 this.getConsecutiveWins(p),
-                this.getPlayedGames(p),
                 this.getAbandonedGames(p)
         );
     }

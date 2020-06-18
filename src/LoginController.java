@@ -36,13 +36,21 @@ public class LoginController extends Controller implements Initializable {
 
         if(databaseConnection.connectPlayer(pseudo, password)) {
             Player p = databaseConnection.getPlayer(pseudo);
-            databaseConnection.setStatus(p, 1);
-            Controller.setLoggedPlayer(p);
-            this.mainMenuController.initMainControllerWithPlayer(p); // Init main menu view
-            sceneController.showScene(SceneController.ViewType.MainMenu);
+            if (!p.isDesactivated()) {
+                databaseConnection.setStatus(p, 1);
+                Controller.setLoggedPlayer(p);
+                this.mainMenuController.initMainControllerWithPlayer(p); // Init main menu view
+                sceneController.showScene(SceneController.ViewType.MainMenu);
 
-            // If the player log out later, it is preferable to not show password again
-            this.password.setText("");
+                // If the player log out later, it is preferable to not show password again
+                this.password.setText("");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login error");
+                alert.setHeaderText("Oops, an error just occurred !");
+                alert.setContentText("You have been banned.");
+                alert.show();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login error");
