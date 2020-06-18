@@ -310,6 +310,33 @@ insert into PARTIE values (
     "L'ananas"
 );
 
+insert into PARTIE values (
+    673,
+    "FourInARow",
+    "[
+[ *, *, *, *, R, *, *, ],\n
+[ *, *, *, *, B, *, *, ],\n
+[ *, *, *, *, B, *, *, ],\n
+[ *, *, *, *, R, *, *, ],\n
+[ *, *, *, *, B, *, *, ],\n
+[ *, *, *, *, B, *, *, ],\n
+]",
+    "Coco",
+    0,
+    CURDATE(),
+    CURDATE(),
+    18,
+    null,
+    null
+);
+
+insert into JOUER values (
+    "Coco",
+    "p0slx",
+    673,
+    872
+);
+
 insert into JOUER values (
     "p0slx",
     "Coco",
