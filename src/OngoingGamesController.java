@@ -55,6 +55,7 @@ public class OngoingGamesController extends Controller implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
     }
 
     @FXML
@@ -100,7 +101,8 @@ public class OngoingGamesController extends Controller implements Initializable 
 
         this.activeGames.getChildren().clear();
 
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        if(this.scheduledExecutorService.isShutdown())
+            this.scheduledExecutorService = Executors.newScheduledThreadPool(1);
 
         Runnable scheduledTask = () -> {
             try {
@@ -145,7 +147,7 @@ public class OngoingGamesController extends Controller implements Initializable 
                         startedOn.setAlignment(Pos.CENTER);
 
                         Label yourTurn = new Label();
-                        if (g.getCurrentPlayer().getPseudo().equals(this.loggedPlayer.getPseudo())) {
+                        if (g.getCurrentPlayer().getPseudo().equals(loggedPlayer.getPseudo())) {
                             yourTurn.setText("Your turn");
                             yourTurn.setTextFill(Color.web("#3cb929"));
                         } else {

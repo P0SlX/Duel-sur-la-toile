@@ -315,7 +315,7 @@ public class FourInARowController extends Controller implements Initializable {
             } else
                 showAlert("You can't play here", "Please choose an other column ...");
         } else {
-            showAlert("Please wait...", "Your enemy has not yet played");
+            showAlert("Please wait...", "Your enemy has not played yet");
         }
     }
 
