@@ -47,7 +47,7 @@ public class DatabaseConnection {
             return;
         }
         try {
-            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/DUEL_SUR_LA_TOILE","user","user");
+            c = DriverManager.getConnection("jdbc:mysql://46.105.92.223:3306/db12a","groupe12a","20@info!iuto12a");
             System.out.println("Connexion BD réussie !");
         } catch (SQLException ex) {
             System.out.println("Echec de connexion à MariaDB");
