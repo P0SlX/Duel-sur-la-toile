@@ -29,6 +29,9 @@ import java.util.concurrent.TimeUnit;
 public class FourInARowController extends Controller implements Initializable {
 
     @FXML
+    public Label color;
+
+    @FXML
     public ImageView avatar;
 
     @FXML
@@ -115,6 +118,15 @@ public class FourInARowController extends Controller implements Initializable {
         this.roundAvatar(this.avatar11, 30);
         this.avatar1.setImage(enemy.getPlayerAvatar());
         this.roundAvatar(this.avatar1, 25);
+
+        // Team Color
+        if (currentGame.getPlayer1().getPseudo().equals(loggedPlayer.getPseudo())) {
+            this.color.setText("TEAM: RED");
+            this.color.setStyle("-fx-background-color: #c50000; -fx-font-size:  14pt; -fx-text-fill: white; -fx-background-radius: 10px;");
+        } else {
+            this.color.setText("TEAM: YELLOW");
+            this.color.setStyle("-fx-background-color: #f4ad05; -fx-font-size:  14pt; -fx-text-fill: white; -fx-background-radius: 10px;");
+        }
 
         this.friendList.getChildren().clear();
         ArrayList<Player> friends = databaseConnection.getFriends(databaseConnection.getPlayer(pseudo.getText()));
@@ -313,9 +325,9 @@ public class FourInARowController extends Controller implements Initializable {
 
                 this.currentPlayerLabel.setText(String.format("Waiting %s to play ...", game.getCurrentPlayer().getPseudo()));
             } else
-                showAlert("You can't play here", "Please choose an other column ...");
+                showAlert("You can't play here", "Please choose another column ...");
         } else {
-            showAlert("Please wait...", "Your enemy has not yet played");
+            showAlert("Please wait...", "Your enemy has not played yet");
         }
     }
 

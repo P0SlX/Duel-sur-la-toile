@@ -151,7 +151,10 @@
                </children></VBox>
          </children>
       </AnchorPane>
-      <Button fx:id="backButton" layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" onAction="#onBackAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="23.0" />
+      <Button fx:id="backButton" layoutX="1134.0" layoutY="780.0" mnemonicParsing="false" onAction="#onBackAction" prefHeight="41.0" prefWidth="176.0" style="-fx-background-radius: 5px; -fx-font-size: 16px; -fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="bu" text="Back to the menu" AnchorPane.bottomAnchor="23.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <ImageView fx:id="avatar1" fitHeight="160.0" fitWidth="160.0" layoutX="120.0" layoutY="120.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="120.0">
          <image>
             <Image url="@assets/logo.png" />

@@ -20,6 +20,9 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
     </MenuBar>
       <AnchorPane layoutX="530.0" layoutY="202.0" prefHeight="431.0" prefWidth="541.0" style="-fx-background-color: rgba(0,0,0,0.1); -fx-background-radius: 15px;">
          <children>

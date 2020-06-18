@@ -1,7 +1,4 @@
-import com.gluonhq.charm.glisten.control.TextField;
-import com.sun.tools.javac.Main;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

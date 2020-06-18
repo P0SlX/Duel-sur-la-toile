@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OngoingGamesController">
 <children>
-      <AnchorPane layoutX="977.0" layoutY="-35.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10px;" AnchorPane.bottomAnchor="285.0" AnchorPane.leftAnchor="925.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="360.0" />
+      <AnchorPane layoutX="977.0" layoutY="-35.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 10px;" AnchorPane.bottomAnchor="281.0" AnchorPane.leftAnchor="925.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="354.0" />
     <MenuBar layoutY="-1.0" maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <menus>
         <Menu mnemonicParsing="false" text="Duel sur la toile">
@@ -96,7 +96,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="271.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 20px; -fx-font-size: 14pt; -fx-text-alignment: CENTER; -fx-text-fill: white;" text="Launch a new Four in a Row Game !" textFill="#1b2a3c" wrapText="true">
+                  <Button disable="true" mnemonicParsing="false" prefHeight="88.0" prefWidth="271.0" style="-fx-background-color: #3F7FBF; -fx-border-radius: 20px; -fx-font-size: 14pt; -fx-text-alignment: CENTER; -fx-text-fill: white;" text="Launch a new Four in a Row Game ! (Coming soon)" textFill="#1b2a3c" wrapText="true">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

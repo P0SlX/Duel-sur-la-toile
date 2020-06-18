@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FourInARowController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="835.0" prefWidth="1280.0" styleClass="background" stylesheets="@test.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FourInARowController">
 <children>
       <MenuBar layoutX="10.0" layoutY="9.0" maxWidth="1.7976931348623157E308" minWidth="1600.0" prefHeight="30.0" prefWidth="1600.0" stylesheets="@test.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
@@ -132,6 +120,9 @@
                      </VBox.margin>
                   </Separator>
                </children>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
             </VBox>
             <TextField fx:id="textMessage" layoutX="5.0" layoutY="509.0" onKeyPressed="#onTextMessageKeyPressed" prefHeight="34.0" prefWidth="240.0" promptText="Message" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                <cursor>
@@ -141,8 +132,14 @@
       </AnchorPane>
       <Label fx:id="currentPlayerLabel" layoutX="428.0" layoutY="761.0" styleClass="label-header" text="&lt;pseudo&gt;, its your turn." />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1240.0" layoutY="150.0" prefHeight="34.0" prefWidth="50.0" style="-fx-font-size: 25pt; -fx-font-family: &quot;Segoe UI Light&quot;; -fx-text-fill: rgb(43, 208, 219);" styleClass="label-jeux" text="VS" textFill="WHITE" AnchorPane.rightAnchor="365.0" AnchorPane.topAnchor="145.0" />
-      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" onAction="#onBackMenuAction" prefHeight="44.0" prefWidth="190.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0" />
-      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" onAction="#onSurrendAction" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0" />
+      <Button layoutX="1105.0" layoutY="764.0" mnemonicParsing="false" onAction="#onBackMenuAction" prefHeight="44.0" prefWidth="190.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="Back to the menu" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="1116.0" layoutY="698.0" mnemonicParsing="false" onAction="#onSurrendAction" prefHeight="44.0" prefWidth="178.0" style="-fx-background-color: #cc2900; -fx-border-color: #cc2900; -fx-font-size: 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" styleClass="retour-menu-button" text="Surrender" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="306.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <ImageView fx:id="avatar11" fitHeight="60.0" fitWidth="60.0" layoutX="1235.0" layoutY="166.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="200.0">
          <image>
             <Image url="@assets/logo.png" />
@@ -157,36 +154,58 @@
          <font>
             <Font size="26.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button layoutX="417.0" layoutY="91.0" mnemonicParsing="false" onAction="#onColumn2Action" prefHeight="44.0" prefWidth="100.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="▽">
          <font>
             <Font size="26.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button layoutX="524.0" layoutY="91.0" mnemonicParsing="false" onAction="#onColumn3Action" prefHeight="44.0" prefWidth="100.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="▽">
          <font>
             <Font size="26.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button layoutX="634.0" layoutY="91.0" mnemonicParsing="false" onAction="#onColumn4Action" prefHeight="44.0" prefWidth="100.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="▽">
          <font>
             <Font size="26.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button layoutX="743.0" layoutY="91.0" mnemonicParsing="false" onAction="#onColumn5Action" prefHeight="44.0" prefWidth="100.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="▽">
          <font>
             <Font size="26.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button layoutX="853.0" layoutY="91.0" mnemonicParsing="false" onAction="#onColumn6Action" prefHeight="44.0" prefWidth="100.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="▽">
          <font>
             <Font size="26.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button layoutX="959.0" layoutY="91.0" mnemonicParsing="false" onAction="#onColumn7Action" prefHeight="44.0" prefWidth="100.0" style="-fx-background-color: #1E90FF; -fx-border-color: #1E90FF; -fx-font-size: 18px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-text-fill: white;" text="▽">
          <font>
             <Font size="26.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
+      <Label fx:id="color" alignment="CENTER" layoutX="54.0" layoutY="205.0" prefHeight="50.0" prefWidth="163.0" style="-fx-text-fill: white; -fx-font-size: 14pt;" text="TEAM : &lt;Color&gt; " AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
 </children>
 </AnchorPane>
