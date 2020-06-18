@@ -451,6 +451,10 @@ public class FourInARow implements Game {
 
     @Override
     public String toString() {
+        /**
+         * Set a layout for debugging
+         * @return String, the information
+         */
         return "FourInARow{" +
                 "player1=" + player1.getPseudo() +
                 ", player2=" + player2.getPseudo() +
