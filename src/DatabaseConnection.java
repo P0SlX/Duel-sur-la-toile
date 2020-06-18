@@ -110,9 +110,7 @@ public class DatabaseConnection {
         ps.setString(1, pseudo);
         ps.setString(2, password);
         ResultSet rs = ps.executeQuery();
-        if(rs.next())
-            return true;
-        return false;
+        return rs.next();
     }
 
     /**
