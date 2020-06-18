@@ -45,6 +45,8 @@ public class InvitationController extends Controller implements Initializable {
 
     private MainMenuController mainMenuController;
 
+    private boolean clicked = false;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -237,6 +239,16 @@ public class InvitationController extends Controller implements Initializable {
 
     @FXML
     public void onInvitationsAction() {
-        showAlert("Are you kidding ?", "You're already on the panel !!");
+        if (this.clicked) {
+            showAlert("Noice ! You found an easter egg", "Developpers :\n" +
+                    "  - Anatole Boisserie\n" +
+                    "  - Corentin Machu\n" +
+                    "  - Florian Savouré\n" +
+                    "  - Jordan Thibout\n" +
+                    "  - Théo Jehenne-Cousty\n");
+        } else {
+            showAlert("Are you kidding ?", "You're already on the panel !!");
+            this.clicked = true;
+        }
     }
 }
